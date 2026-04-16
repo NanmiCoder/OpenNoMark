@@ -95,10 +95,9 @@ ipython_config.py
 #Pipfile.lock
 
 # UV
-#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#uv.lock
+#   uv.lock is tracked in version control for reproducible installs.
+#   Uncomment the line below if this is a library that should not pin dependencies.
+# uv.lock
 
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
@@ -205,3 +204,30 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ── OpenNoMark project-specific ──
+
+# Experiment outputs
+experiments/
+
+# Ad-hoc verification outputs (generated during iterative tuning)
+verify/
+
+# Raw sample images (only examples/ is tracked)
+gemini_images/
+豆包/
+
+# Output directories
+output/
+output_*/
+test_cli_output/
+
+# Frontend build & deps
+frontend/node_modules/
+frontend/dist/
+
+# Pytest
+.pytest_cache/
+
+# macOS
+.DS_Store

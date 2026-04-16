@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+:root {
+  /* Surfaces */
+  --color-bg: #0a0a0c;
+  --color-surface: #111114;
+  --color-surface-raised: #18181c;
+  --color-surface-hover: #1e1e24;
+  --color-border: #27272e;
+  --color-border-subtle: #1c1c22;
+
+  /* Text */
+  --color-text: #e4e4e7;
+  --color-text-muted: #71717a;
+  --color-text-dim: #52525b;
+
+  /* Accent: electric cyan — precision tool, not marketing purple */
+  --color-accent: #22d3ee;
+  --color-accent-muted: rgba(34, 211, 238, 0.15);
+  --color-accent-border: rgba(34, 211, 238, 0.3);
+
+  /* Status */
+  --color-success: #34d399;
+  --color-warn: #fbbf24;
+  --color-error: #f87171;
+
+  /* Typography */
+  --font-sans: "Inter", "SF Pro Display", -apple-system, "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.25);
+  --shadow-glow: 0 0 20px rgba(34, 211, 238, 0.08);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ── */
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Focus ring ── */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Before/After Slider ── */
+.compare-container {
+  position: relative;
+  overflow: hidden;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.compare-container .after-clip {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--split, 50%));
+}
+
+.compare-container .divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split, 50%);
+  width: 2px;
+  background: var(--color-accent);
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.compare-container .divider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+}
+
+/* ── Upload zone dashed animation ── */
+@keyframes dash-march {
+  to { stroke-dashoffset: -12; }
+}
+
+.upload-zone-active svg.dash-border rect {
+  animation: dash-march 0.4s linear infinite;
+}
+
+/* ── Stagger entrance ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stagger-item {
+  animation: fade-up 0.4s var(--ease-out) both;
+}
+
+/* ── Progress bar ── */
+@keyframes progress-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.progress-bar-active {
+  animation: progress-pulse 1.5s ease-in-out infinite;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-dim); }
