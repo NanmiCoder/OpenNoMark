@@ -6,17 +6,17 @@ AI 生成图片水印检测与无痕去除工具。
 
 ## 效果展示
 
-**Google Gemini** — 右下角菱形图标水印
+**Google Gemini** — 右下角菱形图标水印（放大展示水印区域）
 
-| 原图（带水印） | 去除后 |
-|:---:|:---:|
-| ![Gemini Before](examples/gemini/gemini_sample_1.png) | ![Gemini After](examples/gemini/clean_gemini_sample_1.png) |
+![Gemini sparkle before/after](examples/gemini/gemini_sample_1_crop.png)
 
-**豆包 (Doubao)** — 左上角 "AI 生成" 文字水印
+左：原图（菱形 sparkle 清晰可见） ｜ 右：去除后（sparkle 消失，黑色面板与白色布料的结构边界完整保留）
 
-| 原图（带水印） | 去除后 |
-|:---:|:---:|
-| ![Doubao Before](examples/doubao/doubao_sample_1.jpg) | ![Doubao After](examples/doubao/clean_doubao_sample_1.jpg) |
+**豆包 (Doubao)** — 左上角 "AI 生成" 文字水印（放大展示水印区域）
+
+![Doubao watermark before/after](examples/doubao/doubao_sample_1_crop.jpg)
+
+左：原图（"AI 生成" 标签清晰可见） ｜ 右：去除后（标签消失，背景平滑无痕）
 
 去除后区域由 LaMa 模型理解周围纹理并重建，无模糊涂抹痕迹。
 
