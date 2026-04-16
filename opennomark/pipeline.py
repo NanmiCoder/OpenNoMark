@@ -12,7 +12,7 @@ class WatermarkRemovalPipeline:
     def __init__(self, device=None):
         print("Loading models...")
         self.detector = WatermarkDetector(device=device)
-        self.inpainter = LamaInpainter()
+        self.inpainter = LamaInpainter(device=device)
         print("Models loaded.")
 
     def process(self, image_path, output_path=None, save_debug=False):

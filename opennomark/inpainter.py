@@ -14,7 +14,7 @@ def _ceil_modulo(x, mod):
 
 
 class LamaInpainter:
-    def __init__(self):
+    def __init__(self, device=None):
         model_path = os.path.expanduser("~/.cache/torch/hub/checkpoints/big-lama.pt")
         if not os.path.exists(model_path):
             from torch.hub import download_url_to_file
@@ -22,7 +22,23 @@ class LamaInpainter:
             os.makedirs(os.path.dirname(model_path), exist_ok=True)
             download_url_to_file(url, model_path)
 
+        # Device selection: CUDA when available, otherwise CPU. MPS is
+        # intentionally skipped — LaMa's TorchScript graph contains ops
+        # (e.g. FFT variants) that are not supported on Apple MPS, so we
+        # fall back to CPU on Mac instead of producing garbage output.
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        if isinstance(device, torch.device):
+            device = device.type
+        if device == "mps":
+            device = "cpu"
+        self.device = torch.device(device)
+
+        # The checkpoint is CUDA-serialized; deserialize on CPU first, then
+        # move to the target device. This is what makes it loadable on
+        # CPU-only and non-NVIDIA machines.
         self.model = torch.jit.load(model_path, map_location="cpu")
+        self.model = self.model.to(self.device)
         self.model.eval()
 
     def create_mask(self, image_size, boxes, padding=3, feather=4):
@@ -71,8 +87,8 @@ class LamaInpainter:
         img_padded = np.pad(img_np, ((0, 0), (0, pad_h), (0, pad_w)), mode="symmetric")
         mask_padded = np.pad(hard_mask, ((0, 0), (0, pad_h), (0, pad_w)), mode="symmetric")
 
-        img_t = torch.from_numpy(img_padded).unsqueeze(0).to("cpu")
-        mask_t = torch.from_numpy(mask_padded).unsqueeze(0).to("cpu")
+        img_t = torch.from_numpy(img_padded).unsqueeze(0).to(self.device)
+        mask_t = torch.from_numpy(mask_padded).unsqueeze(0).to(self.device)
 
         with torch.inference_mode():
             out = self.model(img_t, mask_t)
