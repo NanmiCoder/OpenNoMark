@@ -1,80 +1,89 @@
 # OpenNoMark
 
-AI 生成图片水印检测与无痕去除工具。
+**English** | [中文](README.zh-CN.md)
 
-基于 **OWLv2**（开放词汇目标检测）定位水印 + **LaMa**（大感受野图像修复）无痕重建，支持 Gemini、豆包、DALL-E 等主流 AI 平台的可见水印去除。
+Watermark detection and seamless removal for AI-generated images.
 
-## 效果展示
+Built on **OWLv2** (open-vocabulary object detection) for watermark localization + **LaMa** (large-mask inpainting) for seamless reconstruction. Removes visible watermarks from Gemini, Doubao, DALL-E and other major AI image platforms.
 
-**Google Gemini** — 右下角菱形图标水印（放大展示水印区域）
+## Showcase
 
-![Gemini sparkle before/after](examples/gemini/gemini_sample_1_crop.png)
+### Google Gemini — bottom-right sparkle watermark
 
-左：原图（菱形 sparkle 清晰可见） ｜ 右：去除后（sparkle 消失，黑色面板与白色布料的结构边界完整保留）
+Top row: originals (with watermark). Bottom row: cleaned by OpenNoMark.
 
-**豆包 (Doubao)** — 左上角 "AI 生成" 文字水印（放大展示水印区域）
+|  |  |  |
+| :---: | :---: | :---: |
+| ![](examples/gemini/gemini_sample_1.png) | ![](examples/gemini/gemini_sample_2.png) | ![](examples/gemini/gemini_sample_3.png) |
+| ![](examples/gemini/clean_gemini_sample_1.png) | ![](examples/gemini/clean_gemini_sample_2.png) | ![](examples/gemini/clean_gemini_sample_3.png) |
 
-![Doubao watermark before/after](examples/doubao/doubao_sample_1_crop.jpg)
+### Doubao (豆包) — top-left "AI 生成" text watermark
 
-左：原图（"AI 生成" 标签清晰可见） ｜ 右：去除后（标签消失，背景平滑无痕）
+Top row: originals (with watermark). Bottom row: cleaned by OpenNoMark.
 
-去除后区域由 LaMa 模型理解周围纹理并重建，无模糊涂抹痕迹。
+|  |  |  |
+| :---: | :---: | :---: |
+| ![](examples/doubao/doubao_sample_1.jpg) | ![](examples/doubao/doubao_sample_2.jpg) | ![](examples/doubao/doubao_sample_3.jpg) |
+| ![](examples/doubao/clean_doubao_sample_1.jpg) | ![](examples/doubao/clean_doubao_sample_2.jpg) | ![](examples/doubao/clean_doubao_sample_3.jpg) |
 
-| 平台 | 水印类型 | 位置 | 检测率 |
+The cleaned region is reconstructed by LaMa from surrounding textures — no blur or smudge artifacts.
+
+| Platform | Watermark | Position | Detection Rate |
 |------|---------|------|--------|
-| Google Gemini | 菱形图标 | 右下角 | 100% |
-| 豆包 (Doubao) | "AI 生成" 文字 | 左上角 | 85% |
+| Google Gemini | Diamond sparkle icon | Bottom-right | 100% |
+| Doubao (豆包) | "AI 生成" text label | Top-left | 85% |
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Requirements
 
 - Python >= 3.10
-- macOS (Apple Silicon MPS) / Linux (CUDA) / CPU
-- 建议内存 >= 16GB
+- macOS (Apple Silicon MPS) / Linux / Windows (NVIDIA CUDA) / CPU
+- 16GB+ RAM recommended
+- NVIDIA GPU users: install the CUDA build of PyTorch (see [pytorch.org](https://pytorch.org/get-started/locally/))
 
-### 安装
+### Install
 
 ```bash
 git clone https://github.com/NanmiCoder/OpenNoMark.git
 cd OpenNoMark
 
-# 使用 uv（推荐）
-uv sync                     # 安装核心依赖
-uv sync --extra api         # 如需 Web UI / API
+# Using uv (recommended)
+uv sync                     # core dependencies
+uv sync --extra api         # + Web UI / API
 cd frontend && npm install && cd ..
 
-# 或使用 pip
+# Or using pip
 pip install -e .
-pip install -e ".[api]"     # 如需 Web UI / API
+pip install -e ".[api]"     # + Web UI / API
 ```
 
-首次运行会自动下载模型：
+Models are auto-downloaded on first run:
 - OWLv2 (~500MB, HuggingFace)
 - LaMa (~196MB, GitHub Release)
 
-### CLI 使用
+### CLI
 
 ```bash
-# 单张图片
+# Single image
 uv run opennomark image.png -o output/
 
-# 多张图片
+# Multiple images
 uv run opennomark img1.png img2.jpg img3.png -o output/
 
-# 整个目录
+# Entire directory
 uv run opennomark ./my_images/ -o output/
 
-# 多个目录混合
+# Mixed directories
 uv run opennomark gemini_images/ doubao_images/ -o output/
 
-# 带调试输出（保存检测框和 mask）
+# With debug output (saves detection boxes and masks)
 uv run opennomark ./images/ -o output/ --debug
 ```
 
 ### Web UI
 
-**一键启动（推荐）：**
+**One-shot launcher (recommended):**
 
 ```bash
 # macOS / Linux
@@ -84,19 +93,19 @@ uv run opennomark ./images/ -o output/ --debug
 start.bat
 ```
 
-自动安装依赖并同时启动前后端。
+Installs dependencies and starts both backend and frontend together.
 
-**手动启动：**
+**Manual start:**
 
 ```bash
-# 终端 1：启动后端
+# Terminal 1: backend
 uv run uvicorn opennomark.api:app --port 8000
 
-# 终端 2：启动前端
+# Terminal 2: frontend
 cd frontend && npm run dev
 ```
 
-打开 `http://localhost:5173`，拖入图片即可使用。支持批量上传、before/after 对比预览、单张下载。
+Open `http://localhost:5173` and drop in images. Supports batch upload, before/after preview, and single-file download.
 
 ### Python API
 
@@ -105,11 +114,11 @@ from opennomark.pipeline import WatermarkRemovalPipeline
 
 pipeline = WatermarkRemovalPipeline()
 
-# 单张处理
+# Single image
 result_img, meta = pipeline.process("image.png", "clean_image.png")
 print(meta)  # {'status': 'cleaned', 'watermarks_found': 1, ...}
 
-# 批量处理
+# Batch
 results = pipeline.process_batch(
     ["img1.png", "img2.jpg"],
     output_dir="output/",
@@ -117,89 +126,96 @@ results = pipeline.process_batch(
 )
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 OpenNoMark/
-├── opennomark/              # 核心 Python 包
-│   ├── gemini_alpha.py      # Gemini 反向 Alpha 混合（linear-light, 严格门槛）
-│   ├── detector.py          # OWLv2 水印检测
-│   ├── inpainter.py         # LaMa 无痕修复（羽化 + alpha 混合）
-│   ├── pipeline.py          # 智能分流 Pipeline
-│   ├── cli.py               # CLI 命令行工具
-│   ├── api.py               # FastAPI 后端
-│   └── assets/              # 预计算的水印模板数据
-├── frontend/                # React + Vite + Tailwind CSS 前端
-│   └── src/App.tsx          # 主界面（拖拽上传 + before/after 对比）
-├── tests/                   # 测试套件（42 个用例）
-│   ├── test_detector.py     # 检测模块单元测试
-│   ├── test_inpainter.py    # 修复模块单元测试
-│   ├── test_pipeline.py     # Pipeline + E2E 测试
-│   ├── test_cli.py          # CLI 集成测试
-│   ├── test_api.py          # FastAPI 接口测试
-│   └── test_skill.py        # Skill 格式验证
+├── opennomark/              # Core Python package
+│   ├── gemini_alpha.py      # Gemini reverse alpha blending (linear-light, strict gates)
+│   ├── detector.py          # OWLv2 watermark detection
+│   ├── inpainter.py         # LaMa seamless inpainting (feather + alpha blend)
+│   ├── pipeline.py          # Smart-routing pipeline
+│   ├── cli.py               # CLI entry point
+│   ├── api.py               # FastAPI backend
+│   └── assets/              # Pre-computed watermark template data
+├── frontend/                # React + Vite + Tailwind CSS frontend
+│   └── src/App.tsx          # Main UI (drag-and-drop + before/after preview)
+├── tests/                   # Test suite (42 cases)
+│   ├── test_detector.py     # Detector unit tests
+│   ├── test_inpainter.py    # Inpainter unit tests
+│   ├── test_pipeline.py     # Pipeline + E2E tests
+│   ├── test_cli.py          # CLI integration tests
+│   ├── test_api.py          # FastAPI tests
+│   └── test_skill.py        # Skill format validation
 ├── skill/                   # Claude Code Skill
 │   └── opennomark.md
-├── examples/                # 示例图片（含水印原图）
-│   ├── gemini/              # Google Gemini 样本
-│   └── doubao/              # 豆包样本
-├── start.sh                 # 一键启动脚本（macOS / Linux）
-├── start.bat                # 一键启动脚本（Windows）
-├── pyproject.toml           # 项目配置
-├── uv.lock                  # 依赖锁文件
+├── examples/                # Sample images (with-watermark originals)
+│   ├── gemini/              # Google Gemini samples
+│   └── doubao/              # Doubao samples
+├── start.sh                 # One-shot launcher (macOS / Linux)
+├── start.bat                # One-shot launcher (Windows)
+├── pyproject.toml           # Project config
+├── uv.lock                  # Dependency lockfile
 └── LICENSE
 ```
 
-## 技术原理
+## How It Works
 
-### 智能分流 Pipeline
+### Smart Routing Pipeline
 
 ```
-原图 ┬─[Gemini sparkle 近乎完美匹配?]─是→ [linear-light 反向 Alpha] ┐
-     │                        └─否──────────────────────────────┤
-     └─→ [OWLv2 检测] → 角落过滤 → [LaMa 修复] ──────────────────┴→ 干净图
+input ┬─[Gemini sparkle near-perfect match?]─yes→ [linear-light reverse alpha] ┐
+      │                         └─no───────────────────────────────────────────┤
+      └─→ [OWLv2 detect] → corner filter → [LaMa inpaint] ─────────────────────┴→ clean image
 ```
 
-**路径 A — Gemini 反向 Alpha 混合（严格触发，理论无损）**：当 NCC 模板匹配 confidence ≥ 0.95 且反演后区域与周围背景灰度差 < 3 时，在 **linear-light 空间**执行反向 Alpha 混合 `original_linear = (watermarked_linear - α) / (1 - α)`，然后转回 sRGB。严格门槛是为了避免 alpha-map 与图像不对齐时的"塌陷 artifact"（sparkle 位置变成灰/黑菱形）。实际命中此路径的图像较少，主要是背景简单、Gemini 原生生成的场景。
+**Path A — Gemini reverse alpha blending (strict trigger, theoretically lossless)**: when the NCC template match confidence ≥ 0.95 AND the reconstructed region matches its surrounding background within 3 gray levels, we invert the alpha compositing formula in **linear-light space**: `original_linear = (watermarked_linear - α) / (1 - α)`, then convert back to sRGB. The strict thresholds exist to avoid the "dent artifact" that appears when the alpha map is misaligned (the sparkle position becomes a visible gray/dark diamond). This path triggers rarely — mostly on simple-background, natively generated Gemini images.
 
-**路径 B — OWLv2 + LaMa（主力）**：这是绝大多数图片的处理路径。OWLv2 (0.6B) 开放词汇目标检测定位水印候选，经位置/尺寸过滤后，由 LaMa 基于周围纹理重建。在 Gemini、豆包、DALL-E 等平台都有稳定表现。
+**Path B — OWLv2 + LaMa (main path)**: handles the vast majority of images. OWLv2 (0.6B params, open-vocabulary detection) locates watermark candidates; after position/size filtering, LaMa reconstructs the region from surrounding texture. Works stably across Gemini, Doubao, DALL-E and others.
 
-| 平台 | 默认方法 | Alpha 快速路径 |
+| Platform | Default Method | Alpha Fast Path |
 |------|---------|---------------|
-| Google Gemini | OWLv2 + LaMa | 若匹配 ≥ 0.95 且边界一致 |
-| 豆包 (Doubao) | OWLv2 + LaMa | — |
-| DALL-E / 其他 | OWLv2 + LaMa | — |
+| Google Gemini | OWLv2 + LaMa | If match ≥ 0.95 AND borders blend |
+| Doubao (豆包) | OWLv2 + LaMa | — |
+| DALL-E / other | OWLv2 + LaMa | — |
 
-### 在 Mac 上运行
+### Hardware Acceleration
 
-- OWLv2 使用 Apple MPS 后端加速推理
-- LaMa 的 TorchScript 模型通过 `map_location="cpu"` 加载（原模型为 CUDA 序列化）
+Device is auto-selected by default; override with `--device cuda|mps|cpu`.
 
-## 测试
+| Platform | OWLv2 (detect) | LaMa (inpaint) |
+|------|---------------|--------------|
+| Linux / Windows + NVIDIA CUDA | CUDA | CUDA |
+| macOS (Apple Silicon) | MPS | CPU (MPS lacks some LaMa ops — auto-fallback) |
+| CPU-only | CPU | CPU |
+
+LaMa's TorchScript checkpoint is CUDA-serialized. It's deserialized with `map_location="cpu"` for compatibility with non-NVIDIA machines, then moved to the target device.
+
+## Testing
 
 ```bash
-# 安装开发依赖
+# Install dev dependencies
 uv sync --extra dev
 
-# 运行全部 42 个测试
+# Run all 42 tests
 uv run pytest tests/ -v
 
-# 只跑单元测试
+# Unit tests only
 uv run pytest tests/test_detector.py tests/test_inpainter.py -v
 
-# 只跑集成/E2E 测试
+# Integration / E2E tests only
 uv run pytest tests/test_pipeline.py tests/test_cli.py tests/test_api.py -v
 ```
 
-## 已知限制
+## Known Limitations
 
-- OWLv2 是通用检测模型，对低对比度水印（如白底上的浅色文字）可能漏检
-- 当前只处理角落位置的小型水印，不适用于全图铺满的大面积水印
-- App 截图中的 UI 控件（返回箭头、设置图标）可能被误识别为水印
+- OWLv2 is a general-purpose detector — it may miss very low-contrast watermarks (e.g. light text on a white background)
+- Only small corner watermarks are currently handled; full-image tiled watermarks are out of scope
+- UI controls in app screenshots (back arrows, setting icons) can be misclassified as watermarks
 
-## 使用声明
+## Disclaimer
 
-本项目仅面向学术研究、技术学习与版权合规场景设计。使用者需遵守各 AI 平台的内容使用政策及所在地法律法规，不得用于侵犯他人知识产权或生成违规内容。
+This project is intended for academic research, technical study, and copyright-compliance use cases only. Users must follow each AI platform's content usage policies and their local laws and regulations. Do not use this tool to infringe intellectual property or to generate content that violates regulations.
 
 ## License
 
