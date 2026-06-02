@@ -48,7 +48,7 @@ uv run opennomark /path/to/images/ -o output --debug
 Start the FastAPI backend:
 ```bash
 cd /Users/nanmi/workspace/github/OpenNoMark
-uv run uvicorn opennomark.api:app --reload --port 8000
+uv run uvicorn opennomark.api:app --reload --port 48291
 ```
 
 ## Supported Platforms

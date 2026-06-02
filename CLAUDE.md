@@ -16,10 +16,10 @@ uv sync --extra dev             # + pytest
 uv run opennomark <files|dirs|globs> -o output/ [--debug] [--device cpu|cuda|mps]
 
 # API server (singleton pipeline loaded on first request)
-uv run uvicorn opennomark.api:app --port 8000
+uv run uvicorn opennomark.api:app --port 48291
 
 # Frontend (React 19 + Vite 8 + Tailwind 4)
-cd frontend && npm install && npm run dev      # dev server on :5173
+cd frontend && npm install && npm run dev      # dev server on :48292
 cd frontend && npm run build                   # builds to frontend/dist (auto-served by api.py if present)
 cd frontend && npm run lint
 
@@ -91,6 +91,7 @@ Pipeline does **not** cache models across invocations when used via CLI, but `ap
 - Uploads and outputs are written to `tempfile.gettempdir()/opennomark_{uploads,outputs}` with an 8-char job id.
 - If `frontend/dist` exists, it is mounted at `/` so the single-port deployment works (`uvicorn` only, no vite dev server needed).
 - CORS is wide-open (`allow_origins=["*"]`) for the split-port dev setup.
+- Split-port development uses backend `48291` and frontend `48292`; keep the Vite proxy and launch scripts aligned when changing either port.
 
 ## Directories worth knowing
 

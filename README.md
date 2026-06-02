@@ -99,13 +99,13 @@ Installs dependencies and starts both backend and frontend together.
 
 ```bash
 # Terminal 1: backend
-uv run uvicorn opennomark.api:app --port 8000
+uv run uvicorn opennomark.api:app --port 48291
 
 # Terminal 2: frontend
 cd frontend && npm run dev
 ```
 
-Open `http://localhost:5173` and drop in images. Supports batch upload, before/after preview, and single-file download.
+Open `http://localhost:48292` and drop in images. Supports batch upload, before/after preview, and single-file download.
 
 ### Python API
 

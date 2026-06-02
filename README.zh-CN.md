@@ -99,13 +99,13 @@ start.bat
 
 ```bash
 # 终端 1：启动后端
-uv run uvicorn opennomark.api:app --port 8000
+uv run uvicorn opennomark.api:app --port 48291
 
 # 终端 2：启动前端
 cd frontend && npm run dev
 ```
 
-打开 `http://localhost:5173`，拖入图片即可使用。支持批量上传、before/after 对比预览、单张下载。
+打开 `http://localhost:48292`，拖入图片即可使用。支持批量上传、before/after 对比预览、单张下载。
 
 ### Python API
 
