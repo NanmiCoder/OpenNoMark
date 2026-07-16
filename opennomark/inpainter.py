@@ -101,3 +101,36 @@ class LamaInpainter:
         blended = inpainted_np * alpha + orig_np * (1.0 - alpha)
         blended = np.clip(blended, 0, 255).astype(np.uint8)
         return Image.fromarray(blended)
+
+    def inpaint_local(self, image, mask, context_padding=None):
+        """Inpaint only the masked neighborhood, then paste it back.
+
+        A Gemini sparkle is at most 96px wide. Running LaMa over a 4-megapixel
+        image wastes time and lets distant content influence the result. A
+        local crop provides ample context while reducing a typical 2K image
+        from tens of seconds to roughly one second on CPU.
+        """
+        bbox = mask.getbbox()
+        if bbox is None:
+            return image.copy()
+
+        left, top, right, bottom = bbox
+        region_size = max(right - left, bottom - top)
+        padding = (
+            max(96, int(round(region_size * 1.5)))
+            if context_padding is None
+            else max(0, int(context_padding))
+        )
+        crop_box = (
+            max(0, left - padding),
+            max(0, top - padding),
+            min(image.width, right + padding),
+            min(image.height, bottom + padding),
+        )
+
+        image_crop = image.crop(crop_box)
+        mask_crop = mask.crop(crop_box)
+        cleaned_crop = self.inpaint(image_crop, mask_crop)
+        result = image.copy()
+        result.paste(cleaned_crop, (crop_box[0], crop_box[1]))
+        return result

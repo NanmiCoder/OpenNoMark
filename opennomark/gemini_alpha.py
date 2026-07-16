@@ -1,4 +1,4 @@
-"""Gemini watermark removal via reverse alpha blending.
+"""Gemini watermark detection, masking, and reverse-alpha utilities.
 
 Mathematically reverses the alpha compositing formula used by Google Gemini
 to embed its sparkle watermark. Uses LINEAR-LIGHT (sRGB-decoded) math so
@@ -18,7 +18,11 @@ Based on research from GargantuaX/gemini-watermark-remover with
 linear-light correction and posterior-quality gating added by us.
 """
 
+import json
 import os
+import re
+
+import cv2
 import numpy as np
 from PIL import Image
 
@@ -26,6 +30,29 @@ from PIL import Image
 _ALPHA_DIR = os.path.join(os.path.dirname(__file__), "assets")
 _ALPHA_48 = None
 _ALPHA_96 = None
+
+_DETECTOR_MODEL = None
+_DETECTOR_MODEL_PATH = os.path.join(_ALPHA_DIR, "gemini_detector.json")
+
+# GargantuaX/gemini-watermark-remover's current catalog contains three
+# important visible-watermark anchors.  The 96/192 layout is the May 2026
+# variant used by current 2K Gemini outputs.  It must be tried before the old
+# 96/64 layout: the two positions are 128 pixels apart.
+_KNOWN_LAYOUTS = (
+    {"name": "gemini_2k_20260520", "logo_size": 96, "margin": 192},
+    {"name": "gemini_1k_current", "logo_size": 48, "margin": 32},
+    {"name": "gemini_large_legacy", "logo_size": 96, "margin": 64},
+)
+
+_DEFAULT_DETECTOR_MODEL = {
+    "version": 1,
+    "decision": {
+        "min_spatial_score": 0.18,
+        "min_gradient_score": 0.18,
+        "hinted_min_spatial_score": 0.15,
+        "hinted_min_gradient_score": 0.08,
+    },
+}
 
 LOGO_VALUE = 255  # White watermark (sRGB)
 LOGO_LINEAR = 1.0  # White in linear-light space
@@ -78,79 +105,194 @@ def _make_template_gray(alpha_map):
     return (alpha_map * 255).astype(np.uint8)
 
 
-def detect_gemini_watermark(image, min_confidence=0.90):
-    """Detect Gemini sparkle watermark position and size.
+def _load_detector_model():
+    """Load thresholds calibrated by ``scripts/train_gemini_detector.py``."""
+    global _DETECTOR_MODEL
+    if _DETECTOR_MODEL is not None:
+        return _DETECTOR_MODEL
 
-    STRICT default threshold (0.90): we only invoke the lossless alpha
-    path when the template match is near-perfect, because any alpha-map
-    misalignment or Gemini-version mismatch leaves visible 'dent' artefacts
-    that are WORSE than letting LaMa handle the region.
+    model = _DEFAULT_DETECTOR_MODEL
+    try:
+        with open(_DETECTOR_MODEL_PATH, encoding="utf-8") as f:
+            loaded = json.load(f)
+        if isinstance(loaded, dict) and isinstance(loaded.get("decision"), dict):
+            model = loaded
+    except (OSError, ValueError):
+        pass
 
-    Returns dict with: found, x, y, logo_size, alpha_map, confidence
-    (or found=False).
+    _DETECTOR_MODEL = model
+    return model
+
+
+def _sobel_magnitude(values):
+    values = values.astype(np.float32, copy=False)
+    gx = cv2.Sobel(values, cv2.CV_32F, 1, 0, ksize=3)
+    gy = cv2.Sobel(values, cv2.CV_32F, 0, 1, ksize=3)
+    return cv2.magnitude(gx, gy)
+
+
+def _score_patch(gray_patch, alpha_map):
+    """Return spatial and edge-template correlations for one candidate."""
+    spatial = _ncc(gray_patch, alpha_map)
+    gradient = _ncc(_sobel_magnitude(gray_patch), _sobel_magnitude(alpha_map))
+    return float(spatial), float(gradient)
+
+
+def _is_gemini_source_hint(source_hint):
+    if not source_hint:
+        return False
+    name = os.path.basename(os.fspath(source_hint))
+    return re.match(r"(?i)^gemini[_ -]generated[_ -]image", name) is not None
+
+
+def _candidate_at(gray, layout, x, y):
+    logo_size = layout["logo_size"]
+    h, w = gray.shape
+    if x < 0 or y < 0 or x + logo_size > w or y + logo_size > h:
+        return None
+    alpha_map = _load_alpha(logo_size)
+    patch = gray[y:y + logo_size, x:x + logo_size]
+    spatial, gradient = _score_patch(patch, alpha_map)
+    return {
+        "x": x,
+        "y": y,
+        "logo_size": logo_size,
+        "margin": layout["margin"],
+        "layout": layout["name"],
+        "alpha_map": alpha_map,
+        "spatial_score": spatial,
+        "gradient_score": gradient,
+        "ranking_score": spatial + 0.8 * max(0.0, gradient),
+    }
+
+
+def _candidate_layouts(width, height):
+    """Return only layouts plausible for the Gemini output resolution tier.
+
+    Current 2K/4K outputs have a long side of at least 2048 and a short side
+    of at least 600. Narrower or smaller preview/1K outputs use the 48px mark.
+    Keeping tiers separate prevents an unrelated tiny corner icon from beating
+    the real 96px watermark on a large image.
     """
-    img_np = np.array(image)
-    h, w = img_np.shape[:2]
+    long_side = max(width, height)
+    short_side = min(width, height)
+    if long_side >= 2048 and short_side >= 600:
+        return (_KNOWN_LAYOUTS[0], _KNOWN_LAYOUTS[2])
+    return (_KNOWN_LAYOUTS[1], _KNOWN_LAYOUTS[2])
 
-    candidates = []
-    if w > 1024 and h > 1024:
-        candidates.append((96, 64))
-        candidates.append((48, 32))
-    else:
-        candidates.append((48, 32))
-        candidates.append((96, 64))
 
-    gray = np.mean(img_np[:, :, :3], axis=2).astype(np.float64)
-
+def _best_layout_candidate(gray, layout):
+    """Search locally around a catalog anchor, coarse then pixel-precise."""
+    h, w = gray.shape
+    logo_size = layout["logo_size"]
+    margin = layout["margin"]
+    base_x = w - margin - logo_size
+    base_y = h - margin - logo_size
     best = None
-    for logo_size, margin in candidates:
-        alpha_map = _load_alpha(logo_size)
-        template = _make_template_gray(alpha_map)
 
-        x = w - margin - logo_size
-        y = h - margin - logo_size
-        if x < 0 or y < 0:
-            continue
+    # Position drift exists in older Gemini exports.  The search remains local
+    # so arbitrary star-shaped content elsewhere in the image is not promoted.
+    for dx in range(-24, 25, 4):
+        for dy in range(-24, 25, 4):
+            candidate = _candidate_at(gray, layout, base_x + dx, base_y + dy)
+            if candidate is not None and (
+                best is None or candidate["ranking_score"] > best["ranking_score"]
+            ):
+                best = candidate
 
-        for dx in range(-16, 17, 2):
-            for dy in range(-16, 17, 2):
-                cx, cy = x + dx, y + dy
-                if cx < 0 or cy < 0 or cx + logo_size > w or cy + logo_size > h:
-                    continue
-                patch = gray[cy:cy + logo_size, cx:cx + logo_size]
-                score = _ncc(patch, template.astype(np.float64))
-                if best is None or score > best["confidence"]:
-                    best = {
-                        "found": True,
-                        "x": cx,
-                        "y": cy,
-                        "logo_size": logo_size,
-                        "alpha_map": alpha_map,
-                        "confidence": score,
-                    }
+    if best is None:
+        return None
 
-    if best is None or best["confidence"] < min_confidence:
-        return {"found": False, "confidence": best["confidence"] if best else 0.0}
-
-    # Fine search around best position
-    bx, by = best["x"], best["y"]
-    logo_size = best["logo_size"]
-    alpha_map = best["alpha_map"]
-    template = _make_template_gray(alpha_map).astype(np.float64)
-
+    coarse_x, coarse_y = best["x"], best["y"]
     for dx in range(-3, 4):
         for dy in range(-3, 4):
-            cx, cy = bx + dx, by + dy
-            if cx < 0 or cy < 0 or cx + logo_size > w or cy + logo_size > h:
-                continue
-            patch = gray[cy:cy + logo_size, cx:cx + logo_size]
-            score = _ncc(patch, template)
-            if score > best["confidence"]:
-                best["x"] = cx
-                best["y"] = cy
-                best["confidence"] = score
-
+            candidate = _candidate_at(gray, layout, coarse_x + dx, coarse_y + dy)
+            if candidate is not None and candidate["ranking_score"] > best["ranking_score"]:
+                best = candidate
     return best
+
+
+def detect_gemini_watermark(image, min_confidence=None, source_hint=None):
+    """Detect a Gemini sparkle with a trained catalog-template detector.
+
+    Gemini uses a small catalog of output dimensions and anchors.  We score
+    those anchors with both luminance and Sobel-edge correlation, then apply
+    thresholds calibrated on real Gemini positives and hard negatives.  This
+    replaces the previous fixed 96/64-only search and its brittle 0.90 NCC
+    gate. ``source_hint`` is only a weak fallback for borderline evidence.
+    """
+    img_np = np.array(image.convert("RGB"))
+    rgb = img_np[:, :, :3].astype(np.float32) / 255.0
+    gray = (
+        0.2126 * rgb[:, :, 0] +
+        0.7152 * rgb[:, :, 1] +
+        0.0722 * rgb[:, :, 2]
+    )
+
+    candidates = [
+        candidate
+        for layout in _candidate_layouts(gray.shape[1], gray.shape[0])
+        if (candidate := _best_layout_candidate(gray, layout)) is not None
+    ]
+    if not candidates:
+        return {"found": False, "confidence": 0.0}
+
+    best = max(candidates, key=lambda item: item["ranking_score"])
+    model = _load_detector_model()
+    decision = model.get("decision", {})
+    min_spatial = float(decision.get("min_spatial_score", 0.18))
+    min_gradient = float(decision.get("min_gradient_score", 0.18))
+    hinted_min_spatial = float(decision.get("hinted_min_spatial_score", 0.15))
+    hinted_min_gradient = float(decision.get("hinted_min_gradient_score", 0.08))
+
+    spatial = best["spatial_score"]
+    gradient = best["gradient_score"]
+    source_hinted = _is_gemini_source_hint(source_hint)
+    trained_match = spatial >= min_spatial and gradient >= min_gradient
+    hinted_match = (
+        source_hinted and
+        spatial >= hinted_min_spatial and
+        gradient >= hinted_min_gradient
+    )
+    confidence = float(np.clip((max(0.0, spatial) + max(0.0, gradient)) / 2.0, 0.0, 1.0))
+    found = trained_match or hinted_match
+    if min_confidence is not None:
+        # Preserve the old experiment/debug API: an explicit confidence value
+        # replaces the trained decision (notably ``-1`` returns the best raw
+        # catalog candidate). Production callers leave this as ``None``.
+        found = confidence >= min_confidence
+
+    best.update({
+        "found": found,
+        "confidence": confidence,
+        "source_hinted": source_hinted,
+        "decision": "trained_match" if trained_match else ("source_hint" if hinted_match else "rejected"),
+        "model_version": model.get("version", 1),
+    })
+    return best
+
+
+def create_gemini_mask(image_size, detection, alpha_threshold=0.02, dilation=5, feather=2):
+    """Create a tight sparkle-shaped mask for deterministic local inpainting."""
+    width, height = image_size
+    x, y = int(detection["x"]), int(detection["y"])
+    logo_size = int(detection["logo_size"])
+    alpha_map = detection["alpha_map"]
+    if alpha_map.shape != (logo_size, logo_size):
+        alpha_map = cv2.resize(alpha_map, (logo_size, logo_size), interpolation=cv2.INTER_LINEAR)
+
+    core = (alpha_map > alpha_threshold).astype(np.uint8) * 255
+    if dilation > 1:
+        kernel_size = max(1, int(dilation))
+        core = cv2.dilate(core, np.ones((kernel_size, kernel_size), np.uint8), iterations=1)
+    if feather > 0:
+        core = cv2.GaussianBlur(core, (0, 0), sigmaX=float(feather))
+
+    mask = np.zeros((height, width), dtype=np.uint8)
+    x2, y2 = min(width, x + logo_size), min(height, y + logo_size)
+    if x < x2 and y < y2:
+        mask[y:y2, x:x2] = core[:y2 - y, :x2 - x]
+    return Image.fromarray(mask, mode="L")
 
 
 def _find_best_gain(img_patch, alpha_map):

@@ -66,6 +66,8 @@ class TestPipeline:
         result_img, meta = pipeline.process(real_gemini_image, out_path)
         assert meta["status"] == "cleaned"
         assert meta["watermarks_found"] >= 1
+        assert meta["methods"] == ["gemini_catalog_lama"]
+        assert meta["total_detections"] == 0, "Confirmed Gemini must bypass generic OWLv2"
         assert os.path.exists(out_path)
         # Verify output is a valid image
         check = Image.open(out_path)

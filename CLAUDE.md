@@ -23,7 +23,7 @@ cd frontend && npm install && npm run dev      # dev server on :48292
 cd frontend && npm run build                   # builds to frontend/dist (auto-served by api.py if present)
 cd frontend && npm run lint
 
-# Tests (42 cases)
+# Tests (47 cases)
 uv run pytest tests/ -v
 uv run pytest tests/test_pipeline.py -v                     # single file
 uv run pytest tests/test_pipeline.py::test_name -v          # single test
@@ -37,33 +37,27 @@ Tests referencing real sample images in `gemini_images/` and `豆包/` auto-skip
 
 ## Architecture
 
-### Two-stage "smart routing" pipeline (`opennomark/pipeline.py`)
-
-Both stages are attempted on every image — this is intentional, not a fallthrough:
+### Two-branch "smart routing" pipeline (`opennomark/pipeline.py`)
 
 ```
-image ──► Stage 1: Gemini reverse-alpha (strict gate)
-            │
-            ├─ cleaned: working = alpha-cleaned image
-            └─ rejected / no-watermark: working = original
-          │
-          ▼
-      Stage 2: OWLv2 detect → filter_watermarks → LaMa inpaint
-          │   (boxes overlapping Stage 1's cleaned region are dropped)
-          ▼
-      final image
+image ──► Gemini catalog detector (48/32, 96/64, 96/192)
+            ├─ match → tight sparkle mask → local-crop LaMa → final
+            └─ no match → lazy OWLv2 → filter_watermarks → LaMa → final
 ```
 
-Stage 2 **always runs** so text overlays (豆包 "AI 生成") are still caught even after a Gemini sparkle was alpha-removed.
+OWLv2 does **not** run after a confirmed Gemini match. Its low generic threshold otherwise erases unrelated UI icons in screenshots. It is also lazy-loaded so Gemini-only work avoids the 600M detector entirely.
 
-### Stage 1 — Gemini reverse alpha (`opennomark/gemini_alpha.py`)
+### Gemini branch (`opennomark/gemini_alpha.py`)
 
-A lossless path for Gemini's white sparkle watermark, based on the known alpha-compositing formula. Key decisions:
+A deterministic catalog detector followed by shape-aware local inpainting:
 
-- **Wide-net detection, strict acceptance**: `detect_gemini_watermark` casts a wide template-matching net, but `remove_gemini_watermark` only accepts the result when `confidence ≥ 0.95` AND `border_mismatch < 3` gray levels (see `_quality_accept`, lines 224-236). This two-layer gate exists because alpha-map misalignment produces a visible dark/light diamond artifact that looks *worse* than letting LaMa handle it.
-- **Linear-light math**: reverse alpha runs in sRGB-decoded linear-light space (`_srgb_to_linear` / `_linear_to_srgb`) — doing it on sRGB bytes directly produces a darkening "dent". Any future changes here must preserve this color space step.
-- **Pre-computed alpha maps** ship in `opennomark/assets/gemini_alpha_{48,96}.npy` (48 for ≤1024px images, 96 for larger).
-- On rejection the function returns the **original** image unchanged and `status="rejected"` — the pipeline then falls through to Stage 2.
+- **Resolution tiers first**: large official outputs try 96/192 (May 2026) and 96/64; preview/1K outputs try 48/32 and legacy 96/64. Do not let all layouts compete across tiers.
+- **Two-signal scoring**: spatial NCC and Sobel-edge NCC must both clear thresholds in `opennomark/assets/gemini_detector.json`.
+- **Data-driven calibration**: regenerate the threshold model with `scripts/train_gemini_detector.py`; it trains on real positives plus same-image hard negatives and deduplicates inputs by SHA-256.
+- **Tight mask**: `create_gemini_mask` thresholds the known alpha silhouette, dilates it by 5px, and feathers by 2px. Do not replace it with a full 96x96 rectangle without re-validating text-overlap samples.
+- **Local LaMa**: `inpaint_local` uses roughly a 384x384 crop for a 96px mark. This is both faster and less destructive than full-image inference.
+
+The older reverse-alpha helpers remain for experiments, but the production pipeline no longer uses them because complex backgrounds can produce visible positive/negative diamond residuals.
 
 ### Stage 2 — OWLv2 + LaMa
 
@@ -95,7 +89,8 @@ Pipeline does **not** cache models across invocations when used via CLI, but `ap
 
 ## Directories worth knowing
 
-- `opennomark/assets/` — pre-computed Gemini alpha maps; do not regenerate without re-validating the quality gate thresholds.
+- `opennomark/assets/` — Gemini alpha maps plus trained detector thresholds; retrain and run the `many_images` regression when changing them.
+- `scripts/train_gemini_detector.py` — calibration entry point for real Gemini samples and hard negatives.
 - `examples/` — small canonical before/after samples used in the README.
 - `experiments/` — ablation scripts (`exp_decision.py`, `exp_gain_sweep.py`, `exp_linear_light.py`, `exp_mask_shape.py`, `exp_posterior.py`) that justify the current threshold constants. Consult these before tuning Stage 1 thresholds or mask parameters.
 - `gemini_images/`, `豆包/`, `verify/` — larger real-image test sets used by fixtures; not required for unit tests.
