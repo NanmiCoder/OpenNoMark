@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "kind": "catalog_spatial_gradient_thresholds",
+  "decision": {
+    "min_spatial_score": 0.18,
+    "min_gradient_score": 0.18,
+    "hinted_min_spatial_score": 0.15,
+    "hinted_min_gradient_score": 0.08
+  },
+  "training": {
+    "seed": 20260716,
+    "unique_positive_count": 20,
+    "hard_negative_count": 800,
+    "positive_recall": 1.0,
+    "hard_negative_false_positives": 2,
+    "layout_counts": {
+      "gemini_1k_current": 6,
+      "gemini_2k_20260520": 14
+    },
+    "minimum_positive_spatial_score": 0.206071,
+    "minimum_positive_gradient_score": 0.20145,
+    "samples": [
+      {
+        "file": "Gemini_Generated_Image_c0dimec0dimec0di.png",
+        "sha256": "30e89da7667e283fab67a78781752bafc389baf63e01dc7b5297cd8cde276b4a",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.456104,
+        "gradient_score": 0.220565
+      },
+      {
+        "file": "Gemini_Generated_Image_rnr28rnr28rnr28r.png",
+        "sha256": "a46d6bde27217ccbbb1ebfa39762770132d48352047536711eb65ab768a4e06a",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.990267,
+        "gradient_score": 0.919871
+      },
+      {
+        "file": "Gemini_Generated_Image_t8zaxrt8zaxrt8za.png",
+        "sha256": "7b7d32f79f08462e10fd71fc42468b15947706cd9176035a8f710fb0349d07bf",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.206071,
+        "gradient_score": 0.21486
+      },
+      {
+        "file": "Gemini_Generated_Image_vldb3dvldb3dvldb.png",
+        "sha256": "12cb856345badcae5eed5e1e46dd5b7b138adf3f1cecfa4cd972444df5608e83",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.653362,
+        "gradient_score": 0.751234
+      },
+      {
+        "file": "Gemini_Generated_Image_ (4).png",
+        "sha256": "6661419e76e187e63a1d17fa7f748bcee866d52cfd74e2f434db121f33f5916d",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.364697,
+        "gradient_score": 0.514264
+      },
+      {
+        "file": "Gemini_Generated_Image_ (5).png",
+        "sha256": "84f1b54ee8e177044a584f84333ed7822926a1072834b97b34d51e29893acb68",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.517838,
+        "gradient_score": 0.437682
+      },
+      {
+        "file": "Gemini_Generated_Image_ (6).png",
+        "sha256": "a77e5eb9f7345e5d8671e2cbc896e234e097f49f5bd675e8a55b7fdc62e74b03",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.994029,
+        "gradient_score": 0.982906
+      },
+      {
+        "file": "Gemini_Generated_Image_ (7).png",
+        "sha256": "3c5354637b828bfca8c19266bcc53117b616f746b942b7ae4b31dd1cb60a3b23",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.610674,
+        "gradient_score": 0.421152
+      },
+      {
+        "file": "Gemini_Generated_Image_ (8).png",
+        "sha256": "3f73703d722f681fd4767c09a08e0488e9dba497ac9e6183a3a70fa43d1537cd",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.999769,
+        "gradient_score": 0.999774
+      },
+      {
+        "file": "Gemini_Generated_Image_ (9).png",
+        "sha256": "d28011eccb436e590c3581de5ad2ad090d0f3a17b25a6e288d1488ded70033f7",
+        "layout": "gemini_1k_current",
+        "spatial_score": 0.28946,
+        "gradient_score": 0.235394
+      },
+      {
+        "file": "Gemini_Generated_Image_2bjpwy2bjpwy2bjp.png",
+        "sha256": "65846ccd07690226f6879c5833e7d316df66d6d404c1c4574dc8b21a986e3063",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.595269,
+        "gradient_score": 0.72984
+      },
+      {
+        "file": "Gemini_Generated_Image_55csau55csau55cs.png",
+        "sha256": "4a1b4c5733e26b3028dcba3f64f2d87fafbb0c3ed75d5951d4803774440585d9",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.296833,
+        "gradient_score": 0.423302
+      },
+      {
+        "file": "Gemini_Generated_Image_59x8xs59x8xs59x8 (1).png",
+        "sha256": "559f463c005b4bd1889ad73060f50a0acd2322d466dabd49143bb203fd57db9f",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.989337,
+        "gradient_score": 0.889914
+      },
+      {
+        "file": "Gemini_Generated_Image_5iw9f35iw9f35iw9.png",
+        "sha256": "7355a66d03acaa9628c951d4396b12c51e9e2925ec62ad1a2ec2a781f6cc3961",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.745465,
+        "gradient_score": 0.276282
+      },
+      {
+        "file": "Gemini_Generated_Image_dj2xzudj2xzudj2x.png",
+        "sha256": "0e293b821307680f09beac3040342483f226441fa0b5fadf18301af319756a64",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.625907,
+        "gradient_score": 0.674069
+      },
+      {
+        "file": "Gemini_Generated_Image_fzwijyfzwijyfzwi.png",
+        "sha256": "bf5ca70bbaebc88914a5b425f5ad2f62986a53dae069e8e2d3c289912027864d",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.341595,
+        "gradient_score": 0.282216
+      },
+      {
+        "file": "Gemini_Generated_Image_mx1n52mx1n52mx1n.png",
+        "sha256": "3ebd93b0102e609403e7f240d20485cc9b544b583f732f20acec9917154e9037",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.986727,
+        "gradient_score": 0.920243
+      },
+      {
+        "file": "Gemini_Generated_Image_nl3d9gnl3d9gnl3d.png",
+        "sha256": "54460b95a6ae9026e7bc9af10b7b2542674b54b5a24ebcd4034d555c46301707",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.989208,
+        "gradient_score": 0.890337
+      },
+      {
+        "file": "Gemini_Generated_Image_osyb3vosyb3vosyb.png",
+        "sha256": "e91ff5828f771975ca4cf419e5acbb57525ee5332198a76efe55d6e72452ef69",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.249995,
+        "gradient_score": 0.20145
+      },
+      {
+        "file": "Gemini_Generated_Image_ozrintozrintozri.png",
+        "sha256": "85e7f322ed78c650dc90aed037b40a8ef8d118850a2823269172b4b0fd09ea74",
+        "layout": "gemini_2k_20260520",
+        "spatial_score": 0.982056,
+        "gradient_score": 0.810977
+      }
+    ]
+  }
+}

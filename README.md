@@ -4,7 +4,7 @@
 
 Watermark detection and seamless removal for AI-generated images.
 
-Built on **OWLv2** (open-vocabulary object detection) for watermark localization + **LaMa** (large-mask inpainting) for seamless reconstruction. Removes visible watermarks from Gemini, Doubao, DALL-E and other major AI image platforms.
+Uses a dedicated catalog-trained detector + local **LaMa** repair for Gemini, with **OWLv2** + LaMa as the generic fallback for Doubao, DALL-E, and other visible watermarks.
 
 ## Showcase
 
@@ -131,16 +131,19 @@ results = pipeline.process_batch(
 ```
 OpenNoMark/
 ├── opennomark/              # Core Python package
-│   ├── gemini_alpha.py      # Gemini reverse alpha blending (linear-light, strict gates)
+│   ├── gemini_alpha.py      # Gemini catalog detector + sparkle mask
 │   ├── detector.py          # OWLv2 watermark detection
 │   ├── inpainter.py         # LaMa seamless inpainting (feather + alpha blend)
 │   ├── pipeline.py          # Smart-routing pipeline
 │   ├── cli.py               # CLI entry point
 │   ├── api.py               # FastAPI backend
-│   └── assets/              # Pre-computed watermark template data
+│   └── assets/              # Alpha templates + trained detector thresholds
 ├── frontend/                # React + Vite + Tailwind CSS frontend
 │   └── src/App.tsx          # Main UI (drag-and-drop + before/after preview)
-├── tests/                   # Test suite (42 cases)
+├── scripts/
+│   └── train_gemini_detector.py # Data-driven Gemini detector calibration
+├── tests/                   # Test suite (47 cases)
+│   ├── test_gemini_alpha.py # Gemini layouts + many_images regression
 │   ├── test_detector.py     # Detector unit tests
 │   ├── test_inpainter.py    # Inpainter unit tests
 │   ├── test_pipeline.py     # Pipeline + E2E tests
@@ -164,20 +167,22 @@ OpenNoMark/
 ### Smart Routing Pipeline
 
 ```
-input ┬─[Gemini sparkle near-perfect match?]─yes→ [linear-light reverse alpha] ┐
-      │                         └─no───────────────────────────────────────────┤
-      └─→ [OWLv2 detect] → corner filter → [LaMa inpaint] ─────────────────────┴→ clean image
+input ──→ [catalog anchors: 48/32, 96/64, 96/192]
+            │
+            ├─ Gemini spatial+edge match → [tight sparkle mask] → [local LaMa] → clean image
+            │
+            └─ no Gemini match → [lazy OWLv2] → corner filter → [LaMa] → clean image
 ```
 
-**Path A — Gemini reverse alpha blending (strict trigger, theoretically lossless)**: when the NCC template match confidence ≥ 0.95 AND the reconstructed region matches its surrounding background within 3 gray levels, we invert the alpha compositing formula in **linear-light space**: `original_linear = (watermarked_linear - α) / (1 - α)`, then convert back to sRGB. The strict thresholds exist to avoid the "dent artifact" that appears when the alpha map is misaligned (the sparkle position becomes a visible gray/dark diamond). This path triggers rarely — mostly on simple-background, natively generated Gemini images.
+**Path A — dedicated Gemini catalog + local LaMa**: Gemini output tiers use known watermark sizes and anchors. The detector scores both luminance shape and Sobel-edge shape, including the May 2026 `96×96 / 192px margin` layout documented by [GargantuaX/gemini-watermark-remover](https://github.com/GargantuaX/gemini-watermark-remover). Thresholds are calibrated by `scripts/train_gemini_detector.py` from real positives and same-image hard negatives. A tight sparkle-shaped mask is repaired inside a small local crop, avoiding alpha-inversion dents and full-image inference.
 
-**Path B — OWLv2 + LaMa (main path)**: handles the vast majority of images. OWLv2 (0.6B params, open-vocabulary detection) locates watermark candidates; after position/size filtering, LaMa reconstructs the region from surrounding texture. Works stably across Gemini, Doubao, DALL-E and others.
+**Path B — OWLv2 + LaMa (generic fallback)**: when no Gemini match is present, OWLv2 (0.6B params, open-vocabulary detection) locates generic watermark candidates and LaMa reconstructs them. OWLv2 is loaded lazily and is not run after a confirmed Gemini match, so unrelated UI icons are not erased.
 
-| Platform | Default Method | Alpha Fast Path |
+| Platform | Default Method | Detector |
 |------|---------|---------------|
-| Google Gemini | OWLv2 + LaMa | If match ≥ 0.95 AND borders blend |
-| Doubao (豆包) | OWLv2 + LaMa | — |
-| DALL-E / other | OWLv2 + LaMa | — |
+| Google Gemini | Local shape-mask + LaMa | Catalog spatial + edge model |
+| Doubao (豆包) | OWLv2 + LaMa | Open vocabulary |
+| DALL-E / other | OWLv2 + LaMa | Open vocabulary |
 
 ### Hardware Acceleration
 
@@ -197,7 +202,7 @@ LaMa's TorchScript checkpoint is CUDA-serialized. It's deserialized with `map_lo
 # Install dev dependencies
 uv sync --extra dev
 
-# Run all 42 tests
+# Run all 47 tests
 uv run pytest tests/ -v
 
 # Unit tests only
@@ -209,7 +214,8 @@ uv run pytest tests/test_pipeline.py tests/test_cli.py tests/test_api.py -v
 
 ## Known Limitations
 
-- OWLv2 is a general-purpose detector — it may miss very low-contrast watermarks (e.g. light text on a white background)
+- Gemini support targets the known visible sparkle layouts; future Gemini layout changes require catalog recalibration
+- The generic OWLv2 fallback may miss very low-contrast non-Gemini watermarks
 - Only small corner watermarks are currently handled; full-image tiled watermarks are out of scope
 - UI controls in app screenshots (back arrows, setting icons) can be misclassified as watermarks
 
