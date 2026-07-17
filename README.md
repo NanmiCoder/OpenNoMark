@@ -41,17 +41,17 @@ The interface includes an English and Simplified Chinese language switch.
 
 These examples are repository artifacts, not design mockups. Every pair places the source image on the left and its corresponding OpenNoMark output on the right.
 
-### Gemini · sparkle mark
+### Gemini · sparkle over detailed foreground texture
 
 | Original | Processed |
 | :---: | :---: |
-| ![Gemini source with a visible sparkle mark](examples/gemini/gemini_sample_1.png) | ![The same Gemini image after OpenNoMark processing](examples/gemini/clean_gemini_sample_1.png) |
+| ![Gemini portrait with a sparkle watermark overlapping fingers, jewelry, wood grain, and a window edge](examples/gemini/Gemini_Generated_Image_2r8bmx2r8bmx2r8b.png) | ![The same Gemini portrait after OpenNoMark removes the watermark while preserving the detailed foreground](examples/gemini/clean_gemini_portrait_2r8bmx.png) |
 
-### Doubao · “AI generated” label
+### Doubao · current icon and text signature
 
 | Original | Processed |
 | :---: | :---: |
-| ![Doubao source with a visible AI-generated label](examples/doubao/doubao_sample_1.jpg) | ![The same Doubao image after OpenNoMark processing](examples/doubao/clean_doubao_sample_1.jpg) |
+| ![Doubao source with the current bottom-right icon and AI-generated signature over flowers and table texture](assets/readme/doubao-current-logo-original.png) | ![The same current-generation Doubao image after OpenNoMark processing](examples/doubao/clean_doubao_current_logo.png) |
 
 ### Qwen · icon and text signature
 
@@ -158,35 +158,10 @@ results = pipeline.process_batch(
 
 OpenNoMark separates **where the watermark is** from **how the missing content is reconstructed**. That boundary lets detection evolve across generators without duplicating the inpainting stack.
 
-```text
-Input image
-    │
-    ▼
-Unified WatermarkLocalizer
-    ├── Trained spatial + edge template evidence
-    └── Lazy OWLv2 semantic proposals
-              │
-              ▼
-    Calibrated edge/shape scoring
-    + coverage-aware deduplication
-              │
-              ▼
-      Tight, feathered mask
-              │
-              ▼
-       Local LaMa inpaint
-              │
-              ▼
-     Same-expert residual check
-       ├── passed → cleaned
-       └── residual → one controlled retry
-              │
-              ▼
-    Image result + unified regions metadata
-```
+![OpenNoMark workflow from local watermark localization through a tight mask, local LaMa repair, validation, and clean output](assets/readme/how-it-works-en.png)
 
 - **One production contract:** every detector returns `box`, `score`, `source`, and `method` through the same region interface. The pipeline never routes by filename or provider directory.
-- **Calibrated localization:** Gemini's trained spatial detector supplies a shape mask. The open-vocabulary expert combines `watermark` and `brand watermark` proposals with edge distance, text geometry, confidence ranking, and overlap-aware deduplication. The calibration profile is packaged with the application.
+- **Calibrated localization:** Gemini's lightweight spatial detector is calibrated on real positive images and hard negatives; it is not a fine-tuned foundation model. The open-vocabulary expert combines `watermark` and `brand watermark` proposals with edge distance, text geometry, confidence ranking, and overlap-aware deduplication. The calibration profile is packaged with the application.
 - **Reconstruction and validation:** LaMa runs against a compact local mask, then the same visual expert checks the repaired area. A residual triggers one mask-only retry; unresolved evidence is reported as `partial` instead of silently claiming success.
 - **Lazy loading:** OWLv2 is loaded only when high-precision spatial evidence does not already identify the mark.
 - **Safety boundary:** the pipeline targets small visible corner marks. It is not a general object-removal tool and intentionally avoids broad full-image edits.

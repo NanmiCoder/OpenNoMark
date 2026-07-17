@@ -9,6 +9,7 @@ import {
   ClockCountdownIcon,
   DownloadSimpleIcon,
   FileZipIcon,
+  GithubLogoIcon,
   ImageSquareIcon,
   ImagesIcon,
   PlusIcon,
@@ -513,11 +514,7 @@ export default function App() {
             </span>
           </a>
 
-          <div className="flex items-center gap-3 sm:gap-6">
-            <span className="hidden items-center gap-2 text-xs text-[var(--ink-muted)] sm:flex">
-              <ShieldCheckIcon size={16} weight="regular" className="text-[var(--accent)]" />
-              {t.privacy}
-            </span>
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
               className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--paper)] px-3 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[var(--ink-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--ink)] active:scale-[0.98]"
@@ -533,9 +530,12 @@ export default function App() {
               href="https://github.com/NanmiCoder/OpenNoMark"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[var(--line)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--ink)]"
+              aria-label={t.source}
+              title={t.source}
+              className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--paper)] px-3 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[var(--ink-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--ink)] active:scale-[0.98]"
             >
-              {t.source}
+              <GithubLogoIcon size={16} weight="fill" aria-hidden="true" />
+              <span className="hidden sm:inline">{t.source}</span>
             </a>
           </div>
         </div>
@@ -553,6 +553,10 @@ export default function App() {
             </h1>
             <p className="mt-6 max-w-[52ch] text-base leading-7 text-[var(--ink-muted)]">
               {t.heroDescription}
+            </p>
+            <p className="mt-4 flex items-center gap-2 text-xs font-medium text-[var(--ink-muted)]">
+              <ShieldCheckIcon size={16} weight="regular" className="shrink-0 text-[var(--accent)]" aria-hidden="true" />
+              {t.privacy}
             </p>
           </div>
 
