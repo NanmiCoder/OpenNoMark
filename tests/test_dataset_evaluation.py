@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 
 from tests.dataset_evaluation import (
+    DATASET_PROVIDERS,
     evaluate_dataset,
     inventory_examples,
     main,
@@ -19,7 +20,7 @@ from tests.dataset_evaluation import (
 
 
 def _make_dataset(root: Path, *, clean_reference: bool = True) -> Path:
-    for index, provider in enumerate(("doubao", "gemini", "qwen")):
+    for index, provider in enumerate(DATASET_PROVIDERS):
         directory = root / provider
         directory.mkdir(parents=True)
         Image.new("RGB", (100, 80), (20 + index, 30, 40)).save(directory / f"case_{index}.png")
@@ -82,11 +83,10 @@ def test_inventory_is_stable_and_excludes_clean_references(tmp_path):
     root = _make_dataset(tmp_path / "examples")
     inventory = inventory_examples(root)
 
-    assert [item["id"] for item in inventory] == [
-        "doubao/case_0.png",
-        "gemini/case_1.png",
-        "qwen/case_2.png",
-    ]
+    assert [item["id"] for item in inventory] == sorted(
+        f"{provider}/case_{index}.png"
+        for index, provider in enumerate(DATASET_PROVIDERS)
+    )
     assert all(item["inventory_errors"] == [] for item in inventory)
     assert all(item["width"] == 100 and item["height"] == 80 for item in inventory)
 
@@ -154,7 +154,7 @@ def test_localize_partial_scope_cannot_claim_all_cases_handled(tmp_path):
     )
 
     assert report["coverage"] == {
-        "inventory_cases": 3,
+        "inventory_cases": len(DATASET_PROVIDERS),
         "selected_cases": 1,
         "providers": ["qwen"],
         "limit": None,
@@ -184,7 +184,7 @@ def test_full_gate_proves_changes_are_local_and_residual_is_gone(tmp_path):
     report = evaluate_dataset(root, mode="full", runtime=GoodRuntime())
 
     assert report["summary"]["all_cases_handled"] is True
-    assert report["summary"]["passed_cases"] == 3
+    assert report["summary"]["passed_cases"] == len(DATASET_PROVIDERS)
     for case in report["cases"]:
         assert case["removal"]["metrics"]["changed_pixels"] == 25
         assert case["removal"]["metrics"]["change_containment"] == 1.0
@@ -248,10 +248,14 @@ def test_repository_inventory_covers_every_provider_and_excludes_clean_files():
     inventory = inventory_examples(root)
 
     assert inventory
-    assert {item["provider"] for item in inventory} == {"doubao", "gemini", "qwen"}
+    assert {item["provider"] for item in inventory} == set(DATASET_PROVIDERS)
     counts = Counter(item["provider"] for item in inventory)
+    assert counts["baidu"] >= 4
     assert counts["doubao"] >= 16
     assert counts["gemini"] >= 15
+    assert counts["jimeng"] >= 7
+    assert counts["kling"] >= 4
     assert counts["qwen"] >= 21
+    assert counts["yuanbao"] >= 8
     assert all(not Path(item["id"]).name.lower().startswith("clean_") for item in inventory)
     assert all(item["inventory_errors"] == [] for item in inventory)

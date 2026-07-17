@@ -30,7 +30,15 @@ import numpy as np
 from PIL import Image
 
 
-DATASET_PROVIDERS = ("doubao", "gemini", "qwen")
+DATASET_PROVIDERS = (
+    "baidu",
+    "doubao",
+    "gemini",
+    "jimeng",
+    "kling",
+    "qwen",
+    "yuanbao",
+)
 SUPPORTED_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 SCHEMA_VERSION = 1
 MIN_REGION_AREA_RATIO = 0.000001
@@ -192,14 +200,16 @@ def regions_from_metadata(metadata: dict[str, Any] | None) -> list[dict[str, Any
                 }
             )
             continue
-        normalized.append(
-            {
-                "box": [_json_number(value) for value in box],
-                "score": _json_number(item.get("score", 0.0)),
-                "source": str(item.get("source", "unknown")),
-                "method": str(item.get("method", item.get("label", "unknown"))),
-            }
-        )
+        normalized_item = {
+            "box": [_json_number(value) for value in box],
+            "score": _json_number(item.get("score", 0.0)),
+            "source": str(item.get("source", "unknown")),
+            "method": str(item.get("method", item.get("label", "unknown"))),
+        }
+        mask_box = item.get("mask_box")
+        if isinstance(mask_box, (list, tuple)) and len(mask_box) == 4:
+            normalized_item["mask_box"] = [_json_number(value) for value in mask_box]
+        normalized.append(normalized_item)
     return normalized
 
 
@@ -501,9 +511,15 @@ def _measure_removal(
         failures.append("output_has_no_meaningful_pixel_change")
 
     allowed = np.zeros((original.height, original.width), dtype=bool)
-    expansion = max(8, int(round(min(original.size) * 0.01)))
     for region in input_regions:
-        box = region["box"]
+        mask_box = region.get("mask_box")
+        box = mask_box if _valid_numeric_box(mask_box) else region["box"]
+        # New metadata exposes the exact feathered-mask bounds. Legacy
+        # callers only report detector boxes, so retain the historical safety
+        # margin for those records.
+        expansion = 2 if _valid_numeric_box(mask_box) else max(
+            8, int(round(min(original.size) * 0.01))
+        )
         x1 = max(0, int(math.floor(float(box[0]))) - expansion)
         y1 = max(0, int(math.floor(float(box[1]))) - expansion)
         x2 = min(original.width, int(math.ceil(float(box[2]))) + expansion)

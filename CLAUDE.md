@@ -23,7 +23,7 @@ cd frontend && npm install && npm run dev      # dev server on :48292
 cd frontend && npm run build                   # builds to frontend/dist (auto-served by api.py if present)
 cd frontend && npm run lint
 
-# Tests (51 cases)
+# Tests (72 cases)
 uv run pytest tests/ -v
 uv run pytest tests/test_pipeline.py -v                     # single file
 uv run pytest tests/test_pipeline.py::test_name -v          # single test
@@ -37,15 +37,24 @@ Tests referencing real sample images in `gemini_images/` and `豆包/` auto-skip
 
 ## Architecture
 
-### Two-branch "smart routing" pipeline (`opennomark/pipeline.py`)
+### Fused visual-expert pipeline (`opennomark/localizer.py`)
 
 ```
-image ──► Gemini catalog detector (48/32, 96/64, 96/192)
-            ├─ match → tight sparkle mask → local-crop LaMa → final
-            └─ no match → lazy OWLv2 → filter_watermarks → LaMa → final
+image ──┬─► Gemini catalog detector (48/32, 96/64, 96/192)
+        └─► OWLv2 proposals → filter_watermarks
+                    │
+                    ▼
+             cross-expert arbitration
+                    │
+                    ▼
+          precise mask → local LaMa → residual check
 ```
 
-OWLv2 does **not** run after a confirmed Gemini match. Its low generic threshold otherwise erases unrelated UI icons in screenshots. It is also lazy-loaded so Gemini-only work avoids the 600M detector entirely.
+The precise Gemini shape mask remains the default when both experts fire. A
+non-overlapping text signature may replace a spatial-template match only when
+it is in the same corner, scores at least as strongly, and lies closer to the
+image edges. This resolves catalog-shaped background false positives without
+provider names or filenames participating in production inference.
 
 ### Gemini branch (`opennomark/gemini_alpha.py`)
 
@@ -59,9 +68,9 @@ A deterministic catalog detector followed by shape-aware local inpainting:
 
 The older reverse-alpha helpers remain for experiments, but the production pipeline no longer uses them because complex backgrounds can produce visible positive/negative diamond residuals.
 
-### Stage 2 — OWLv2 + LaMa
+### Open-vocabulary expert and LaMa
 
-**Detector (`opennomark/detector.py`)**: OWLv2 open-vocabulary detection with text queries `["watermark", "logo", "icon", "symbol", "badge", "stamp"]` at a low score threshold (0.05). Raw detections are then filtered by `filter_watermarks` to keep only boxes that are (a) smaller than 30% of the image's short side and (b) centered inside a corner region (15% from any edge). Most false positives (UI controls, centered text) are rejected here.
+**Detector (`opennomark/detector.py`)**: OWLv2 open-vocabulary detection uses calibrated `watermark` and `brand watermark` prompts plus broader proposal labels. `filter_watermarks` accepts only trusted semantic labels whose size, aspect ratio, score, and distance to two edges fit the packaged calibration; overlap-aware deduplication then keeps one conservative region. Most false positives (UI controls, centered text, and large scene objects) are rejected here.
 
 **Inpainter (`opennomark/inpainter.py`)**: wraps a TorchScript LaMa model.
 - **Tight mask defaults (`padding=3, feather=4`) are load-bearing** — see the docstring at line 28. Larger values cause LaMa to bleed across high-contrast structural edges (e.g. paint white fabric over a black panel adjacent to a sparkle). Do not relax these without re-validating on the `examples/` set.
@@ -92,6 +101,6 @@ Pipeline does **not** cache models across invocations when used via CLI, but `ap
 - `opennomark/assets/` — Gemini alpha maps plus trained detector thresholds; retrain and run the `many_images` regression when changing them.
 - `scripts/train_gemini_detector.py` — calibration entry point for real Gemini samples and hard negatives.
 - `skills/opennomark/` — portable Agent Skill discovered by `npx skills add NanmiCoder/OpenNoMark`; keep it free of machine-specific paths.
-- `examples/` — small canonical before/after samples used in the README.
+- `examples/` — the seven-provider real-image acceptance corpus plus canonical README outputs.
 - `experiments/` — ablation scripts (`exp_decision.py`, `exp_gain_sweep.py`, `exp_linear_light.py`, `exp_mask_shape.py`, `exp_posterior.py`) that justify the current threshold constants. Consult these before tuning Stage 1 thresholds or mask parameters.
 - `gemini_images/`, `豆包/`, `verify/` — larger real-image test sets used by fixtures; not required for unit tests.

@@ -34,6 +34,9 @@ class LocalizedWatermark:
             "source": self.source,
             "method": self.method,
         }
+        mask_box = self.mask.getbbox()
+        if mask_box is not None:
+            metadata["mask_box"] = [float(value) for value in mask_box]
         if self.details:
             metadata["details"] = self.details
         return metadata
@@ -62,11 +65,20 @@ class WatermarkLocalizer:
         """Return accepted regions and serializable localization evidence."""
         gemini = detect_gemini_watermark(image)
         if gemini.get("found"):
-            region = self._region_from_spatial_template(image.size, gemini)
+            spatial_region = self._region_from_spatial_template(image.size, gemini)
+            raw = self.detector.detect(image)
+            accepted = self.detector.filter_watermarks(raw, image.width, image.height)
+            semantic_regions = [self._region_from_box(image.size, item) for item in accepted]
+            region, arbitration = self._arbitrate_spatial_and_semantic(
+                image.size,
+                spatial_region,
+                semantic_regions,
+            )
             return [region], {
-                "total_proposals": 1,
+                "total_proposals": len(raw) + 1,
                 "accepted_regions": 1,
-                "experts": ["spatial_template"],
+                "experts": ["spatial_template", "open_vocabulary"],
+                "arbitration": arbitration,
             }
 
         raw = self.detector.detect(image)
@@ -77,6 +89,74 @@ class WatermarkLocalizer:
             "accepted_regions": len(regions),
             "experts": ["open_vocabulary"],
         }
+
+    @classmethod
+    def _arbitrate_spatial_and_semantic(
+        cls,
+        image_size: tuple[int, int],
+        spatial: LocalizedWatermark,
+        semantic_regions: list[LocalizedWatermark],
+    ) -> tuple[LocalizedWatermark, str]:
+        """Resolve rare catalog-template false positives without provider hints.
+
+        A real Gemini sparkle has a precise shape mask, so it remains the
+        default whenever the experts agree, disagree on the corner, or the
+        semantic evidence is weaker.  A non-overlapping text signature in the
+        same corner may replace it only when OWLv2 scores it at least as
+        strongly and places it materially closer to the image edges.  This
+        catches catalog-shaped background texture while preserving difficult,
+        low-confidence Gemini positives from the calibrated corpus.
+        """
+        if not semantic_regions:
+            return spatial, "spatial_only"
+
+        semantic = semantic_regions[0]
+        if cls._corner(spatial.box, image_size) != cls._corner(semantic.box, image_size):
+            return spatial, "spatial_different_corner"
+        if cls._intersection_over_smaller(spatial.box, semantic.box) >= 0.25:
+            return spatial, "spatial_overlapping_evidence"
+        if semantic.score < spatial.score:
+            return spatial, "spatial_stronger_score"
+        if cls._edge_distance(semantic.box, image_size) >= cls._edge_distance(
+            spatial.box, image_size
+        ):
+            return spatial, "spatial_closer_to_edges"
+
+        semantic.details["suppressed_spatial_score"] = float(spatial.score)
+        return semantic, "semantic_override"
+
+    @staticmethod
+    def _corner(box: list[float], image_size: tuple[int, int]) -> tuple[str, str]:
+        width, height = image_size
+        center_x = (float(box[0]) + float(box[2])) / 2.0
+        center_y = (float(box[1]) + float(box[3])) / 2.0
+        return (
+            "left" if center_x < width / 2.0 else "right",
+            "top" if center_y < height / 2.0 else "bottom",
+        )
+
+    @staticmethod
+    def _edge_distance(box: list[float], image_size: tuple[int, int]) -> float:
+        width, height = image_size
+        horizontal = min(max(0.0, float(box[0])), max(0.0, width - float(box[2])))
+        vertical = min(max(0.0, float(box[1])), max(0.0, height - float(box[3])))
+        return horizontal / max(1, width) + vertical / max(1, height)
+
+    @staticmethod
+    def _intersection_over_smaller(first: list[float], second: list[float]) -> float:
+        x1 = max(float(first[0]), float(second[0]))
+        y1 = max(float(first[1]), float(second[1]))
+        x2 = min(float(first[2]), float(second[2]))
+        y2 = min(float(first[3]), float(second[3]))
+        intersection = max(0.0, x2 - x1) * max(0.0, y2 - y1)
+        first_area = max(0.0, float(first[2]) - float(first[0])) * max(
+            0.0, float(first[3]) - float(first[1])
+        )
+        second_area = max(0.0, float(second[2]) - float(second[0])) * max(
+            0.0, float(second[3]) - float(second[1])
+        )
+        smaller = min(first_area, second_area)
+        return intersection / smaller if smaller else 0.0
 
     def localize_residuals(
         self,
