@@ -43,23 +43,19 @@ The interface includes an English and Simplified Chinese language switch.
 
 ## Real-image results
 
-These examples are repository artifacts, not design mockups. The first row contains source images; the second row contains the corresponding OpenNoMark outputs.
+These examples are repository artifacts, not design mockups. Every pair places the source image on the left and its corresponding OpenNoMark output on the right.
 
 ### Gemini · sparkle mark
 
-| Original | Original | Original |
-| :---: | :---: | :---: |
-| ![Gemini source sample 1](examples/gemini/gemini_sample_1.png) | ![Gemini source sample 2](examples/gemini/gemini_sample_2.png) | ![Gemini source sample 3](examples/gemini/gemini_sample_3.png) |
-| **Processed** | **Processed** | **Processed** |
-| ![Processed Gemini sample 1](examples/gemini/clean_gemini_sample_1.png) | ![Processed Gemini sample 2](examples/gemini/clean_gemini_sample_2.png) | ![Processed Gemini sample 3](examples/gemini/clean_gemini_sample_3.png) |
+| Original | Processed |
+| :---: | :---: |
+| ![Gemini source with a visible sparkle mark](examples/gemini/gemini_sample_1.png) | ![The same Gemini image after OpenNoMark processing](examples/gemini/clean_gemini_sample_1.png) |
 
 ### Doubao · “AI generated” label
 
-| Original | Original | Original |
-| :---: | :---: | :---: |
-| ![Doubao source sample 1](examples/doubao/doubao_sample_1.jpg) | ![Doubao source sample 2](examples/doubao/doubao_sample_2.jpg) | ![Doubao source sample 3](examples/doubao/doubao_sample_3.jpg) |
-| **Processed** | **Processed** | **Processed** |
-| ![Processed Doubao sample 1](examples/doubao/clean_doubao_sample_1.jpg) | ![Processed Doubao sample 2](examples/doubao/clean_doubao_sample_2.jpg) | ![Processed Doubao sample 3](examples/doubao/clean_doubao_sample_3.jpg) |
+| Original | Processed |
+| :---: | :---: |
+| ![Doubao source with a visible AI-generated label](examples/doubao/doubao_sample_1.jpg) | ![The same Doubao image after OpenNoMark processing](examples/doubao/clean_doubao_sample_1.jpg) |
 
 ### Qwen · icon and text signature
 
