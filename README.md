@@ -1,14 +1,10 @@
-<div align="center">
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="OpenNoMark localizes visible corner watermarks, rebuilds the marked region, and verifies the cleaned image">
+</p>
 
-# OpenNoMark
-
-**Local, batch-first watermark removal for AI-generated images.**
-
-Inspect every file. Compare the result. Download one image or the whole batch.
-
-**English** · [简体中文](README.zh-CN.md)
-
-</div>
+<p align="center">
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
 OpenNoMark combines watermark localization with content-aware LaMa inpainting. It is designed for visible corner marks found in images from Gemini, Doubao, Qwen, and similar generators, while keeping the complete workflow on your own machine.
 
@@ -16,20 +12,20 @@ OpenNoMark combines watermark localization with content-aware LaMa inpainting. I
 
 [Web workbench](#web-workbench) · [Results](#real-image-results) · [Install](#choose-your-workflow) · [Architecture](#how-it-works) · [Verification](#dataset-and-verification)
 
-## Why OpenNoMark
-
-| Batch without losing context | Review before saving | Local by default |
-| :--- | :--- | :--- |
-| Upload one image or a whole set. Each file has its own queued, uploading, processing, completed, or failed state. | Compare the original and processed image, retry individual failures, and download one result or every completed result as a ZIP. | Detection and reconstruction run locally. The application does not send images to a hosted inference API. |
-
-The same processing core powers the Web UI, command-line interface, Python API, and cross-agent Skill. You can start visually, automate later, and get the same output semantics in every workflow.
-
 ## Web workbench
 
 The responsive workbench is built for both single-image inspection and long-running batches. It keeps finished results available while the remaining images continue, shows per-file progress, and makes the next action clear on desktop and mobile.
 
 <!-- Keep this file as a real capture of the running frontend, never a mockup. -->
 ![OpenNoMark Web workbench showing a batch and before/after comparison](docs/assets/opennomark-workbench.png)
+
+### Why the workflow stays inspectable
+
+| Batch without losing context | Review before saving | Local by default |
+| :--- | :--- | :--- |
+| Upload one image or a whole set. Each file has its own queued, uploading, processing, completed, or failed state. | Compare the original and processed image, retry individual failures, and download one result or every completed result as a ZIP. | Detection and reconstruction run locally. The application does not send images to a hosted inference API. |
+
+The same processing core powers the Web UI, command-line interface, Python API, and cross-agent Skill. Start visually, automate later, and keep the same result semantics in every workflow.
 
 ### A simple batch workflow
 
@@ -43,23 +39,19 @@ The interface includes an English and Simplified Chinese language switch.
 
 ## Real-image results
 
-These examples are repository artifacts, not design mockups. The first row contains source images; the second row contains the corresponding OpenNoMark outputs.
+These examples are repository artifacts, not design mockups. Every pair places the source image on the left and its corresponding OpenNoMark output on the right.
 
 ### Gemini · sparkle mark
 
-| Original | Original | Original |
-| :---: | :---: | :---: |
-| ![Gemini source sample 1](examples/gemini/gemini_sample_1.png) | ![Gemini source sample 2](examples/gemini/gemini_sample_2.png) | ![Gemini source sample 3](examples/gemini/gemini_sample_3.png) |
-| **Processed** | **Processed** | **Processed** |
-| ![Processed Gemini sample 1](examples/gemini/clean_gemini_sample_1.png) | ![Processed Gemini sample 2](examples/gemini/clean_gemini_sample_2.png) | ![Processed Gemini sample 3](examples/gemini/clean_gemini_sample_3.png) |
+| Original | Processed |
+| :---: | :---: |
+| ![Gemini source with a visible sparkle mark](examples/gemini/gemini_sample_1.png) | ![The same Gemini image after OpenNoMark processing](examples/gemini/clean_gemini_sample_1.png) |
 
 ### Doubao · “AI generated” label
 
-| Original | Original | Original |
-| :---: | :---: | :---: |
-| ![Doubao source sample 1](examples/doubao/doubao_sample_1.jpg) | ![Doubao source sample 2](examples/doubao/doubao_sample_2.jpg) | ![Doubao source sample 3](examples/doubao/doubao_sample_3.jpg) |
-| **Processed** | **Processed** | **Processed** |
-| ![Processed Doubao sample 1](examples/doubao/clean_doubao_sample_1.jpg) | ![Processed Doubao sample 2](examples/doubao/clean_doubao_sample_2.jpg) | ![Processed Doubao sample 3](examples/doubao/clean_doubao_sample_3.jpg) |
+| Original | Processed |
+| :---: | :---: |
+| ![Doubao source with a visible AI-generated label](examples/doubao/doubao_sample_1.jpg) | ![The same Doubao image after OpenNoMark processing](examples/doubao/clean_doubao_sample_1.jpg) |
 
 ### Qwen · icon and text signature
 
