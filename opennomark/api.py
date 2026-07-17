@@ -11,7 +11,9 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="OpenNoMark", version="0.1.0")
+from . import __version__
+
+app = FastAPI(title="OpenNoMark", version=__version__)
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,7 +40,7 @@ def get_pipeline():
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "version": "0.1.0"}
+    return {"status": "ok", "version": __version__}
 
 
 @app.post("/api/remove")

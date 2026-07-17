@@ -9,12 +9,15 @@ from .gemini_alpha import create_gemini_mask, detect_gemini_watermark
 
 
 class WatermarkRemovalPipeline:
-    def __init__(self, device=None):
-        print("Loading inpainting model...")
+    def __init__(self, device=None, verbose=True):
+        self.verbose = verbose
+        if self.verbose:
+            print("Loading inpainting model...")
         self.device = device
         self.detector = None
         self.inpainter = LamaInpainter(device=device)
-        print("Inpainting model loaded.")
+        if self.verbose:
+            print("Inpainting model loaded.")
 
     def _get_detector(self):
         """Load the generic 600M OWLv2 model only when it is actually needed."""

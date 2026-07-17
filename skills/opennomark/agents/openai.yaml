@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenNoMark"
+  short_description: "Remove visible watermarks from AI images"
+  default_prompt: "Use $opennomark to remove the visible watermark from these images and save cleaned copies."
