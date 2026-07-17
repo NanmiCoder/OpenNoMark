@@ -1,14 +1,10 @@
-<div align="center">
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="OpenNoMark localizes visible corner watermarks, rebuilds the marked region, and verifies the cleaned image">
+</p>
 
-# OpenNoMark
-
-**Local, batch-first watermark removal for AI-generated images.**
-
-Inspect every file. Compare the result. Download one image or the whole batch.
-
-**English** · [简体中文](README.zh-CN.md)
-
-</div>
+<p align="center">
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
 OpenNoMark combines watermark localization with content-aware LaMa inpainting. It is designed for visible corner marks found in images from Gemini, Doubao, Qwen, and similar generators, while keeping the complete workflow on your own machine.
 
@@ -16,20 +12,20 @@ OpenNoMark combines watermark localization with content-aware LaMa inpainting. I
 
 [Web workbench](#web-workbench) · [Results](#real-image-results) · [Install](#choose-your-workflow) · [Architecture](#how-it-works) · [Verification](#dataset-and-verification)
 
-## Why OpenNoMark
-
-| Batch without losing context | Review before saving | Local by default |
-| :--- | :--- | :--- |
-| Upload one image or a whole set. Each file has its own queued, uploading, processing, completed, or failed state. | Compare the original and processed image, retry individual failures, and download one result or every completed result as a ZIP. | Detection and reconstruction run locally. The application does not send images to a hosted inference API. |
-
-The same processing core powers the Web UI, command-line interface, Python API, and cross-agent Skill. You can start visually, automate later, and get the same output semantics in every workflow.
-
 ## Web workbench
 
 The responsive workbench is built for both single-image inspection and long-running batches. It keeps finished results available while the remaining images continue, shows per-file progress, and makes the next action clear on desktop and mobile.
 
 <!-- Keep this file as a real capture of the running frontend, never a mockup. -->
 ![OpenNoMark Web workbench showing a batch and before/after comparison](docs/assets/opennomark-workbench.png)
+
+### Why the workflow stays inspectable
+
+| Batch without losing context | Review before saving | Local by default |
+| :--- | :--- | :--- |
+| Upload one image or a whole set. Each file has its own queued, uploading, processing, completed, or failed state. | Compare the original and processed image, retry individual failures, and download one result or every completed result as a ZIP. | Detection and reconstruction run locally. The application does not send images to a hosted inference API. |
+
+The same processing core powers the Web UI, command-line interface, Python API, and cross-agent Skill. Start visually, automate later, and keep the same result semantics in every workflow.
 
 ### A simple batch workflow
 
