@@ -1,0 +1,3533 @@
+{
+  "cases": [
+    {
+      "failures": [],
+      "height": 2508,
+      "id": "doubao/doubao_sample_1.jpg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "top_left"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              40.63812256,
+              39.99938202,
+              187.9679718,
+              99.15790558
+            ],
+            "method": "box_mask",
+            "score": 0.31995684,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00231603,
+          "changed_pixels": 9712,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              40.63812256,
+              39.99938202,
+              187.9679718,
+              99.15790558
+            ],
+            "method": "box_mask",
+            "score": 0.31995684,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/doubao_sample_1.jpg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1672
+    },
+    {
+      "failures": [],
+      "height": 2508,
+      "id": "doubao/doubao_sample_2.jpg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "top_left"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              44.88743973,
+              39.88982391,
+              187.60276794,
+              99.43350983
+            ],
+            "method": "box_mask",
+            "score": 0.41870788,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00223328,
+          "changed_pixels": 9365,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              44.88743973,
+              39.88982391,
+              187.60276794,
+              99.43350983
+            ],
+            "method": "box_mask",
+            "score": 0.41870788,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/doubao_sample_2.jpg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1672
+    },
+    {
+      "failures": [],
+      "height": 2730,
+      "id": "doubao/doubao_sample_3.jpg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "top_left"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              44.00741196,
+              38.03026581,
+              185.96269226,
+              98.23288727
+            ],
+            "method": "box_mask",
+            "score": 0.28273237,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00251378,
+          "changed_pixels": 10541,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              44.00741196,
+              38.03026581,
+              185.96269226,
+              98.23288727
+            ],
+            "method": "box_mask",
+            "score": 0.28273237,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/doubao_sample_3.jpg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1536
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实时尚人像 (1).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1471.05224609,
+              2142.67578125,
+              1769.48046875,
+              2211.28735352
+            ],
+            "method": "box_mask",
+            "score": 0.38457945,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0070746,
+          "changed_pixels": 28398,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1471.05224609,
+              2142.67578125,
+              1769.48046875,
+              2211.28735352
+            ],
+            "method": "box_mask",
+            "score": 0.38457945,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (1).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实时尚人像 (2).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1470.97180176,
+              2141.62402344,
+              1770.6315918,
+              2210.50634766
+            ],
+            "method": "box_mask",
+            "score": 0.41534019,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00717325,
+          "changed_pixels": 28794,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1470.97180176,
+              2141.62402344,
+              1770.6315918,
+              2210.50634766
+            ],
+            "method": "box_mask",
+            "score": 0.41534019,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (2).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实时尚人像 (3).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1470.97180176,
+              2141.62402344,
+              1770.6315918,
+              2210.50634766
+            ],
+            "method": "box_mask",
+            "score": 0.41534019,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00717325,
+          "changed_pixels": 28794,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1470.97180176,
+              2141.62402344,
+              1770.6315918,
+              2210.50634766
+            ],
+            "method": "box_mask",
+            "score": 0.41534019,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (3).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实时尚人像 (4).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1460.9354248,
+              2140.19238281,
+              1766.84899902,
+              2210.41992188
+            ],
+            "method": "box_mask",
+            "score": 0.34368703,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00728012,
+          "changed_pixels": 29223,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1460.9354248,
+              2140.19238281,
+              1766.84899902,
+              2210.41992188
+            ],
+            "method": "box_mask",
+            "score": 0.34368703,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (4).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2848,
+      "id": "doubao/生成超写实时尚人像 (5).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1320.0423584,
+              2755.55249023,
+              1586.81518555,
+              2824.65942383
+            ],
+            "method": "box_mask",
+            "score": 0.56869274,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00554358,
+          "changed_pixels": 25261,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1320.0423584,
+              2755.55249023,
+              1586.81518555,
+              2824.65942383
+            ],
+            "method": "box_mask",
+            "score": 0.56869274,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (5).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1600
+    },
+    {
+      "failures": [],
+      "height": 2848,
+      "id": "doubao/生成超写实时尚人像 (6).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1321.1920166,
+              2754.99023438,
+              1589.61218262,
+              2825.71289062
+            ],
+            "method": "box_mask",
+            "score": 0.60051996,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00561139,
+          "changed_pixels": 25570,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1321.1920166,
+              2754.99023438,
+              1589.61218262,
+              2825.71289062
+            ],
+            "method": "box_mask",
+            "score": 0.60051996,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (6).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1600
+    },
+    {
+      "failures": [],
+      "height": 2848,
+      "id": "doubao/生成超写实时尚人像 (7).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1325.00415039,
+              2759.39331055,
+              1592.34631348,
+              2830.14648438
+            ],
+            "method": "box_mask",
+            "score": 0.5442757,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99215002,
+          "changed_pixel_ratio": 0.00603845,
+          "changed_pixels": 27516,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1325.00415039,
+              2759.39331055,
+              1592.34631348,
+              2830.14648438
+            ],
+            "method": "box_mask",
+            "score": 0.5442757,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (7).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1600
+    },
+    {
+      "failures": [],
+      "height": 2848,
+      "id": "doubao/生成超写实时尚人像 (8).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1318.53759766,
+              2756.7409668,
+              1581.00720215,
+              2824.5090332
+            ],
+            "method": "box_mask",
+            "score": 0.59781897,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00539831,
+          "changed_pixels": 24599,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1318.53759766,
+              2756.7409668,
+              1581.00720215,
+              2824.5090332
+            ],
+            "method": "box_mask",
+            "score": 0.59781897,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像 (8).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1600
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实时尚人像.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1458.28088379,
+              2142.06445312,
+              1771.01379395,
+              2209.45068359
+            ],
+            "method": "box_mask",
+            "score": 0.43707454,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00496702,
+          "changed_pixels": 19938,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1458.28088379,
+              2142.06445312,
+              1771.01379395,
+              2209.45068359
+            ],
+            "method": "box_mask",
+            "score": 0.43707454,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实时尚人像.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实电影感特写肖像 (1).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1471.59851074,
+              2140.98608398,
+              1766.00048828,
+              2208.0402832
+            ],
+            "method": "box_mask",
+            "score": 0.29689902,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00326999,
+          "changed_pixels": 13126,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1471.59851074,
+              2140.98608398,
+              1766.00048828,
+              2208.0402832
+            ],
+            "method": "box_mask",
+            "score": 0.29689902,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实电影感特写肖像 (1).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实电影感特写肖像 (2).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1472.16345215,
+              2142.00927734,
+              1765.64038086,
+              2208.62207031
+            ],
+            "method": "box_mask",
+            "score": 0.24863869,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00398049,
+          "changed_pixels": 15978,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1472.16345215,
+              2142.00927734,
+              1765.64038086,
+              2208.62207031
+            ],
+            "method": "box_mask",
+            "score": 0.24863869,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实电影感特写肖像 (2).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实电影感特写肖像 (3).png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1471.859375,
+              2142.22827148,
+              1764.22216797,
+              2208.71508789
+            ],
+            "method": "box_mask",
+            "score": 0.33501515,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00395583,
+          "changed_pixels": 15879,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1471.859375,
+              2142.22827148,
+              1764.22216797,
+              2208.71508789
+            ],
+            "method": "box_mask",
+            "score": 0.33501515,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实电影感特写肖像 (3).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2240,
+      "id": "doubao/生成超写实电影感特写肖像.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1472.03393555,
+              2141.87792969,
+              1765.42871094,
+              2207.71386719
+            ],
+            "method": "box_mask",
+            "score": 0.30247256,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "doubao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00327796,
+          "changed_pixels": 13158,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1472.03393555,
+              2141.87792969,
+              1765.42871094,
+              2207.71386719
+            ],
+            "method": "box_mask",
+            "score": 0.30247256,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "doubao/生成超写实电影感特写肖像.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1792,
+      "id": "gemini/Gemini_Generated_Image_2bjpwy2bjpwy2bjp.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.66255415,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0008796,
+          "changed_pixels": 3783,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.66255415,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_2bjpwy2bjpwy2bjp.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2400
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_55csau55csau55cs.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.36006753,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00092634,
+          "changed_pixels": 3984,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.36006753,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_55csau55csau55cs.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8 (1).png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00084914,
+          "changed_pixels": 3652,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8 (1).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8 (2).png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00084914,
+          "changed_pixels": 3652,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8 (2).png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00084914,
+          "changed_pixels": 3652,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.9396253,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_59x8xs59x8xs59x8.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1536,
+      "id": "gemini/Gemini_Generated_Image_5iw9f35iw9f35iw9.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2464.0,
+              1248.0,
+              2560.0,
+              1344.0
+            ],
+            "method": "shape_mask",
+            "score": 0.51087335,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00091458,
+          "changed_pixels": 3866,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2464.0,
+              1248.0,
+              2560.0,
+              1344.0
+            ],
+            "method": "shape_mask",
+            "score": 0.51087335,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_5iw9f35iw9f35iw9.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2752
+    },
+    {
+      "failures": [],
+      "height": 1536,
+      "id": "gemini/Gemini_Generated_Image_c0dimec0dimec0di.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2464.0,
+              1249.0,
+              2560.0,
+              1345.0
+            ],
+            "method": "shape_mask",
+            "score": 0.33833478,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00098532,
+          "changed_pixels": 4165,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2464.0,
+              1249.0,
+              2560.0,
+              1345.0
+            ],
+            "method": "shape_mask",
+            "score": 0.33833478,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_c0dimec0dimec0di.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2752
+    },
+    {
+      "failures": [],
+      "height": 2390,
+      "id": "gemini/Gemini_Generated_Image_dj2xzudj2xzudj2x.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2102.0,
+              1600.0,
+              2198.0
+            ],
+            "method": "shape_mask",
+            "score": 0.6499882,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00084896,
+          "changed_pixels": 3636,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2102.0,
+              1600.0,
+              2198.0
+            ],
+            "method": "shape_mask",
+            "score": 0.6499882,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_dj2xzudj2xzudj2x.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1792,
+      "id": "gemini/Gemini_Generated_Image_fzwijyfzwijyfzwi.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.31190565,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00088821,
+          "changed_pixels": 3820,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.31190565,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_fzwijyfzwijyfzwi.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2400
+    },
+    {
+      "failures": [],
+      "height": 1792,
+      "id": "gemini/Gemini_Generated_Image_mx1n52mx1n52mx1n.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.95348486,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00085077,
+          "changed_pixels": 3659,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.95348486,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_mx1n52mx1n52mx1n.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2400
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_nl3d9gnl3d9gnl3d.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.93977258,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00085007,
+          "changed_pixels": 3656,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.93977258,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_nl3d9gnl3d9gnl3d.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1792,
+      "id": "gemini/Gemini_Generated_Image_osyb3vosyb3vosyb.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.2257225,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0009382,
+          "changed_pixels": 4035,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.2257225,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_osyb3vosyb3vosyb.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2400
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_ozrintozrintozri.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.89651693,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00085472,
+          "changed_pixels": 3676,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.89651693,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_ozrintozrintozri.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1792,
+      "id": "gemini/Gemini_Generated_Image_rnr28rnr28rnr28r.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.95506921,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00087751,
+          "changed_pixels": 3774,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "method": "shape_mask",
+            "score": 0.95506921,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_rnr28rnr28rnr28r.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 2400
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_t8zaxrt8zaxrt8za.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.21046525,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00093959,
+          "changed_pixels": 4041,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.21046525,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_t8zaxrt8zaxrt8za.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_vldb3dvldb3dvldb.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.70229771,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0008896,
+          "changed_pixels": 3826,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.70229771,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/Gemini_Generated_Image_vldb3dvldb3dvldb.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 1200,
+      "id": "gemini/gemini_sample_1.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "method": "shape_mask",
+            "score": 0.43948076,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00088728,
+          "changed_pixels": 954,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "method": "shape_mask",
+            "score": 0.43948076,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "gemini/gemini_sample_1.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 896
+    },
+    {
+      "failures": [],
+      "height": 1200,
+      "id": "gemini/gemini_sample_2.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "method": "shape_mask",
+            "score": 0.98846745,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00084356,
+          "changed_pixels": 907,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "method": "shape_mask",
+            "score": 0.98846745,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/gemini_sample_2.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 896
+    },
+    {
+      "failures": [],
+      "height": 896,
+      "id": "gemini/gemini_sample_3.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1120.0,
+              816.0,
+              1168.0,
+              864.0
+            ],
+            "method": "shape_mask",
+            "score": 0.51591283,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00112351,
+          "changed_pixels": 1208,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1120.0,
+              816.0,
+              1168.0,
+              864.0
+            ],
+            "method": "shape_mask",
+            "score": 0.51591283,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/gemini_sample_3.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1200
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_049781270343728.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              523.89440918,
+              1220.52990723,
+              702.90148926,
+              1259.7734375
+            ],
+            "method": "box_mask",
+            "score": 0.59683996,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.98513251,
+          "changed_pixel_ratio": 0.01007161,
+          "changed_pixels": 9282,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              523.89440918,
+              1220.52990723,
+              702.90148926,
+              1259.7734375
+            ],
+            "method": "box_mask",
+            "score": 0.59683996,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_049781270343728.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_097619498141049.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              709.64660645,
+              1206.32189941,
+              942.18884277,
+              1249.91833496
+            ],
+            "method": "box_mask",
+            "score": 0.50779581,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99962507,
+          "changed_pixel_ratio": 0.01085286,
+          "changed_pixels": 13336,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              709.64660645,
+              1206.32189941,
+              942.18884277,
+              1249.91833496
+            ],
+            "method": "box_mask",
+            "score": 0.50779581,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "qwen/image_097619498141049.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_143398485588488.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              699.27270508,
+              1205.44702148,
+              936.41760254,
+              1251.73352051
+            ],
+            "method": "box_mask",
+            "score": 0.35006472,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99854747,
+          "changed_pixel_ratio": 0.01232585,
+          "changed_pixels": 15146,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              699.27270508,
+              1205.44702148,
+              936.41760254,
+              1251.73352051
+            ],
+            "method": "box_mask",
+            "score": 0.35006472,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_143398485588488.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_185933065478817.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              696.31811523,
+              1207.44714355,
+              930.23138428,
+              1253.77539062
+            ],
+            "method": "box_mask",
+            "score": 0.06643465,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00733398,
+          "changed_pixels": 9012,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              696.31811523,
+              1207.44714355,
+              930.23138428,
+              1253.77539062
+            ],
+            "method": "box_mask",
+            "score": 0.06643465,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_185933065478817.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_254188313956461.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              695.28430176,
+              1207.61865234,
+              933.77270508,
+              1253.66296387
+            ],
+            "method": "box_mask",
+            "score": 0.4303287,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0052002,
+          "changed_pixels": 6390,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              695.28430176,
+              1207.61865234,
+              933.77270508,
+              1253.66296387
+            ],
+            "method": "box_mask",
+            "score": 0.4303287,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_254188313956461.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_296874379989172.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              525.32171631,
+              1221.20898438,
+              702.96807861,
+              1260.12438965
+            ],
+            "method": "box_mask",
+            "score": 0.56373209,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.98882922,
+          "changed_pixel_ratio": 0.010102,
+          "changed_pixels": 9310,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              525.32171631,
+              1221.20898438,
+              702.96807861,
+              1260.12438965
+            ],
+            "method": "box_mask",
+            "score": 0.56373209,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_296874379989172.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_324855086256596.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              700.16479492,
+              1205.7298584,
+              930.80657959,
+              1250.72998047
+            ],
+            "method": "box_mask",
+            "score": 0.47841206,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00857259,
+          "changed_pixels": 10534,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              700.16479492,
+              1205.7298584,
+              930.80657959,
+              1250.72998047
+            ],
+            "method": "box_mask",
+            "score": 0.47841206,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_324855086256596.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_364807010374370.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              693.95263672,
+              1206.56164551,
+              929.45300293,
+              1253.40124512
+            ],
+            "method": "box_mask",
+            "score": 0.05702451,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00710286,
+          "changed_pixels": 8728,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              693.95263672,
+              1206.56164551,
+              929.45300293,
+              1253.40124512
+            ],
+            "method": "box_mask",
+            "score": 0.05702451,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_364807010374370.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_475191149620443.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              731.69934082,
+              1206.6081543,
+              929.05529785,
+              1249.59851074
+            ],
+            "method": "box_mask",
+            "score": 0.22083095,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99814743,
+          "changed_pixel_ratio": 0.01054281,
+          "changed_pixels": 12955,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              731.69934082,
+              1206.6081543,
+              929.05529785,
+              1249.59851074
+            ],
+            "method": "box_mask",
+            "score": 0.22083095,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_475191149620443.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_475352000396343.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              702.91046143,
+              1205.69824219,
+              941.50952148,
+              1264.84643555
+            ],
+            "method": "box_mask",
+            "score": 0.38714778,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.01394694,
+          "changed_pixels": 17138,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              702.91046143,
+              1205.69824219,
+              941.50952148,
+              1264.84643555
+            ],
+            "method": "box_mask",
+            "score": 0.38714778,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_475352000396343.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_570473232282418.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              695.28430176,
+              1207.61865234,
+              933.77270508,
+              1253.66296387
+            ],
+            "method": "box_mask",
+            "score": 0.4303287,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0052002,
+          "changed_pixels": 6390,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              695.28430176,
+              1207.61865234,
+              933.77270508,
+              1253.66296387
+            ],
+            "method": "box_mask",
+            "score": 0.4303287,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_570473232282418.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_583664641270227.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              523.92993164,
+              1223.36352539,
+              701.25982666,
+              1257.05175781
+            ],
+            "method": "box_mask",
+            "score": 0.27326131,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99966538,
+          "changed_pixel_ratio": 0.00648546,
+          "changed_pixels": 5977,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              523.92993164,
+              1223.36352539,
+              701.25982666,
+              1257.05175781
+            ],
+            "method": "box_mask",
+            "score": 0.27326131,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_583664641270227.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_741723456576327.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              700.0604248,
+              1203.97351074,
+              932.36254883,
+              1248.32836914
+            ],
+            "method": "box_mask",
+            "score": 0.25902167,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00657227,
+          "changed_pixels": 8076,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              700.0604248,
+              1203.97351074,
+              932.36254883,
+              1248.32836914
+            ],
+            "method": "box_mask",
+            "score": 0.25902167,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_741723456576327.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_800992857916042.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              692.23474121,
+              1206.22253418,
+              931.28900146,
+              1253.19580078
+            ],
+            "method": "box_mask",
+            "score": 0.05727214,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00709066,
+          "changed_pixels": 8713,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              692.23474121,
+              1206.22253418,
+              931.28900146,
+              1253.19580078
+            ],
+            "method": "box_mask",
+            "score": 0.05727214,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_800992857916042.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_846472866129904.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              522.46026611,
+              1223.39794922,
+              700.74658203,
+              1258.09777832
+            ],
+            "method": "box_mask",
+            "score": 0.26252347,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.98364888,
+          "changed_pixel_ratio": 0.00882595,
+          "changed_pixels": 8134,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              522.46026611,
+              1223.39794922,
+              700.74658203,
+              1258.09777832
+            ],
+            "method": "box_mask",
+            "score": 0.26252347,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_846472866129904.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_868857646293007.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              523.40447998,
+              1223.6574707,
+              701.18096924,
+              1257.06298828
+            ],
+            "method": "box_mask",
+            "score": 0.27931187,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00625326,
+          "changed_pixels": 5763,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              523.40447998,
+              1223.6574707,
+              701.18096924,
+              1257.06298828
+            ],
+            "method": "box_mask",
+            "score": 0.27931187,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_868857646293007.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_883012822300294.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              521.91174316,
+              1222.9329834,
+              699.75952148,
+              1256.64074707
+            ],
+            "method": "box_mask",
+            "score": 0.28225714,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99907365,
+          "changed_pixel_ratio": 0.00702799,
+          "changed_pixels": 6477,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              521.91174316,
+              1222.9329834,
+              699.75952148,
+              1256.64074707
+            ],
+            "method": "box_mask",
+            "score": 0.28225714,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_883012822300294.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_906819842167620.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              518.53015137,
+              1222.85241699,
+              700.72821045,
+              1259.65112305
+            ],
+            "method": "box_mask",
+            "score": 0.58875215,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.98660714,
+          "changed_pixel_ratio": 0.01045139,
+          "changed_pixels": 9632,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              518.53015137,
+              1222.85241699,
+              700.72821045,
+              1259.65112305
+            ],
+            "method": "box_mask",
+            "score": 0.58875215,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_906819842167620.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_916708564468366.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              708.70361328,
+              1208.05493164,
+              939.96734619,
+              1252.07446289
+            ],
+            "method": "box_mask",
+            "score": 0.43623683,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.99970234,
+          "changed_pixel_ratio": 0.01093587,
+          "changed_pixels": 13438,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              708.70361328,
+              1208.05493164,
+              939.96734619,
+              1252.07446289
+            ],
+            "method": "box_mask",
+            "score": 0.43623683,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_916708564468366.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_919939996033896.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              524.09259033,
+              1222.55908203,
+              702.26367188,
+              1260.69018555
+            ],
+            "method": "box_mask",
+            "score": 0.5970521,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 0.9922271,
+          "changed_pixel_ratio": 0.00963216,
+          "changed_pixels": 8877,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              524.09259033,
+              1222.55908203,
+              702.26367188,
+              1260.69018555
+            ],
+            "method": "box_mask",
+            "score": 0.5970521,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_919939996033896.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "qwen/image_986392945288240.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              693.22454834,
+              1207.45043945,
+              929.88500977,
+              1253.80603027
+            ],
+            "method": "box_mask",
+            "score": 0.46737432,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "qwen",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00856445,
+          "changed_pixels": 10524,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              693.22454834,
+              1207.45043945,
+              929.88500977,
+              1253.80603027
+            ],
+            "method": "box_mask",
+            "score": 0.46737432,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "qwen/image_986392945288240.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 960
+    }
+  ],
+  "coverage": {
+    "inventory_cases": 56,
+    "limit": null,
+    "providers": [
+      "doubao",
+      "gemini",
+      "qwen"
+    ],
+    "scope_complete": true,
+    "selected_cases": 56
+  },
+  "criteria": {
+    "corner_ratio": 0.3,
+    "decoded_image_required": true,
+    "expected_dataset_location_required": true,
+    "localized_region_required": true,
+    "maximum_residual_overlap": 0.25,
+    "minimum_change_containment": 0.9,
+    "minimum_changed_pixels": 8,
+    "original_cases_only": "supported images excluding clean_*",
+    "output_dimensions_preserved": true,
+    "positive_watermark_count": true,
+    "region_area_ratio": [
+      1e-06,
+      0.25
+    ],
+    "region_must_be_in_bounds": true,
+    "region_score_source_method_required": true,
+    "removal_method_required": true,
+    "removal_status": "cleaned",
+    "unexpected_location_regions_allowed": false
+  },
+  "mode": "full",
+  "schema_version": 1,
+  "summary": {
+    "all_cases_handled": true,
+    "failed_cases": 0,
+    "passed_cases": 56,
+    "providers": {
+      "doubao": {
+        "cases": 16,
+        "failed": 0,
+        "passed": 16
+      },
+      "gemini": {
+        "cases": 19,
+        "failed": 0,
+        "passed": 19
+      },
+      "qwen": {
+        "cases": 21,
+        "failed": 0,
+        "passed": 21
+      }
+    },
+    "selected_scope_passed": true
+  }
+}

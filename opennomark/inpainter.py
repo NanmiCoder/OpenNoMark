@@ -13,6 +13,28 @@ def _ceil_modulo(x, mod):
     return (x // mod + 1) * mod
 
 
+def create_box_mask(image_size, boxes, padding=3, feather=4):
+    """Create the conservative feathered mask shared by localizers and LaMa."""
+    mask = Image.new("L", image_size, 0)
+    draw = ImageDraw.Draw(mask)
+
+    for item in boxes:
+        x1, y1, x2, y2 = item["box"]
+        x1 = max(0, x1 - padding)
+        y1 = max(0, y1 - padding)
+        x2 = min(image_size[0], x2 + padding)
+        y2 = min(image_size[1], y2 + padding)
+        draw.rectangle([x1, y1, x2, y2], fill=255)
+
+    if feather > 0:
+        mask_np = np.array(mask)
+        mask_np = cv2.GaussianBlur(mask_np, (0, 0), sigmaX=feather)
+        if mask_np.max() > 0:
+            mask_np = np.clip(mask_np.astype(np.float32) / mask_np.max() * 255, 0, 255).astype(np.uint8)
+        mask = Image.fromarray(mask_np)
+    return mask
+
+
 class LamaInpainter:
     def __init__(self, device=None):
         model_path = os.path.expanduser("~/.cache/torch/hub/checkpoints/big-lama.pt")
@@ -50,25 +72,7 @@ class LamaInpainter:
         panel adjacent to a sparkle). Tight values keep LaMa focused on
         the watermark pixels themselves.
         """
-        mask = Image.new("L", image_size, 0)
-        draw = ImageDraw.Draw(mask)
-
-        for item in boxes:
-            x1, y1, x2, y2 = item["box"]
-            x1 = max(0, x1 - padding)
-            y1 = max(0, y1 - padding)
-            x2 = min(image_size[0], x2 + padding)
-            y2 = min(image_size[1], y2 + padding)
-            draw.rectangle([x1, y1, x2, y2], fill=255)
-
-        if feather > 0:
-            mask_np = np.array(mask)
-            mask_np = cv2.GaussianBlur(mask_np, (0, 0), sigmaX=feather)
-            if mask_np.max() > 0:
-                mask_np = np.clip(mask_np.astype(np.float32) / mask_np.max() * 255, 0, 255).astype(np.uint8)
-            mask = Image.fromarray(mask_np)
-
-        return mask
+        return create_box_mask(image_size, boxes, padding=padding, feather=feather)
 
     def inpaint(self, image, mask):
         """Run LaMa inpainting with alpha blending."""
