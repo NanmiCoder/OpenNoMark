@@ -1,446 +1,519 @@
-import { useState, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import {
+  ArrowClockwiseIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
+  DownloadSimpleIcon,
+  ImageSquareIcon,
+  ImagesIcon,
+  PlusIcon,
+  ShieldCheckIcon,
+  SparkleIcon,
+  TrashIcon,
+  UploadSimpleIcon,
+  WarningCircleIcon,
+  XCircleIcon,
+} from "@phosphor-icons/react";
 
-/* ─── Types ─── */
+import { CompareSlider } from "./components/CompareSlider";
+import { MagneticButton } from "./components/MagneticButton";
+
+type ResultStatus = "cleaned" | "no_watermark" | "error";
+
 interface ProcessResult {
   filename: string;
   job_id?: string;
-  status: "cleaned" | "no_watermark" | "error";
+  status: ResultStatus;
   watermarks_found: number;
   download_url: string | null;
   error?: string;
 }
 
 interface ImageEntry {
+  id: string;
   file: File;
   preview: string;
   result?: ProcessResult;
-  cleanPreview?: string;
 }
 
-/* ─── Before/After Compare ─── */
-function CompareSlider({ before, after }: { before: string; after: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [split, setSplit] = useState(50);
+const acceptedExtensions = /\.(png|jpe?g|webp)$/i;
 
-  const handleMove = useCallback(
-    (clientX: number) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const pct = ((clientX - rect.left) / rect.width) * 100;
-      setSplit(Math.max(2, Math.min(98, pct)));
-    },
-    []
-  );
+function formatBytes(bytes: number) {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      e.preventDefault();
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
-      handleMove(e.clientX);
-    },
-    [handleMove]
-  );
+function normalizeResult(raw: Partial<ProcessResult> | undefined, file: File): ProcessResult {
+  if (!raw || raw.error || !raw.status) {
+    return {
+      filename: file.name,
+      status: "error",
+      watermarks_found: 0,
+      download_url: null,
+      error: raw?.error || "The server returned an incomplete result.",
+    };
+  }
+  return {
+    filename: raw.filename || file.name,
+    job_id: raw.job_id,
+    status: raw.status,
+    watermarks_found: raw.watermarks_found || 0,
+    download_url: raw.download_url || null,
+    error: raw.error,
+  };
+}
 
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (e.buttons === 0) return;
-      handleMove(e.clientX);
-    },
-    [handleMove]
-  );
+function StatusMark({ status }: { status: ResultStatus }) {
+  if (status === "cleaned") {
+    return <CheckCircleIcon size={15} weight="fill" className="text-[var(--accent)]" />;
+  }
+  if (status === "no_watermark") {
+    return <WarningCircleIcon size={15} weight="fill" className="text-[var(--warning)]" />;
+  }
+  return <XCircleIcon size={15} weight="fill" className="text-[var(--danger)]" />;
+}
 
+function QueueStatus({ result }: { result?: ProcessResult }) {
+  if (!result) {
+    return <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-faint)]">Queued</span>;
+  }
   return (
-    <div
-      ref={ref}
-      className="compare-container rounded-lg overflow-hidden select-none"
-      style={{ "--split": `${split}%` } as React.CSSProperties}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-    >
-      {/* Before (full, underneath) */}
-      <img src={before} alt="Before" className="block w-full" draggable={false} />
+    <span className="flex items-center gap-1.5 text-[11px] text-[var(--ink-muted)]">
+      <StatusMark status={result.status} />
+      {result.status === "cleaned"
+        ? `${result.watermarks_found} removed`
+        : result.status === "no_watermark"
+          ? "No mark found"
+          : "Needs attention"}
+    </span>
+  );
+}
 
-      {/* After (clipped) */}
-      <div className="after-clip">
-        <img src={after} alt="After" className="block w-full" draggable={false} />
+function EmptyWorkbench() {
+  return (
+    <div className="flex min-h-[420px] flex-1 flex-col items-center justify-center px-6 py-16 text-center">
+      <div className="mark-study mb-8" aria-hidden="true">
+        <span className="mark-study__frame" />
+        <span className="mark-study__core" />
+        <SparkleIcon className="mark-study__spark" size={24} weight="regular" />
       </div>
-
-      {/* Divider line + handle */}
-      <div className="divider">
-        <div className="divider-handle">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M4 2L1 7L4 12" stroke="#0a0a0c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M10 2L13 7L10 12" stroke="#0a0a0c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Labels */}
-      <span className="absolute top-3 left-3 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-black/60 text-[var(--color-text-muted)]">
-        Before
-      </span>
-      <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-black/60 text-[var(--color-accent)]">
-        After
-      </span>
+      <p className="mb-2 text-sm font-semibold text-[var(--ink)]">Your comparison appears here</p>
+      <p className="max-w-[36ch] text-sm leading-6 text-[var(--ink-muted)]">
+        Add an image, run the cleaner, then drag across the result to inspect every repaired edge.
+      </p>
     </div>
   );
 }
 
-/* ─── Status Dot ─── */
-function StatusDot({ status }: { status: string }) {
-  const color =
-    status === "cleaned" ? "bg-[var(--color-success)]" :
-    status === "no_watermark" ? "bg-[var(--color-warn)]" :
-    "bg-[var(--color-error)]";
-  return <div className={`w-1.5 h-1.5 rounded-full ${color}`} />;
+function ProcessingWorkbench({ count }: { count: number }) {
+  return (
+    <div className="flex min-h-[420px] flex-1 flex-col p-5 sm:p-8" role="status" aria-live="polite">
+      <div className="skeleton-preview flex-1 rounded-[1.75rem]" />
+      <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+        <div>
+          <div className="skeleton-line h-3 w-28 rounded-full" />
+          <div className="skeleton-line mt-3 h-2.5 w-52 max-w-full rounded-full" />
+        </div>
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-faint)]">
+          Processing {count} {count === 1 ? "image" : "images"}
+        </span>
+      </div>
+    </div>
+  );
 }
 
-/* ─── App ─── */
 export default function App() {
   const [images, setImages] = useState<ImageEntry[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [dragActive, setDragActive] = useState(false);
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const imagesRef = useRef<ImageEntry[]>([]);
 
-  const hasResults = images.some((img) => img.result);
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
 
-  const addFiles = useCallback((fileList: FileList | File[]) => {
-    const newEntries: ImageEntry[] = Array.from(fileList)
-      .filter((f) => f.type.startsWith("image/"))
-      .map((f) => ({ file: f, preview: URL.createObjectURL(f) }));
-    setImages((prev) => [...prev, ...newEntries]);
+  useEffect(() => {
+    return () => {
+      imagesRef.current.forEach((entry) => URL.revokeObjectURL(entry.preview));
+    };
   }, []);
 
-  const removeImage = (idx: number) => {
-    setImages((prev) => {
-      URL.revokeObjectURL(prev[idx].preview);
-      if (prev[idx].cleanPreview) URL.revokeObjectURL(prev[idx].cleanPreview!);
-      return prev.filter((_, i) => i !== idx);
+  const addFiles = useCallback((fileList: FileList | File[]) => {
+    const incoming = Array.from(fileList);
+    const valid = incoming.filter(
+      (file) => file.type.startsWith("image/") || acceptedExtensions.test(file.name),
+    );
+
+    if (valid.length !== incoming.length) {
+      setMessage("Some files were skipped. Use PNG, JPEG, or WebP images.");
+    } else {
+      setMessage(null);
+    }
+
+    setImages((current) => {
+      const known = new Set(
+        current.map((entry) => `${entry.file.name}:${entry.file.size}:${entry.file.lastModified}`),
+      );
+      const next = valid
+        .filter((file) => !known.has(`${file.name}:${file.size}:${file.lastModified}`))
+        .map((file) => ({
+          id: crypto.randomUUID(),
+          file,
+          preview: URL.createObjectURL(file),
+        }));
+
+      if (!selectedId && next[0]) setSelectedId(next[0].id);
+      return [...current, ...next];
     });
-    if (selectedIdx === idx) setSelectedIdx(null);
-    else if (selectedIdx !== null && selectedIdx > idx) setSelectedIdx(selectedIdx - 1);
+  }, [selectedId]);
+
+  const removeImage = (id: string) => {
+    const index = images.findIndex((entry) => entry.id === id);
+    const target = images[index];
+    if (!target) return;
+    URL.revokeObjectURL(target.preview);
+    const next = images.filter((entry) => entry.id !== id);
+    setImages(next);
+    if (selectedId === id) {
+      setSelectedId(next[Math.min(index, Math.max(0, next.length - 1))]?.id || null);
+    }
+  };
+
+  const clearAll = () => {
+    images.forEach((entry) => URL.revokeObjectURL(entry.preview));
+    setImages([]);
+    setSelectedId(null);
+    setMessage(null);
   };
 
   const processAll = async () => {
-    if (images.length === 0) return;
+    if (!images.length || processing) return;
     setProcessing(true);
-    setProgress({ current: 0, total: images.length });
+    setMessage(null);
 
+    const snapshot = images;
     const formData = new FormData();
-    images.forEach((img) => formData.append("files", img.file));
+    snapshot.forEach((entry) => formData.append("files", entry.file));
 
     try {
-      const res = await fetch("/api/remove", { method: "POST", body: formData });
-      const data = await res.json();
+      const response = await fetch("/api/remove", { method: "POST", body: formData });
+      if (!response.ok) throw new Error(`Server returned ${response.status}.`);
+      const payload = (await response.json()) as { results?: Partial<ProcessResult>[] };
+      if (!Array.isArray(payload.results)) throw new Error("The server response did not include results.");
 
-      setImages((prev) =>
-        prev.map((img, i) => {
-          const r = data.results[i] as ProcessResult;
-          return {
-            ...img,
-            result: r,
-            cleanPreview: r.download_url || undefined,
-          };
-        })
+      const byId = new Map(
+        snapshot.map((entry, index) => [entry.id, normalizeResult(payload.results?.[index], entry.file)]),
       );
-      setProgress({ current: images.length, total: images.length });
+      setImages((current) =>
+        current.map((entry) => ({ ...entry, result: byId.get(entry.id) || entry.result })),
+      );
 
-      // Auto-select first cleaned result
-      const firstCleaned = (data.results as ProcessResult[]).findIndex(
-        (r) => r.status === "cleaned"
-      );
-      if (firstCleaned >= 0) setSelectedIdx(firstCleaned);
-    } catch {
-      setImages((prev) =>
-        prev.map((img) => ({
-          ...img,
-          result: {
-            filename: img.file.name,
-            status: "error" as const,
-            watermarks_found: 0,
-            download_url: null,
-            error: "Connection failed",
-          },
-        }))
+      const firstCleaned = snapshot.find((entry) => byId.get(entry.id)?.status === "cleaned");
+      if (firstCleaned) setSelectedId(firstCleaned.id);
+
+      const failed = [...byId.values()].filter((result) => result.status === "error").length;
+      if (failed) setMessage(`${failed} ${failed === 1 ? "image needs" : "images need"} attention.`);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "Connection failed.";
+      setMessage(`Could not finish the batch. ${detail}`);
+      const failedIds = new Set(snapshot.map((entry) => entry.id));
+      setImages((current) =>
+        current.map((entry) =>
+          failedIds.has(entry.id)
+            ? {
+                ...entry,
+                result: {
+                  filename: entry.file.name,
+                  status: "error",
+                  watermarks_found: 0,
+                  download_url: null,
+                  error: detail,
+                },
+              }
+            : entry,
+        ),
       );
     } finally {
       setProcessing(false);
     }
   };
 
-  const clearAll = () => {
-    images.forEach((img) => {
-      URL.revokeObjectURL(img.preview);
-      if (img.cleanPreview) URL.revokeObjectURL(img.cleanPreview);
-    });
-    setImages([]);
-    setSelectedIdx(null);
-  };
-
+  const selected = images.find((entry) => entry.id === selectedId) || images[0] || null;
   const stats = {
-    cleaned: images.filter((i) => i.result?.status === "cleaned").length,
-    skipped: images.filter((i) => i.result?.status === "no_watermark").length,
-    errors: images.filter((i) => i.result?.status === "error").length,
+    cleaned: images.filter((entry) => entry.result?.status === "cleaned").length,
+    untouched: images.filter((entry) => entry.result?.status === "no_watermark").length,
+    failed: images.filter((entry) => entry.result?.status === "error").length,
   };
-
-  const selected = selectedIdx !== null ? images[selectedIdx] : null;
+  const hasResults = images.some((entry) => entry.result);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-bg)" }}>
-      {/* ── Header ── */}
-      <header
-        className="shrink-0 flex items-center justify-between px-5 h-12"
-        style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
-      >
-        <div className="flex items-center gap-2.5">
-          {/* Logo mark: rotated square = diamond, nods to "remove mark" */}
-          <div
-            className="w-5 h-5 rotate-45 rounded-[3px]"
-            style={{ background: "var(--color-accent)" }}
-          />
-          <span className="text-sm font-semibold tracking-tight" style={{ color: "var(--color-text)" }}>
-            OpenNoMark
-          </span>
-          <span
-            className="text-[10px] font-mono px-1.5 py-0.5 rounded ml-1"
-            style={{ background: "var(--color-surface-raised)", color: "var(--color-text-dim)" }}
-          >
-            v0.1.0
-          </span>
-        </div>
+    <div className="app-shell min-h-[100dvh] bg-[var(--canvas)] text-[var(--ink)]">
+      <header className="border-b border-[var(--line)]">
+        <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-10">
+          <a href="/" className="group flex items-center gap-3" aria-label="OpenNoMark home">
+            <span className="brand-mark" aria-hidden="true"><span /></span>
+            <span>
+              <span className="block text-sm font-semibold tracking-[-0.02em]">OpenNoMark</span>
+              <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+                Local image repair
+              </span>
+            </span>
+          </a>
 
-        <div className="flex items-center gap-3">
-          {images.length > 0 && (
-            <button
-              onClick={clearAll}
-              className="text-xs px-3 py-1.5 rounded-md transition-colors"
-              style={{ color: "var(--color-text-muted)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-surface-hover)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          <div className="flex items-center gap-3 sm:gap-6">
+            <span className="hidden items-center gap-2 text-xs text-[var(--ink-muted)] sm:flex">
+              <ShieldCheckIcon size={16} weight="regular" className="text-[var(--accent)]" />
+              Files stay on this server
+            </span>
+            <a
+              href="https://github.com/NanmiCoder/OpenNoMark"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[var(--line)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--ink)]"
             >
-              Clear all
-            </button>
-          )}
-          {images.length > 0 && !processing && (
-            <button
-              onClick={processAll}
-              className="text-xs font-medium px-4 py-1.5 rounded-md transition-all"
-              style={{
-                background: "var(--color-accent)",
-                color: "var(--color-bg)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-            >
-              Remove watermarks ({images.length})
-            </button>
-          )}
+              Source
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* ── Main ── */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* ── Left panel: image list ── */}
-        <aside
-          className="w-64 shrink-0 flex flex-col overflow-y-auto"
-          style={{ borderRight: "1px solid var(--color-border-subtle)", background: "var(--color-surface)" }}
-        >
-          {/* Upload trigger */}
-          <div className="p-3">
-            <label
-              className={`flex flex-col items-center justify-center gap-1.5 p-4 rounded-lg cursor-pointer transition-all ${
-                dragActive ? "upload-zone-active" : ""
-              }`}
-              style={{
-                border: `1.5px dashed ${dragActive ? "var(--color-accent)" : "var(--color-border)"}`,
-                background: dragActive ? "var(--color-accent-muted)" : "transparent",
+      <main className="mx-auto grid w-full max-w-[1400px] gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-[minmax(300px,0.72fr)_minmax(0,1.45fr)] lg:gap-14 lg:px-10 lg:py-16">
+        <section className="min-w-0">
+          <div className="max-w-[560px]">
+            <p className="mb-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">
+              <span className="h-px w-8 bg-[var(--accent)]" />
+              Precision, not a blur brush
+            </p>
+            <h1 className="max-w-[11ch] text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-5xl lg:text-6xl">
+              Remove the mark. Keep the image.
+            </h1>
+            <p className="mt-6 max-w-[52ch] text-base leading-7 text-[var(--ink-muted)]">
+              Purpose-built Gemini detection finds the sparkle by layout and edge shape. Local LaMa repair rebuilds only the marked pixels.
+            </p>
+          </div>
+
+          <label
+            className={`upload-surface mt-9 block cursor-pointer rounded-[1.75rem] border p-5 transition-colors duration-300 sm:p-6 ${
+              dragActive ? "border-[var(--accent)] bg-[var(--accent-soft)]" : "border-[var(--line-strong)] bg-[var(--paper)]"
+            } ${processing ? "pointer-events-none opacity-55" : ""}`}
+            onDragOver={(event) => { event.preventDefault(); setDragActive(true); }}
+            onDragLeave={() => setDragActive(false)}
+            onDrop={(event) => {
+              event.preventDefault();
+              setDragActive(false);
+              addFiles(event.dataTransfer.files);
+            }}
+          >
+            <input
+              type="file"
+              multiple
+              accept="image/png,image/jpeg,image/webp"
+              className="sr-only"
+              disabled={processing}
+              onChange={(event) => {
+                if (event.target.files) addFiles(event.target.files);
+                event.currentTarget.value = "";
               }}
-              onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
-              onDragLeave={() => setDragActive(false)}
-              onDrop={(e) => { e.preventDefault(); setDragActive(false); addFiles(e.dataTransfer.files); }}
-            >
-              <input
-                type="file"
-                multiple
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => e.target.files && addFiles(e.target.files)}
-              />
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ color: "var(--color-text-dim)" }}>
-                <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-              <span className="text-[11px]" style={{ color: "var(--color-text-dim)" }}>
-                Drop or click
+            />
+            <span className="flex items-start justify-between gap-6">
+              <span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--canvas)] text-[var(--accent)]">
+                  <UploadSimpleIcon size={20} weight="regular" />
+                </span>
+                <span className="mt-8 block text-base font-semibold tracking-[-0.02em]">
+                  Drop images here
+                </span>
+                <span className="mt-1 block text-sm leading-6 text-[var(--ink-muted)]">
+                  or click to choose PNG, JPEG, and WebP files
+                </span>
               </span>
-            </label>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-faint)]">
+                Batch ready
+              </span>
+            </span>
+          </label>
+
+          {message && (
+            <div className="mt-4 flex items-start gap-2.5 border-l-2 border-[var(--danger)] py-1 pl-3 text-sm leading-6 text-[var(--ink-muted)]" role="alert">
+              <WarningCircleIcon size={17} weight="fill" className="mt-1 shrink-0 text-[var(--danger)]" />
+              <span>{message}</span>
+            </div>
+          )}
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <MagneticButton onClick={processAll} disabled={!images.length || processing}>
+              {processing ? "Repairing images" : hasResults ? "Run batch again" : "Remove watermarks"}
+              {processing ? <SparkleIcon size={16} weight="regular" /> : <ArrowRightIcon size={16} weight="bold" />}
+            </MagneticButton>
+            {images.length > 0 && (
+              <MagneticButton onClick={clearAll} disabled={processing} variant="quiet">
+                <TrashIcon size={16} weight="regular" />
+                Clear batch
+              </MagneticButton>
+            )}
           </div>
 
-          {/* Image list */}
-          <div className="flex-1 px-3 pb-3 space-y-1">
-            {images.map((img, i) => (
-              <div
-                key={i}
-                onClick={() => setSelectedIdx(i)}
-                className="stagger-item group flex items-center gap-2.5 p-1.5 rounded-lg cursor-pointer transition-colors"
-                style={{
-                  animationDelay: `${i * 40}ms`,
-                  background: selectedIdx === i ? "var(--color-surface-hover)" : "transparent",
-                  border: selectedIdx === i ? "1px solid var(--color-border)" : "1px solid transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (selectedIdx !== i) e.currentTarget.style.background = "var(--color-surface-raised)";
-                }}
-                onMouseLeave={(e) => {
-                  if (selectedIdx !== i) e.currentTarget.style.background = "transparent";
-                }}
-              >
-                <img
-                  src={img.preview}
-                  alt=""
-                  className="w-9 h-9 rounded object-cover shrink-0"
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] truncate" style={{ color: "var(--color-text)" }}>
-                    {img.file.name}
-                  </p>
-                  {img.result && (
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <StatusDot status={img.result.status} />
-                      <span className="text-[10px]" style={{ color: "var(--color-text-dim)" }}>
-                        {img.result.status === "cleaned"
-                          ? `${img.result.watermarks_found} removed`
-                          : img.result.status === "no_watermark"
-                          ? "None found"
-                          : "Error"}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <button
-                  onClick={(e) => { e.stopPropagation(); removeImage(i); }}
-                  className="opacity-0 group-hover:opacity-100 w-5 h-5 rounded flex items-center justify-center transition-opacity"
-                  style={{ color: "var(--color-text-dim)" }}
-                  aria-label="Remove image"
-                >
-                  <svg width="10" height="10" viewBox="0 0 10 10">
-                    <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                  </svg>
-                </button>
+          <div className="mt-12 border-t border-[var(--line)] pt-5">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">Queue</p>
+                <p className="mt-1 text-sm text-[var(--ink-muted)]">
+                  {images.length ? `${images.length} ${images.length === 1 ? "image" : "images"}` : "No images added"}
+                </p>
               </div>
-            ))}
-          </div>
-
-          {/* Stats bar */}
-          {hasResults && (
-            <div
-              className="shrink-0 px-4 py-2.5 flex gap-4 text-[10px] font-mono"
-              style={{ borderTop: "1px solid var(--color-border-subtle)" }}
-            >
-              <span style={{ color: "var(--color-success)" }}>{stats.cleaned} cleaned</span>
-              <span style={{ color: "var(--color-warn)" }}>{stats.skipped} skipped</span>
-              {stats.errors > 0 && (
-                <span style={{ color: "var(--color-error)" }}>{stats.errors} failed</span>
+              {hasResults && (
+                <div className="flex gap-3 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--ink-faint)]">
+                  <span>{stats.cleaned} clean</span>
+                  <span>{stats.untouched} unchanged</span>
+                  {stats.failed > 0 && <span className="text-[var(--danger)]">{stats.failed} failed</span>}
+                </div>
               )}
             </div>
-          )}
-        </aside>
 
-        {/* ── Center: preview ── */}
-        <main className="flex-1 flex items-center justify-center p-6 overflow-auto">
-          {processing && (
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-48 h-1 rounded-full overflow-hidden" style={{ background: "var(--color-surface-raised)" }}>
-                <div
-                  className="h-full rounded-full progress-bar-active transition-all duration-500"
-                  style={{
-                    background: "var(--color-accent)",
-                    width: `${progress.total > 0 ? (progress.current / progress.total) * 100 : 0}%`,
-                  }}
-                />
-              </div>
-              <span className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
-                Processing {images.length} images...
-              </span>
-            </div>
-          )}
-
-          {!processing && !selected && images.length === 0 && (
-            <div className="text-center max-w-xs">
-              <div
-                className="w-16 h-16 mx-auto mb-5 rounded-2xl rotate-45 flex items-center justify-center"
-                style={{ background: "var(--color-surface-raised)", border: "1px solid var(--color-border)" }}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="-rotate-45">
-                  <path d="M21 15V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V15" stroke="var(--color-text-dim)" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M12 3V15M12 3L8 7M12 3L16 7" stroke="var(--color-text-dim)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <p className="text-sm mb-1" style={{ color: "var(--color-text-muted)" }}>
-                Drop images to get started
-              </p>
-              <p className="text-xs" style={{ color: "var(--color-text-dim)" }}>
-                Supports Gemini, Doubao, DALL-E watermarks
-              </p>
-            </div>
-          )}
-
-          {!processing && !selected && images.length > 0 && (
-            <div className="text-center">
-              <p className="text-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
-                {images.length} image{images.length > 1 ? "s" : ""} ready
-              </p>
+            {images.length === 0 ? (
               <button
-                onClick={processAll}
-                className="text-sm font-medium px-6 py-2.5 rounded-lg transition-all"
-                style={{ background: "var(--color-accent)", color: "var(--color-bg)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                type="button"
+                className="mt-5 flex w-full items-center gap-3 border-y border-dashed border-[var(--line)] py-5 text-left text-sm text-[var(--ink-faint)]"
+                onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
               >
-                Remove watermarks
+                <PlusIcon size={17} weight="regular" />
+                Add your first image to start a batch
               </button>
-            </div>
-          )}
-
-          {!processing && selected && (
-            <div className="w-full max-w-2xl">
-              {selected.result?.status === "cleaned" && selected.cleanPreview ? (
-                <CompareSlider before={selected.preview} after={selected.cleanPreview} />
-              ) : (
-                <img
-                  src={selected.preview}
-                  alt={selected.file.name}
-                  className="w-full rounded-lg"
-                />
-              )}
-
-              {/* Image info bar */}
-              <div
-                className="flex items-center justify-between mt-3 px-1 text-[11px] font-mono"
-                style={{ color: "var(--color-text-dim)" }}
-              >
-                <span>{selected.file.name}</span>
-                <div className="flex items-center gap-3">
-                  <span>{(selected.file.size / 1024).toFixed(0)} KB</span>
-                  {selected.result?.status === "cleaned" && selected.result.download_url && (
-                    <a
-                      href={selected.result.download_url}
-                      className="px-2.5 py-1 rounded transition-colors"
-                      style={{
-                        background: "var(--color-accent-muted)",
-                        color: "var(--color-accent)",
-                        border: "1px solid var(--color-accent-border)",
-                      }}
+            ) : (
+              <div className="mt-3 divide-y divide-[var(--line)] border-b border-[var(--line)]">
+                {images.map((entry, index) => (
+                  <div
+                    key={entry.id}
+                    className="queue-item grid grid-cols-[1fr_auto] items-center gap-2 py-2.5"
+                    style={{ "--delay": `${index * 55}ms` } as CSSProperties}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setSelectedId(entry.id)}
+                      className={`grid min-w-0 grid-cols-[44px_1fr] items-center gap-3 rounded-xl p-1.5 text-left transition-colors ${
+                        selected?.id === entry.id ? "bg-[var(--paper)]" : "hover:bg-[var(--paper)]"
+                      }`}
+                      aria-pressed={selected?.id === entry.id}
                     >
-                      Download
-                    </a>
+                      <img src={entry.preview} alt="" className="h-11 w-11 rounded-lg object-cover" />
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-medium tracking-[-0.01em]">{entry.file.name}</span>
+                        <span className="mt-1 flex items-center gap-2">
+                          <QueueStatus result={entry.result} />
+                          <span className="text-[10px] text-[var(--ink-faint)]">{formatBytes(entry.file.size)}</span>
+                        </span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeImage(entry.id)}
+                      disabled={processing}
+                      className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--ink-faint)] transition-colors hover:bg-[var(--danger-soft)] hover:text-[var(--danger)] disabled:opacity-35"
+                      aria-label={`Remove ${entry.file.name}`}
+                    >
+                      <TrashIcon size={16} weight="regular" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="workbench-frame min-w-0 self-start overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--paper)] shadow-[0_32px_80px_-48px_rgba(44,51,47,0.48)] lg:sticky lg:top-8">
+          <div className="flex min-h-[64px] items-center justify-between gap-4 border-b border-[var(--line)] px-5 py-3 sm:px-7">
+            <div className="min-w-0">
+              <p className="font-mono text-[9px] uppercase tracking-[0.17em] text-[var(--ink-faint)]">Inspection desk</p>
+              <p className="mt-1 truncate text-sm font-medium">{selected?.file.name || "No image selected"}</p>
+            </div>
+            <span className="flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--ink-faint)]">
+              <span className={`h-1.5 w-1.5 rounded-full ${processing ? "status-breathe bg-[var(--warning)]" : "bg-[var(--accent)]"}`} />
+              {processing ? "Working" : "Ready"}
+            </span>
+          </div>
+
+          {processing ? (
+            <ProcessingWorkbench count={images.length} />
+          ) : !selected ? (
+            <EmptyWorkbench />
+          ) : (
+            <div className="p-4 sm:p-6 lg:p-7">
+              {selected.result?.status === "cleaned" && selected.result.download_url ? (
+                <CompareSlider
+                  before={selected.preview}
+                  after={selected.result.download_url}
+                  filename={selected.file.name}
+                />
+              ) : (
+                <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[1.75rem] bg-[var(--paper-deep)] p-3 sm:min-h-[460px]">
+                  <img
+                    src={selected.preview}
+                    alt={selected.file.name}
+                    className="max-h-[62vh] w-full rounded-2xl object-contain"
+                  />
+                  {!selected.result && (
+                    <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-[rgba(34,34,31,0.72)] px-3 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-white backdrop-blur-md">
+                      Awaiting repair
+                    </span>
                   )}
                 </div>
+              )}
+
+              <div className="mt-6 grid gap-5 border-t border-[var(--line)] pt-5 sm:grid-cols-[1fr_auto] sm:items-center">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    {selected.result ? (
+                      <StatusMark status={selected.result.status} />
+                    ) : (
+                      <ImageSquareIcon size={16} weight="regular" className="text-[var(--ink-faint)]" />
+                    )}
+                    <p className="text-sm font-semibold">
+                      {!selected.result
+                        ? "Ready for processing"
+                        : selected.result.status === "cleaned"
+                          ? "Watermark removed"
+                          : selected.result.status === "no_watermark"
+                            ? "No watermark detected"
+                            : "Processing failed"}
+                    </p>
+                  </div>
+                  <p className="mt-1 truncate text-xs leading-5 text-[var(--ink-muted)]">
+                    {selected.result?.error || `${formatBytes(selected.file.size)} · Original preserved`}
+                  </p>
+                </div>
+
+                {selected.result?.status === "cleaned" && selected.result.download_url ? (
+                  <MagneticButton
+                    variant="secondary"
+                    onClick={() => window.location.assign(selected.result?.download_url || "")}
+                  >
+                    <DownloadSimpleIcon size={16} weight="regular" />
+                    Download
+                  </MagneticButton>
+                ) : selected.result?.status === "error" ? (
+                  <MagneticButton variant="secondary" onClick={processAll}>
+                    <ArrowClockwiseIcon size={16} weight="regular" />
+                    Retry batch
+                  </MagneticButton>
+                ) : (
+                  <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.13em] text-[var(--ink-faint)]">
+                    <ImagesIcon size={15} weight="regular" />
+                    Batch-safe output
+                  </span>
+                )}
               </div>
             </div>
           )}
-        </main>
-      </div>
+        </section>
+      </main>
+
+      <footer className="mx-auto flex w-full max-w-[1400px] flex-col gap-3 border-t border-[var(--line)] px-4 py-6 text-xs text-[var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-10">
+        <span>Gemini catalog detection · OWLv2 fallback · Local LaMa repair</span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.14em]">Open source · v0.2.0</span>
+      </footer>
     </div>
   );
 }

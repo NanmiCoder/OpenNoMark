@@ -26,6 +26,11 @@ class TestCLI:
         assert "watermark" in result.stdout.lower()
         assert "inputs" in result.stdout
 
+    def test_version(self):
+        result = self.run_cli("--version")
+        assert result.returncode == 0
+        assert result.stdout.strip() == "opennomark 0.2.0"
+
     def test_no_args_fails(self):
         result = self.run_cli()
         assert result.returncode != 0
@@ -34,6 +39,13 @@ class TestCLI:
         result = self.run_cli("/nonexistent/path.png", "-o", "/tmp/test_out")
         assert result.returncode != 0
         assert "No valid images" in result.stderr
+
+    def test_nonexistent_input_json(self):
+        result = self.run_cli("/nonexistent/path.png", "--json")
+        assert result.returncode == 1
+        payload = __import__("json").loads(result.stdout)
+        assert payload["status"] == "error"
+        assert payload["results"] == []
 
     def test_single_file(self, sample_image, output_dir):
         result = self.run_cli(sample_image, "-o", output_dir)

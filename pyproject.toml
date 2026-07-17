@@ -1,7 +1,9 @@
 [project]
 name = "opennomark"
-version = "0.1.0"
-description = "AI watermark detection and removal"
+version = "0.2.0"
+description = "Remove visible watermarks from AI-generated images"
+readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
 dependencies = [
     "torch",
@@ -18,6 +20,11 @@ dev = ["pytest"]
 
 [project.scripts]
 opennomark = "opennomark.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/NanmiCoder/OpenNoMark"
+Repository = "https://github.com/NanmiCoder/OpenNoMark"
+Issues = "https://github.com/NanmiCoder/OpenNoMark/issues"
 
 [build-system]
 requires = ["hatchling"]

@@ -58,6 +58,13 @@ pip install -e .
 pip install -e ".[api]"     # + Web UI / API
 ```
 
+Install only the CLI from GitHub without cloning the repository:
+
+```bash
+uv tool install git+https://github.com/NanmiCoder/OpenNoMark.git
+opennomark --version
+```
+
 Models are auto-downloaded on first run:
 - OWLv2 (~500MB, HuggingFace)
 - LaMa (~196MB, GitHub Release)
@@ -79,7 +86,29 @@ uv run opennomark gemini_images/ doubao_images/ -o output/
 
 # With debug output (saves detection boxes and masks)
 uv run opennomark ./images/ -o output/ --debug
+
+# Machine-readable output for agents and scripts
+uv run opennomark ./images/ -o output/ --json
 ```
+
+### Agent Skill
+
+OpenNoMark ships as a standard cross-agent Skill discovered by the latest
+[`skills`](https://github.com/vercel-labs/skills) CLI. Install it through NPM for Codex,
+Claude Code, Cursor, OpenCode, and other supported agents:
+
+```bash
+# Let the installer detect your agents
+npx skills add NanmiCoder/OpenNoMark --skill opennomark
+
+# Non-interactive global install for selected agents
+npx skills add NanmiCoder/OpenNoMark --skill opennomark -g \
+  -a codex -a claude-code -a cursor -y
+```
+
+The Skill is intentionally a thin, portable instruction layer. It invokes the
+versioned Python CLI directly or through `uvx`, so the image pipeline has one
+implementation across every agent.
 
 ### Web UI
 
@@ -142,7 +171,7 @@ OpenNoMark/
 │   └── src/App.tsx          # Main UI (drag-and-drop + before/after preview)
 ├── scripts/
 │   └── train_gemini_detector.py # Data-driven Gemini detector calibration
-├── tests/                   # Test suite (47 cases)
+├── tests/                   # Test suite (51 cases)
 │   ├── test_gemini_alpha.py # Gemini layouts + many_images regression
 │   ├── test_detector.py     # Detector unit tests
 │   ├── test_inpainter.py    # Inpainter unit tests
@@ -150,8 +179,10 @@ OpenNoMark/
 │   ├── test_cli.py          # CLI integration tests
 │   ├── test_api.py          # FastAPI tests
 │   └── test_skill.py        # Skill format validation
-├── skill/                   # Claude Code Skill
-│   └── opennomark.md
+├── skills/                  # Cross-agent Skills (vercel-labs/skills layout)
+│   └── opennomark/
+│       ├── SKILL.md
+│       └── agents/openai.yaml
 ├── examples/                # Sample images (with-watermark originals)
 │   ├── gemini/              # Google Gemini samples
 │   └── doubao/              # Doubao samples
@@ -202,7 +233,7 @@ LaMa's TorchScript checkpoint is CUDA-serialized. It's deserialized with `map_lo
 # Install dev dependencies
 uv sync --extra dev
 
-# Run all 47 tests
+# Run all 51 tests
 uv run pytest tests/ -v
 
 # Unit tests only

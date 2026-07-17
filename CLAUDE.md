@@ -23,7 +23,7 @@ cd frontend && npm install && npm run dev      # dev server on :48292
 cd frontend && npm run build                   # builds to frontend/dist (auto-served by api.py if present)
 cd frontend && npm run lint
 
-# Tests (47 cases)
+# Tests (51 cases)
 uv run pytest tests/ -v
 uv run pytest tests/test_pipeline.py -v                     # single file
 uv run pytest tests/test_pipeline.py::test_name -v          # single test
@@ -91,7 +91,7 @@ Pipeline does **not** cache models across invocations when used via CLI, but `ap
 
 - `opennomark/assets/` — Gemini alpha maps plus trained detector thresholds; retrain and run the `many_images` regression when changing them.
 - `scripts/train_gemini_detector.py` — calibration entry point for real Gemini samples and hard negatives.
+- `skills/opennomark/` — portable Agent Skill discovered by `npx skills add NanmiCoder/OpenNoMark`; keep it free of machine-specific paths.
 - `examples/` — small canonical before/after samples used in the README.
 - `experiments/` — ablation scripts (`exp_decision.py`, `exp_gain_sweep.py`, `exp_linear_light.py`, `exp_mask_shape.py`, `exp_posterior.py`) that justify the current threshold constants. Consult these before tuning Stage 1 thresholds or mask parameters.
 - `gemini_images/`, `豆包/`, `verify/` — larger real-image test sets used by fixtures; not required for unit tests.
-- `skill/opennomark.md` — Claude Code skill file; `tests/test_skill.py` validates its frontmatter format.

@@ -1,10 +1,11 @@
-"""Tests for Claude Code skill file format."""
+"""Tests for the cross-agent Agent Skill package."""
 
 import os
 import pytest
 
 
-SKILL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "skill", "opennomark.md")
+SKILL_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "skills", "opennomark")
+SKILL_PATH = os.path.join(SKILL_DIR, "SKILL.md")
 
 
 class TestSkill:
@@ -57,3 +58,14 @@ class TestSkill:
             content = f.read()
         frontmatter = content.split("---")[1]
         assert "opennomark" in frontmatter, "Skill name should be 'opennomark'"
+
+    def test_uses_portable_cli_commands(self):
+        with open(SKILL_PATH) as f:
+            content = f.read()
+        assert "uvx --from git+https://github.com/NanmiCoder/OpenNoMark.git" in content
+        assert "--json" in content
+        assert "/Users/" not in content
+
+    def test_openai_interface_metadata_exists(self):
+        metadata_path = os.path.join(SKILL_DIR, "agents", "openai.yaml")
+        assert os.path.exists(metadata_path)
