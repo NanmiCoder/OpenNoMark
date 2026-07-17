@@ -28,19 +28,49 @@ class TestWatermarkDetector:
 
     def test_filter_keeps_corner_only(self, detector):
         boxes = [
-            {"box": [750, 1150, 790, 1190], "label": "icon", "score": 0.2},  # bottom-right corner
-            {"box": [300, 500, 500, 700], "label": "icon", "score": 0.3},    # center - should be filtered
-            {"box": [10, 10, 50, 50], "label": "logo", "score": 0.15},       # top-left corner
+            {"box": [650, 1150, 790, 1190], "label": "watermark", "score": 0.2},
+            {"box": [300, 500, 500, 560], "label": "watermark", "score": 0.3},
+            {"box": [10, 10, 160, 60], "label": "brand watermark", "score": 0.15},
         ]
         filtered = detector.filter_watermarks(boxes, 800, 1200)
-        # Center box should be removed, corner boxes kept
-        centers = [(((b["box"][0]+b["box"][2])/2), ((b["box"][1]+b["box"][3])/2)) for b in filtered]
-        for cx, cy in centers:
-            assert (cx < 800 * 0.15 or cx > 800 * 0.85) and (cy < 1200 * 0.15 or cy > 1200 * 0.85)
+        # The strongest trusted corner proposal wins; the center is rejected.
+        assert len(filtered) == 1
+        assert filtered[0]["box"] == [650.0, 1150.0, 790.0, 1190.0]
+
+    def test_filter_rejects_untrusted_corner_objects(self, detector):
+        boxes = [
+            {"box": [650, 20, 790, 70], "label": "badge", "score": 0.9},
+            {"box": [650, 1130, 790, 1180], "label": "icon", "score": 0.8},
+        ]
+        assert detector.filter_watermarks(boxes, 800, 1200) == []
+
+    def test_dedup_uses_supported_full_text_box_not_low_score_oversize(self, detector):
+        boxes = [
+            {
+                "box": [718, 1207, 935, 1250],
+                "label": "brand watermark",
+                "score": 0.38,
+            },
+            {
+                "box": [703, 1206, 942, 1265],
+                "label": "brand watermark",
+                "score": 0.24,
+            },
+            {
+                "box": [697, 1152, 901, 1278],
+                "label": "brand watermark",
+                "score": 0.03,
+            },
+        ]
+
+        filtered = detector.filter_watermarks(boxes, 960, 1280)
+
+        assert len(filtered) == 1
+        assert filtered[0]["box"] == [703.0, 1206.0, 942.0, 1265.0]
 
     def test_filter_rejects_large_boxes(self, detector):
         boxes = [
-            {"box": [0, 0, 600, 400], "label": "logo", "score": 0.5},  # too large
+            {"box": [0, 0, 600, 400], "label": "watermark", "score": 0.5},
         ]
         filtered = detector.filter_watermarks(boxes, 800, 1200)
         assert len(filtered) == 0
@@ -49,11 +79,16 @@ class TestWatermarkDetector:
         assert detector.filter_watermarks([], 800, 1200) == []
 
     def test_detect_real_gemini(self, detector, real_gemini_image):
-        """Test detection on a real Gemini image."""
+        """The unified localizer detects Gemini without a filename hint."""
+        from opennomark.localizer import WatermarkLocalizer
+
         image = Image.open(real_gemini_image).convert("RGB")
-        boxes = detector.detect(image)
-        filtered = detector.filter_watermarks(boxes, image.width, image.height)
-        assert len(filtered) >= 1, "Should detect at least 1 watermark in Gemini image"
+        regions, evidence = WatermarkLocalizer(
+            device="cpu", detector_factory=lambda: detector
+        ).localize(image)
+        assert len(regions) == 1
+        assert regions[0].source == "spatial_template"
+        assert evidence["accepted_regions"] == 1
 
     def test_detect_real_doubao(self, detector, real_doubao_image):
         """Test detection on a real Doubao image."""

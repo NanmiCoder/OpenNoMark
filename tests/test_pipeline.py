@@ -55,10 +55,7 @@ class TestPipeline:
             if r["status"] == "cleaned":
                 name = os.path.basename(r["input"])
                 assert os.path.exists(os.path.join(out, f"debug_{name}"))
-                # mask is only saved when OWLv2+LaMa ran (i.e. there were
-                # filtered boxes). Gemini-alpha-only cleaning skips mask.
-                if "owlv2_lama" in r.get("methods", []):
-                    assert os.path.exists(os.path.join(out, f"mask_{name}"))
+                assert os.path.exists(os.path.join(out, f"mask_{name}"))
 
     def test_e2e_gemini(self, pipeline, real_gemini_image, output_dir):
         """E2E: process a real Gemini image and verify watermark removal."""
@@ -66,8 +63,9 @@ class TestPipeline:
         result_img, meta = pipeline.process(real_gemini_image, out_path)
         assert meta["status"] == "cleaned"
         assert meta["watermarks_found"] >= 1
-        assert meta["methods"] == ["gemini_catalog_lama"]
-        assert meta["total_detections"] == 0, "Confirmed Gemini must bypass generic OWLv2"
+        assert meta["methods"] == ["spatial_template_local_lama"]
+        assert meta["total_detections"] == 1
+        assert meta["regions"][0]["source"] == "spatial_template"
         assert os.path.exists(out_path)
         # Verify output is a valid image
         check = Image.open(out_path)

@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "kind": "owlv2_semantic_edge_calibration",
+  "model": "google/owlv2-base-patch16-ensemble",
+  "query_thresholds": {
+    "watermark": 0.05,
+    "brand watermark": 0.03,
+    "logo": 0.05,
+    "icon": 0.05,
+    "symbol": 0.05,
+    "badge": 0.05,
+    "stamp": 0.05
+  },
+  "trusted_labels": [
+    "brand watermark",
+    "watermark"
+  ],
+  "geometry": {
+    "edge_ratio": 0.08,
+    "min_width_ratio": 0.03,
+    "max_width_ratio": 0.4,
+    "min_height_ratio": 0.01,
+    "max_height_ratio": 0.15,
+    "min_aspect_ratio": 1.5,
+    "top_edge_min_score": 0.15,
+    "max_area_ratio": 0.08,
+    "nms_iou": 0.35,
+    "containment_overlap": 0.75,
+    "max_regions": 1
+  },
+  "training": {
+    "dataset": "examples/doubao + examples/qwen",
+    "original_cases": 37,
+    "clean_negative_cases": 4,
+    "passed_cases": 37,
+    "failed_cases": 0,
+    "clean_false_positives": 0,
+    "grid_trials": 27,
+    "notes": "Provider labels and expected boxes are offline training data only; inference receives pixels only."
+  }
+}
