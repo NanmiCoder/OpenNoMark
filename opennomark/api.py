@@ -1,10 +1,12 @@
 """FastAPI backend for OpenNoMark."""
 
+import asyncio
 import os
 import re
 import uuid
 import shutil
 import tempfile
+import threading
 import zipfile
 from pathlib import Path
 
@@ -26,8 +28,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Lazy-loaded pipeline singleton
+# Lazy-loaded, shared pipeline. Model construction is guarded because request
+# inference runs in worker threads instead of blocking the ASGI event loop.
 _pipeline = None
+_pipeline_init_lock = threading.Lock()
+
+
+def _configured_concurrency() -> int:
+    """Choose a conservative device-aware inference limit."""
+    try:
+        import torch
+
+        default = 2 if torch.backends.mps.is_available() else 1
+    except ModuleNotFoundError:
+        # API-only tests can exercise routing with a stub pipeline. Real image
+        # processing still requires the project's core Torch dependency.
+        default = 1
+    configured = os.environ.get("OPENNOMARK_MAX_CONCURRENCY")
+    if configured is None:
+        return default
+    try:
+        return max(1, min(4, int(configured)))
+    except ValueError:
+        return default
+
+
+PROCESSING_CONCURRENCY = _configured_concurrency()
+_processing_slots = asyncio.Semaphore(PROCESSING_CONCURRENCY)
 UPLOAD_DIR = Path(tempfile.gettempdir()) / "opennomark_uploads"
 OUTPUT_DIR = Path(tempfile.gettempdir()) / "opennomark_outputs"
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -65,72 +92,96 @@ def _unique_archive_name(filename: str, suffix: str, used: set[str]) -> str:
     return candidate
 
 
+def _create_pipeline():
+    from .pipeline import WatermarkRemovalPipeline
+
+    pipeline = WatermarkRemovalPipeline()
+    # OWLv2 is otherwise lazy-loaded by WatermarkLocalizer. Warm it here while
+    # model initialization is still serialized so concurrent first requests do
+    # not race and allocate duplicate detector instances.
+    pipeline.localizer.detector
+    return pipeline
+
+
 def get_pipeline():
     global _pipeline
     if _pipeline is None:
-        from .pipeline import WatermarkRemovalPipeline
-        _pipeline = WatermarkRemovalPipeline()
+        with _pipeline_init_lock:
+            if _pipeline is None:
+                _pipeline = _create_pipeline()
     return _pipeline
+
+
+def _save_upload(upload: UploadFile, input_path: Path) -> None:
+    with open(input_path, "wb") as file:
+        shutil.copyfileobj(upload.file, file)
+
+
+async def _process_upload(upload: UploadFile, pipeline) -> dict:
+    if not upload.content_type or not upload.content_type.startswith("image/"):
+        return {"filename": upload.filename, "error": "Not an image file"}
+
+    job_id = uuid.uuid4().hex[:8]
+    ext = os.path.splitext(upload.filename or "image.png")[1] or ".png"
+    input_path = UPLOAD_DIR / f"{job_id}_input{ext}"
+    output_path = OUTPUT_DIR / f"{job_id}_clean{ext}"
+
+    try:
+        await asyncio.to_thread(_save_upload, upload, input_path)
+        async with _processing_slots:
+            _, meta = await asyncio.to_thread(
+                pipeline.process,
+                str(input_path),
+                str(output_path),
+            )
+        if meta["status"] == "partial":
+            return {
+                "filename": upload.filename,
+                "status": "error",
+                "watermarks_found": meta["watermarks_found"],
+                "download_url": None,
+                "error": "Residual watermark evidence remained after validation",
+            }
+        if meta["status"] == "no_watermark":
+            # An unchanged image is still a valid batch result. Keeping a copy
+            # in the output directory makes single and ZIP downloads consistent.
+            await asyncio.to_thread(shutil.copyfile, input_path, output_path)
+
+        return {
+            "filename": upload.filename,
+            "job_id": job_id,
+            "status": meta["status"],
+            "watermarks_found": meta["watermarks_found"],
+            "download_url": f"/api/download/{job_id}{ext}",
+        }
+    except Exception as exc:
+        return {
+            "filename": upload.filename,
+            "status": "error",
+            "watermarks_found": 0,
+            "download_url": None,
+            "error": str(exc),
+        }
+    finally:
+        input_path.unlink(missing_ok=True)
 
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "version": __version__}
+    return {
+        "status": "ok",
+        "version": __version__,
+        "max_concurrency": PROCESSING_CONCURRENCY,
+    }
 
 
 @app.post("/api/remove")
 async def remove_watermark(files: list[UploadFile] = File(...)):
-    """Remove watermarks from uploaded images."""
-    pipeline = get_pipeline()
-    results = []
-
-    for upload in files:
-        if not upload.content_type or not upload.content_type.startswith("image/"):
-            results.append({"filename": upload.filename, "error": "Not an image file"})
-            continue
-
-        # Save upload
-        job_id = uuid.uuid4().hex[:8]
-        ext = os.path.splitext(upload.filename or "image.png")[1] or ".png"
-        input_path = UPLOAD_DIR / f"{job_id}_input{ext}"
-        output_path = OUTPUT_DIR / f"{job_id}_clean{ext}"
-
-        with open(input_path, "wb") as f:
-            shutil.copyfileobj(upload.file, f)
-
-        try:
-            _, meta = pipeline.process(str(input_path), str(output_path))
-            if meta["status"] == "partial":
-                results.append({
-                    "filename": upload.filename,
-                    "status": "error",
-                    "watermarks_found": meta["watermarks_found"],
-                    "download_url": None,
-                    "error": "Residual watermark evidence remained after validation",
-                })
-                continue
-            if meta["status"] == "no_watermark":
-                # An unchanged image is still a valid batch result. Keeping a
-                # copy in the output directory makes single and ZIP downloads
-                # consistent for every successfully processed item.
-                shutil.copyfile(input_path, output_path)
-
-            results.append({
-                "filename": upload.filename,
-                "job_id": job_id,
-                "status": meta["status"],
-                "watermarks_found": meta["watermarks_found"],
-                "download_url": f"/api/download/{job_id}{ext}",
-            })
-        except Exception as exc:
-            results.append({
-                "filename": upload.filename,
-                "status": "error",
-                "watermarks_found": 0,
-                "download_url": None,
-                "error": str(exc),
-            })
-
+    """Remove watermarks with bounded, shared-model concurrency."""
+    pipeline = await asyncio.to_thread(get_pipeline)
+    results = await asyncio.gather(
+        *(_process_upload(upload, pipeline) for upload in files)
+    )
     return {"results": results}
 
 
