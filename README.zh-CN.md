@@ -176,6 +176,8 @@ OpenNoMark 将“水印在哪里”和“缺失内容如何重建”拆成两个
 
 LaMa 会先以 CPU 兼容方式反序列化，再移动到受支持设备。由于 TorchScript 图中部分算子无法在 MPS 上可靠运行，LaMa 的 MPS 请求会自动回退至 CPU。
 
+Web UI 使用有界批量并发，不会为每个 worker 重复加载模型。Apple Silicon 默认同时处理最多两张图片，使 MPS 检测与 CPU 修复能够重叠；CUDA 和纯 CPU 环境默认单路处理。启动 API 前设置 `OPENNOMARK_MAX_CONCURRENCY=1..4` 可以覆盖自动选择的并发上限。
+
 ## 数据集与验证
 
 仓库按生成器保存了真实来源图片。修改候选生成、评分、蒙版或修复逻辑时，应把这些目录作为回归语料：

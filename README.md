@@ -176,6 +176,8 @@ OpenNoMark separates **where the watermark is** from **how the missing content i
 
 LaMa is loaded through CPU-compatible deserialization before being moved to a supported target. Requests for LaMa on MPS fall back to CPU because its TorchScript graph includes operations not supported reliably by MPS.
 
+The Web UI uses bounded batch concurrency instead of loading a model per worker. Apple Silicon processes up to two images at once by default so MPS detection can overlap with CPU inpainting; CUDA and CPU-only environments default to one. Set `OPENNOMARK_MAX_CONCURRENCY=1..4` before starting the API to override the detected limit.
+
 ## Dataset and verification
 
 The repository keeps real source images grouped by generator. Treat these directories as a regression corpus when changing candidate generation, scoring, masks, or inpainting:

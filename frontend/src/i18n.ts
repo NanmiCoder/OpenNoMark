@@ -35,6 +35,7 @@ export interface Copy {
   batchInProgress: string;
   batchComplete: string;
   nowProcessing: (filename: string) => string;
+  nowProcessingMany: (count: number) => string;
   resultsReady: (count: number) => string;
   queue: string;
   imageCount: (count: number) => string;
@@ -128,6 +129,7 @@ const en: Copy = {
   batchInProgress: "Batch in progress",
   batchComplete: "Batch complete",
   nowProcessing: (filename) => `Now processing ${filename}`,
+  nowProcessingMany: (count) => `Processing ${count} images in parallel`,
   resultsReady: (count) => `${count} ${count === 1 ? "result" : "results"} ready to download`,
   queue: "Queue",
   imageCount: (count) => `${count} ${count === 1 ? "image" : "images"}`,
@@ -145,7 +147,7 @@ const en: Copy = {
   ready: "Ready",
   comparisonEmptyTitle: "Your comparison appears here",
   comparisonEmptyDescription: "Add an image, run the cleaner, then drag across the result to inspect every repaired edge.",
-  waitingPrevious: "Waiting for the previous image",
+  waitingPrevious: "Waiting for an available processing slot",
   uploadingOverlay: (progress) => `Uploading · ${progress}%`,
   rebuildingPixels: "Detecting and rebuilding marked pixels",
   working: "Working",
@@ -221,6 +223,7 @@ const zhCN: Copy = {
   batchInProgress: "批量处理中",
   batchComplete: "批量处理完成",
   nowProcessing: (filename) => `正在处理 ${filename}`,
+  nowProcessingMany: (count) => `正在并行处理 ${count} 张图片`,
   resultsReady: (count) => `${count} 个结果可下载`,
   queue: "图片列表",
   imageCount: (count) => `共 ${count} 张图片`,
@@ -238,7 +241,7 @@ const zhCN: Copy = {
   ready: "就绪",
   comparisonEmptyTitle: "处理前后对比将在这里显示",
   comparisonEmptyDescription: "添加图片并开始处理，完成后拖动分隔线即可检查每一处修复细节。",
-  waitingPrevious: "等待上一张图片处理完成",
+  waitingPrevious: "等待可用的处理通道",
   uploadingOverlay: (progress) => `上传中 · ${progress}%`,
   rebuildingPixels: "正在检测并重建水印区域",
   working: "处理中",

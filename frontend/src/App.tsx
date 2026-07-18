@@ -66,8 +66,14 @@ interface BatchProgress {
   total: number;
 }
 
+interface HealthResponse {
+  max_concurrency?: number;
+}
+
 const acceptedExtensions = /\.(png|jpe?g|webp)$/i;
 const activePhases = new Set<TaskPhase>(["queued", "uploading", "processing"]);
+const defaultBatchConcurrency = 2;
+const maximumBatchConcurrency = 4;
 
 class RequestFailure extends Error {
   code: UiErrorCode;
@@ -286,7 +292,8 @@ export default function App() {
   const [images, setImages] = useState<ImageEntry[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeIds, setActiveIds] = useState<Set<string>>(() => new Set());
+  const [batchConcurrency, setBatchConcurrency] = useState(defaultBatchConcurrency);
   const [batchProgress, setBatchProgress] = useState<BatchProgress>({ completed: 0, total: 0 });
   const [downloadingBatch, setDownloadingBatch] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -296,6 +303,22 @@ export default function App() {
   useEffect(() => {
     imagesRef.current = images;
   }, [images]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    void fetch("/api/health", { signal: controller.signal })
+      .then((response) => response.ok ? response.json() as Promise<HealthResponse> : null)
+      .then((health) => {
+        const configured = health?.max_concurrency;
+        if (!controller.signal.aborted && typeof configured === "number") {
+          setBatchConcurrency(
+            Math.max(1, Math.min(maximumBatchConcurrency, Math.floor(configured))),
+          );
+        }
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -364,6 +387,7 @@ export default function App() {
 
     const targetIds = new Set(targets.map((entry) => entry.id));
     setProcessing(true);
+    setActiveIds(new Set());
     setMessage(null);
     setBatchProgress({ completed: 0, total: targets.length });
     setSelectedId((current) => current || targets[0].id);
@@ -375,10 +399,12 @@ export default function App() {
       ),
     );
 
-    let failures = 0;
-    for (let index = 0; index < targets.length; index += 1) {
-      const target = targets[index];
-      setActiveId(target.id);
+    const processTarget = async (target: ImageEntry) => {
+      setActiveIds((current) => {
+        const next = new Set(current);
+        next.add(target.id);
+        return next;
+      });
       try {
         const result = await processImage(target, (phase, uploadProgress) => {
           setImages((current) =>
@@ -388,14 +414,13 @@ export default function App() {
           );
         });
         const phase = result.status === "error" ? "error" : "done";
-        if (phase === "error") failures += 1;
         setImages((current) =>
           current.map((entry) =>
             entry.id === target.id ? { ...entry, phase, uploadProgress: 100, result } : entry,
           ),
         );
+        return phase === "error";
       } catch (error) {
-        failures += 1;
         const failure = error instanceof RequestFailure
           ? error
           : new RequestFailure("unknown");
@@ -417,11 +442,37 @@ export default function App() {
               : entry,
           ),
         );
+        return true;
+      } finally {
+        setActiveIds((current) => {
+          const next = new Set(current);
+          next.delete(target.id);
+          return next;
+        });
+        setBatchProgress((current) => ({
+          ...current,
+          completed: Math.min(current.total, current.completed + 1),
+        }));
       }
-      setBatchProgress({ completed: index + 1, total: targets.length });
-    }
+    };
 
-    setActiveId(null);
+    let nextIndex = 0;
+    const workerCount = Math.min(batchConcurrency, targets.length);
+    const runWorker = async () => {
+      let failures = 0;
+      while (nextIndex < targets.length) {
+        const target = targets[nextIndex];
+        nextIndex += 1;
+        if (await processTarget(target)) failures += 1;
+      }
+      return failures;
+    };
+    const failureCounts = await Promise.all(
+      Array.from({ length: workerCount }, () => runWorker()),
+    );
+    const failures = failureCounts.reduce((total, count) => total + count, 0);
+
+    setActiveIds(new Set());
     setProcessing(false);
     if (failures) {
       setMessage({ kind: "batchFailure", count: failures });
@@ -429,7 +480,7 @@ export default function App() {
   };
 
   const selected = images.find((entry) => entry.id === selectedId) || images[0] || null;
-  const activeEntry = images.find((entry) => entry.id === activeId) || null;
+  const activeEntries = images.filter((entry) => activeIds.has(entry.id));
   const downloadable = images.filter(
     (entry) => entry.result?.download_url && entry.result.job_id && entry.result.status !== "error",
   );
@@ -615,7 +666,13 @@ export default function App() {
                 disabled={!images.length || processing}
               >
                 {processing
-                  ? t.processingCount(Math.min(batchProgress.completed + 1, batchProgress.total), batchProgress.total)
+                  ? t.processingCount(
+                      Math.min(
+                        batchProgress.completed + activeEntries.length,
+                        batchProgress.total,
+                      ),
+                      batchProgress.total,
+                    )
                   : processLabel}
                 {processing ? <CircleNotchIcon size={16} weight="bold" className="task-spinner" /> : <ArrowRightIcon size={16} weight="bold" />}
               </MagneticButton>
@@ -664,8 +721,12 @@ export default function App() {
                     {processing ? t.batchInProgress : t.batchComplete}
                   </span>
                   <span className="mt-1 block truncate text-xs font-medium text-[var(--ink-muted)]">
-                    {processing && activeEntry
-                      ? t.nowProcessing(activeEntry.file.name)
+                    {processing
+                      ? activeEntries.length > 1
+                        ? t.nowProcessingMany(activeEntries.length)
+                        : activeEntries[0]
+                          ? t.nowProcessing(activeEntries[0].file.name)
+                          : t.processingCount(batchProgress.completed, batchProgress.total)
                       : t.resultsReady(downloadable.length)}
                   </span>
                 </span>
