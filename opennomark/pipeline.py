@@ -45,9 +45,21 @@ class WatermarkRemovalPipeline:
             # region contract.  New code should consume ``regions``.
             "boxes": public_regions,
         }
+        automatic_removal_blocked = bool(
+            localization.get("safety", {}).get("automatic_removal_blocked")
+        )
 
         if not regions:
-            metadata["status"] = "no_watermark"
+            if automatic_removal_blocked:
+                metadata["validation"] = {
+                    "passed": False,
+                    "attempts": 0,
+                    "overlapping_residual_regions": [],
+                    "reason": "candidate_budget_exceeded",
+                }
+                metadata["status"] = "partial"
+            else:
+                metadata["status"] = "no_watermark"
             return image, metadata
 
         result = image
@@ -74,11 +86,17 @@ class WatermarkRemovalPipeline:
 
         metadata["methods"] = methods_used
         metadata["validation"] = {
-            "passed": not overlapping,
+            "passed": not overlapping and not automatic_removal_blocked,
             "attempts": attempts,
             "overlapping_residual_regions": [region.as_metadata() for region in overlapping],
         }
-        metadata["status"] = "cleaned" if not overlapping else "partial"
+        if automatic_removal_blocked:
+            metadata["validation"]["reason"] = "candidate_budget_exceeded"
+        metadata["status"] = (
+            "cleaned"
+            if not overlapping and not automatic_removal_blocked
+            else "partial"
+        )
 
         # Save outputs
         if output_path:
