@@ -808,6 +808,7 @@ export default function App() {
             <div className="p-4 sm:p-6 lg:p-7">
               {selected.result?.status === "cleaned" && selected.result.download_url && selected.phase === "done" ? (
                 <CompareSlider
+                  key={selected.id}
                   before={selected.preview}
                   after={selected.result.download_url}
                   filename={selected.file.name}
