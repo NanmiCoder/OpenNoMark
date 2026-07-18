@@ -23,7 +23,7 @@ cd frontend && npm install && npm run dev      # dev server on :48292
 cd frontend && npm run build                   # builds to frontend/dist (auto-served by api.py if present)
 cd frontend && npm run lint
 
-# Tests (72 cases)
+# Tests
 uv run pytest tests/ -v
 uv run pytest tests/test_pipeline.py -v                     # single file
 uv run pytest tests/test_pipeline.py::test_name -v          # single test
@@ -41,13 +41,14 @@ Tests referencing real sample images in `gemini_images/` and `豆包/` auto-skip
 
 ```
 image ──┬─► Gemini catalog detector (48/32, 96/64, 96/192)
-        └─► OWLv2 proposals → filter_watermarks
-                    │
-                    ▼
-             cross-expert arbitration
-                    │
-                    ▼
-          precise mask → local LaMa → residual check
+        ├─► OWLv2 corner prompts ─┐
+        ├─► OWLv2 generic prompts├─► conservative cross-expert fusion
+        └─► lazy PP-OCRv5 polygons┘              │
+                                                 ▼
+                                    precise mask(s) → local LaMa
+                                                 │
+                                                 ▼
+                                          residual check
 ```
 
 The precise Gemini shape mask remains the default when both experts fire. A
@@ -68,9 +69,11 @@ A deterministic catalog detector followed by shape-aware local inpainting:
 
 The older reverse-alpha helpers remain for experiments, but the production pipeline no longer uses them because complex backgrounds can produce visible positive/negative diamond residuals.
 
-### Open-vocabulary expert and LaMa
+### Open-vocabulary, OCR, and LaMa
 
-**Detector (`opennomark/detector.py`)**: OWLv2 open-vocabulary detection uses calibrated `watermark` and `brand watermark` prompts plus broader proposal labels. `filter_watermarks` accepts only trusted semantic labels whose size, aspect ratio, score, and distance to two edges fit the packaged calibration; overlap-aware deduplication then keeps one conservative region. Most false positives (UI controls, centered text, and large scene objects) are rejected here.
+**Detector (`opennomark/detector.py`)**: OWLv2 runs the established corner prompt set and the generic watermark prompt set in separate model passes. Keep that query competition separate: adding generic phrases to the calibrated platform pass regresses the real corpus. `filter_watermarks` has a `corner_signature` lane plus a stricter `generic_anywhere` lane, clusters evidence per visual region, permits at most four regions, and fails the entire generic lane closed when its total coarse area exceeds 12%.
+
+**Text detector (`opennomark/text_detector.py`)**: PP-OCRv5 mobile detection and recognition are imported and loaded lazily. Strong watermark vocabulary can be accepted anywhere; URLs, handles, and dates require edge placement. OCR polygons refine generic OWLv2 rectangles. Do not turn arbitrary recognized scene text into removal masks. Dense/tiled OCR candidates must keep returning an overflow report rather than a convenient prefix.
 
 **Inpainter (`opennomark/inpainter.py`)**: wraps a TorchScript LaMa model.
 - **Tight mask defaults (`padding=3, feather=4`) are load-bearing** — see the docstring at line 28. Larger values cause LaMa to bleed across high-contrast structural edges (e.g. paint white fabric over a black panel adjacent to a sparkle). Do not relax these without re-validating on the `examples/` set.

@@ -26,6 +26,44 @@ class TestPipeline:
         assert result_img is not None
         assert meta["status"] in ("cleaned", "no_watermark")
 
+    def test_candidate_budget_overflow_returns_partial_without_edit(self, tmp_path):
+        from opennomark.pipeline import WatermarkRemovalPipeline
+
+        class BlockedLocalizer:
+            def localize(self, image):
+                return [], {
+                    "total_proposals": 7,
+                    "accepted_regions": 0,
+                    "experts": ["open_vocabulary", "ocr_text"],
+                    "safety": {
+                        "automatic_removal_blocked": True,
+                        "overflow": [
+                            {"expert": "ocr_text", "reason": "max_regions"}
+                        ],
+                    },
+                }
+
+        source = tmp_path / "tiled.png"
+        original = Image.new("RGB", (80, 60), color=(12, 34, 56))
+        original.save(source)
+        pipeline = WatermarkRemovalPipeline.__new__(WatermarkRemovalPipeline)
+        pipeline.verbose = False
+        pipeline.device = "cpu"
+        pipeline.localizer = BlockedLocalizer()
+        pipeline.inpainter = None
+
+        result, metadata = pipeline.process(str(source))
+
+        assert result.tobytes() == original.tobytes()
+        assert metadata["status"] == "partial"
+        assert metadata["watermarks_found"] == 0
+        assert metadata["validation"] == {
+            "passed": False,
+            "attempts": 0,
+            "overlapping_residual_regions": [],
+            "reason": "candidate_budget_exceeded",
+        }
+
     def test_process_batch(self, pipeline, sample_images_dir, output_dir):
         import glob
         paths = sorted(

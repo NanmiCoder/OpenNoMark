@@ -6,7 +6,7 @@
   <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
-OpenNoMark combines watermark localization with content-aware LaMa inpainting. It is designed for visible corner marks found in images from Gemini, Doubao, Qwen, Jimeng, Kling, Tencent Yuanbao, Baidu, and similar generators, while keeping the complete workflow on your own machine.
+OpenNoMark combines multi-expert watermark localization with content-aware LaMa inpainting. It keeps calibrated fast paths for Gemini, Doubao, Qwen, Jimeng, Kling, Tencent Yuanbao, Baidu, and similar generators, while adding a conservative generic path for compact visible text watermarks away from the corners. The complete workflow stays on your own machine.
 
 > The project removes visible overlays; it does not alter or remove invisible provenance metadata or content credentials.
 
@@ -120,7 +120,7 @@ opennomark ./my-images/ -o output/ --json
 opennomark image.png -o output/ --device cpu
 ```
 
-The first processing run downloads the required model weights: OWLv2 is approximately 500 MB and LaMa is approximately 196 MB.
+The first processing run downloads the required model weights: OWLv2 is approximately 500 MB and LaMa is approximately 196 MB. The generic text fallback lazily downloads the PP-OCRv5 mobile detector and recognizer (approximately 45 MB combined) only when needed.
 
 ### 3. Agent Skill · best inside coding agents
 
@@ -161,10 +161,11 @@ OpenNoMark separates **where the watermark is** from **how the missing content i
 ![OpenNoMark workflow from local watermark localization through a tight mask, local LaMa repair, validation, and clean output](assets/readme/how-it-works-en.png)
 
 - **One production contract:** every detector returns `box`, `score`, `source`, and `method` through the same region interface. The pipeline never routes by filename or provider directory.
-- **Calibrated localization:** Gemini's lightweight spatial detector is calibrated on real positive images and hard negatives; it is not a fine-tuned foundation model. The open-vocabulary expert combines `watermark` and `brand watermark` proposals with edge distance, text geometry, confidence ranking, and overlap-aware deduplication. When both experts fire, same-corner evidence is arbitrated by overlap, confidence, and edge distance so a catalog-shaped background does not suppress a real text signature.
+- **Tiered localization:** Gemini's lightweight spatial detector is calibrated on real positive images and hard negatives; it is not a fine-tuned foundation model. OWLv2 runs the established corner prompts and generic watermark prompts in separate passes so new vocabulary cannot dilute the calibrated platform signal. A local PP-OCRv5 fallback recognizes strong watermark phrases such as `SAMPLE`, `PREVIEW`, and `AI GENERATED`, or edge-bound URLs and handles, and turns the recognized polygon into a tighter mask.
+- **Conservative fusion:** precise platform masks win overlapping proposals. Independent generic regions need strong semantic evidence or matching OCR evidence; up to four compact regions can be returned. Candidate-count and total-area budgets fail closed instead of partially erasing tiled or ambiguous overlays.
 - **Reconstruction and validation:** LaMa runs against a compact local mask, then the same visual expert checks the repaired area. A residual triggers one mask-only retry; unresolved evidence is reported as `partial` instead of silently claiming success.
 - **Inspectable edits:** metadata reports both the detected watermark box and the exact feathered mask bounds used for reconstruction, allowing the verification harness to distinguish legitimate blending from edits that escape the claimed area.
-- **Safety boundary:** the pipeline targets small visible corner marks. It is not a general object-removal tool and intentionally avoids broad full-image edits.
+- **Safety boundary:** the pipeline targets small-to-medium, high-confidence visible marks. It is not a general object-removal tool; broad or dense tiled candidates are explicitly blocked.
 
 ### Device behavior
 
@@ -224,7 +225,8 @@ OpenNoMark/
 ├── opennomark/
 │   ├── pipeline.py          # routing and processing metadata
 │   ├── localizer.py         # unified visual-evidence region contract
-│   ├── detector.py          # calibrated open-vocabulary proposals
+│   ├── detector.py          # tiered open-vocabulary proposals
+│   ├── text_detector.py     # lazy PP-OCRv5 text watermark fallback
 │   ├── gemini_alpha.py      # Gemini detection and mask utilities
 │   ├── inpainter.py         # LaMa masking, local repair, and blending
 │   ├── cli.py               # command-line entry point
@@ -250,8 +252,8 @@ When changing detection, evaluate false positives as carefully as successful rem
 
 - Processing runs on your machine, but model weights are fetched from Hugging Face and GitHub Releases on first use.
 - The local Web API writes uploads and results under your operating system's temporary directory. Do not expose the development server to an untrusted network; it has no authentication layer.
-- Low-contrast marks, new layouts, or marks far from the corners can still be missed.
-- Full-frame tiled watermarks, invisible provenance signals, and arbitrary object removal are outside the current scope.
+- Compact horizontal text marks, edge URLs/handles, and multiple small high-confidence regions have generic coverage, but low-contrast, vertical, diagonal, or logo-only marks can still be missed.
+- When full-frame or dense tiled candidates are detected, the automatic-removal safety budget blocks them instead of cleaning a partial prefix; weak patterns may still be missed. Invisible provenance signals and arbitrary object removal remain outside the current scope.
 - Inpainting is generative reconstruction. Fine text, faces, repeated patterns, and hard edges deserve manual review.
 
 Use OpenNoMark only on images you own or are authorized to modify, and follow the source platform's terms and applicable law.
