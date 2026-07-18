@@ -6,7 +6,7 @@
   <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
-OpenNoMark combines watermark localization with content-aware LaMa inpainting. It is designed for visible corner marks found in images from Gemini, Doubao, Qwen, and similar generators, while keeping the complete workflow on your own machine.
+OpenNoMark combines watermark localization with content-aware LaMa inpainting. It is designed for visible corner marks found in images from Gemini, Doubao, Qwen, Jimeng, Kling, Tencent Yuanbao, Baidu, and similar generators, while keeping the complete workflow on your own machine.
 
 > The project removes visible overlays; it does not alter or remove invisible provenance metadata or content credentials.
 
@@ -161,9 +161,9 @@ OpenNoMark separates **where the watermark is** from **how the missing content i
 ![OpenNoMark workflow from local watermark localization through a tight mask, local LaMa repair, validation, and clean output](assets/readme/how-it-works-en.png)
 
 - **One production contract:** every detector returns `box`, `score`, `source`, and `method` through the same region interface. The pipeline never routes by filename or provider directory.
-- **Calibrated localization:** Gemini's lightweight spatial detector is calibrated on real positive images and hard negatives; it is not a fine-tuned foundation model. The open-vocabulary expert combines `watermark` and `brand watermark` proposals with edge distance, text geometry, confidence ranking, and overlap-aware deduplication. The calibration profile is packaged with the application.
+- **Calibrated localization:** Gemini's lightweight spatial detector is calibrated on real positive images and hard negatives; it is not a fine-tuned foundation model. The open-vocabulary expert combines `watermark` and `brand watermark` proposals with edge distance, text geometry, confidence ranking, and overlap-aware deduplication. When both experts fire, same-corner evidence is arbitrated by overlap, confidence, and edge distance so a catalog-shaped background does not suppress a real text signature.
 - **Reconstruction and validation:** LaMa runs against a compact local mask, then the same visual expert checks the repaired area. A residual triggers one mask-only retry; unresolved evidence is reported as `partial` instead of silently claiming success.
-- **Lazy loading:** OWLv2 is loaded only when high-precision spatial evidence does not already identify the mark.
+- **Inspectable edits:** metadata reports both the detected watermark box and the exact feathered mask bounds used for reconstruction, allowing the verification harness to distinguish legitimate blending from edits that escape the claimed area.
 - **Safety boundary:** the pipeline targets small visible corner marks. It is not a general object-removal tool and intentionally avoids broad full-image edits.
 
 ### Device behavior
@@ -185,10 +185,14 @@ The repository keeps real source images grouped by generator. Treat these direct
 | [`examples/gemini/`](examples/gemini/) | Sparkle sizes, output tiers, anchors, contrast, and textured backgrounds |
 | [`examples/doubao/`](examples/doubao/) | Text labels and newer visible logo variants across portraits and complex scenes |
 | [`examples/qwen/`](examples/qwen/) | Qwen logo variants, scale changes, and diverse corner backgrounds |
+| [`examples/jimeng/`](examples/jimeng/) | Jimeng icon-and-text signatures over motion, glare, and high-contrast effects |
+| [`examples/kling/`](examples/kling/) | Kling 3.0 signatures over reflective desks and structured interiors |
+| [`examples/yuanbao/`](examples/yuanbao/) | Tencent Yuanbao text signatures in landscape and portrait aspect ratios |
+| [`examples/baidu/`](examples/baidu/) | Baidu AI-generated labels over monochrome portraits and hard tonal edges |
 
 Do not infer quality from one showcase image or a fixed headline percentage. Run the automated suite, inspect every corpus result, and compare the modified area at full resolution.
 
-The checked [full-corpus report](docs/verification/corpus-full.json) covers all 56 current original images: Gemini 19/19, Doubao 16/16, and Qwen 21/21. This is a regression result for the committed corpus, not a promise that every future watermark style will be recognized.
+The checked [full-corpus report](docs/verification/corpus-full.json) covers all 80 current original images: Gemini 20/20, Doubao 16/16, Qwen 21/21, Jimeng 7/7, Kling 4/4, Tencent Yuanbao 8/8, and Baidu 4/4. This is a regression result for the committed corpus, not a promise that every future watermark style will be recognized.
 
 ```bash
 # Backend and integration tests
@@ -226,7 +230,7 @@ OpenNoMark/
 │   └── assets/              # packaged detector data and alpha maps
 ├── frontend/                # React 19 + Vite Web workbench
 ├── skills/opennomark/       # cross-agent Skill
-├── examples/                # Gemini, Doubao, and Qwen regression images
+├── examples/                # Seven-provider real-image regression corpus
 ├── scripts/                 # data-driven detector calibration
 └── tests/                   # unit, integration, API, CLI, and Skill tests
 ```

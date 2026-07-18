@@ -64,7 +64,12 @@ class TestPipeline:
         assert meta["status"] == "cleaned"
         assert meta["watermarks_found"] >= 1
         assert meta["methods"] == ["spatial_template_local_lama"]
-        assert meta["total_detections"] == 1
+        assert meta["total_detections"] >= 1
+        assert meta["localization"]["accepted_regions"] == 1
+        assert meta["localization"]["experts"] == [
+            "spatial_template",
+            "open_vocabulary",
+        ]
         assert meta["regions"][0]["source"] == "spatial_template"
         assert os.path.exists(out_path)
         # Verify output is a valid image

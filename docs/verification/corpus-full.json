@@ -2,6 +2,302 @@
   "cases": [
     {
       "failures": [],
+      "height": 1280,
+      "id": "baidu/baidu_01.jpeg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              586.40405273,
+              1245.15222168,
+              712.97906494,
+              1272.60168457
+            ],
+            "mask_box": [
+              569.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.20000935,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "baidu",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00451931,
+          "changed_pixels": 4165,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              586.40405273,
+              1245.15222168,
+              712.97906494,
+              1272.60168457
+            ],
+            "mask_box": [
+              569.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.20000935,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "baidu/baidu_01.jpeg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "baidu/baidu_02.jpeg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              587.6484375,
+              1245.40490723,
+              712.90985107,
+              1273.06652832
+            ],
+            "mask_box": [
+              570.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.2798534,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "baidu",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00553385,
+          "changed_pixels": 5100,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              587.6484375,
+              1245.40490723,
+              712.90985107,
+              1273.06652832
+            ],
+            "mask_box": [
+              570.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.2798534,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "baidu/baidu_02.jpeg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "baidu/baidu_03.jpeg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              589.52362061,
+              1245.44335938,
+              714.1270752,
+              1271.52319336
+            ],
+            "mask_box": [
+              572.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.20230572,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "baidu",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00620985,
+          "changed_pixels": 5723,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              589.52362061,
+              1245.44335938,
+              714.1270752,
+              1271.52319336
+            ],
+            "mask_box": [
+              572.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.20230572,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "baidu/baidu_03.jpeg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "baidu/baidu_04.jpeg",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              587.59210205,
+              1245.67016602,
+              713.19036865,
+              1272.97924805
+            ],
+            "mask_box": [
+              570.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.24923027,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "baidu",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00614041,
+          "changed_pixels": 5659,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              587.59210205,
+              1245.67016602,
+              713.19036865,
+              1272.97924805
+            ],
+            "mask_box": [
+              570.0,
+              1228.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.24923027,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "baidu/baidu_04.jpeg",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
       "height": 2508,
       "id": "doubao/doubao_sample_1.jpg",
       "image_mode": "RGB",
@@ -13,13 +309,19 @@
         "regions": [
           {
             "box": [
-              40.63812256,
-              39.99938202,
-              187.9679718,
-              99.15790558
+              40.63812637,
+              39.99934387,
+              187.96789551,
+              99.15786743
+            ],
+            "mask_box": [
+              19.0,
+              18.0,
+              209.0,
+              121.0
             ],
             "method": "box_mask",
-            "score": 0.31995684,
+            "score": 0.31995222,
             "source": "open_vocabulary"
           }
         ],
@@ -45,13 +347,19 @@
         "regions": [
           {
             "box": [
-              40.63812256,
-              39.99938202,
-              187.9679718,
-              99.15790558
+              40.63812637,
+              39.99934387,
+              187.96789551,
+              99.15786743
+            ],
+            "mask_box": [
+              19.0,
+              18.0,
+              209.0,
+              121.0
             ],
             "method": "box_mask",
-            "score": 0.31995684,
+            "score": 0.31995222,
             "source": "open_vocabulary"
           }
         ],
@@ -75,13 +383,19 @@
         "regions": [
           {
             "box": [
-              44.88743973,
-              39.88982391,
-              187.60276794,
-              99.43350983
+              44.88739777,
+              39.88980484,
+              187.60281372,
+              99.43347168
+            ],
+            "mask_box": [
+              23.0,
+              18.0,
+              209.0,
+              121.0
             ],
             "method": "box_mask",
-            "score": 0.41870788,
+            "score": 0.41871056,
             "source": "open_vocabulary"
           }
         ],
@@ -107,13 +421,19 @@
         "regions": [
           {
             "box": [
-              44.88743973,
-              39.88982391,
-              187.60276794,
-              99.43350983
+              44.88739777,
+              39.88980484,
+              187.60281372,
+              99.43347168
+            ],
+            "mask_box": [
+              23.0,
+              18.0,
+              209.0,
+              121.0
             ],
             "method": "box_mask",
-            "score": 0.41870788,
+            "score": 0.41871056,
             "source": "open_vocabulary"
           }
         ],
@@ -137,13 +457,19 @@
         "regions": [
           {
             "box": [
-              44.00741196,
-              38.03026581,
+              44.00743866,
+              38.03030014,
               185.96269226,
-              98.23288727
+              98.23291016
+            ],
+            "mask_box": [
+              24.0,
+              18.0,
+              206.0,
+              119.0
             ],
             "method": "box_mask",
-            "score": 0.28273237,
+            "score": 0.28273803,
             "source": "open_vocabulary"
           }
         ],
@@ -169,13 +495,19 @@
         "regions": [
           {
             "box": [
-              44.00741196,
-              38.03026581,
+              44.00743866,
+              38.03030014,
               185.96269226,
-              98.23288727
+              98.23291016
+            ],
+            "mask_box": [
+              24.0,
+              18.0,
+              206.0,
+              119.0
             ],
             "method": "box_mask",
-            "score": 0.28273237,
+            "score": 0.28273803,
             "source": "open_vocabulary"
           }
         ],
@@ -199,13 +531,19 @@
         "regions": [
           {
             "box": [
-              1471.05224609,
+              1471.05236816,
               2142.67578125,
-              1769.48046875,
+              1769.48059082,
               2211.28735352
             ],
+            "mask_box": [
+              1449.0,
+              2120.0,
+              1792.0,
+              2234.0
+            ],
             "method": "box_mask",
-            "score": 0.38457945,
+            "score": 0.38457796,
             "source": "open_vocabulary"
           }
         ],
@@ -231,13 +569,19 @@
         "regions": [
           {
             "box": [
-              1471.05224609,
+              1471.05236816,
               2142.67578125,
-              1769.48046875,
+              1769.48059082,
               2211.28735352
             ],
+            "mask_box": [
+              1449.0,
+              2120.0,
+              1792.0,
+              2234.0
+            ],
             "method": "box_mask",
-            "score": 0.38457945,
+            "score": 0.38457796,
             "source": "open_vocabulary"
           }
         ],
@@ -261,13 +605,19 @@
         "regions": [
           {
             "box": [
-              1470.97180176,
+              1470.97192383,
               2141.62402344,
-              1770.6315918,
+              1770.63146973,
               2210.50634766
             ],
+            "mask_box": [
+              1448.0,
+              2119.0,
+              1792.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.41534019,
+            "score": 0.41534728,
             "source": "open_vocabulary"
           }
         ],
@@ -293,13 +643,19 @@
         "regions": [
           {
             "box": [
-              1470.97180176,
+              1470.97192383,
               2141.62402344,
-              1770.6315918,
+              1770.63146973,
               2210.50634766
             ],
+            "mask_box": [
+              1448.0,
+              2119.0,
+              1792.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.41534019,
+            "score": 0.41534728,
             "source": "open_vocabulary"
           }
         ],
@@ -323,13 +679,19 @@
         "regions": [
           {
             "box": [
-              1470.97180176,
+              1470.97192383,
               2141.62402344,
-              1770.6315918,
+              1770.63146973,
               2210.50634766
             ],
+            "mask_box": [
+              1448.0,
+              2119.0,
+              1792.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.41534019,
+            "score": 0.41534728,
             "source": "open_vocabulary"
           }
         ],
@@ -355,13 +717,19 @@
         "regions": [
           {
             "box": [
-              1470.97180176,
+              1470.97192383,
               2141.62402344,
-              1770.6315918,
+              1770.63146973,
               2210.50634766
             ],
+            "mask_box": [
+              1448.0,
+              2119.0,
+              1792.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.41534019,
+            "score": 0.41534728,
             "source": "open_vocabulary"
           }
         ],
@@ -385,13 +753,19 @@
         "regions": [
           {
             "box": [
-              1460.9354248,
+              1460.93554688,
               2140.19238281,
-              1766.84899902,
+              1766.84912109,
               2210.41992188
             ],
+            "mask_box": [
+              1438.0,
+              2118.0,
+              1789.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.34368703,
+            "score": 0.34368065,
             "source": "open_vocabulary"
           }
         ],
@@ -417,13 +791,19 @@
         "regions": [
           {
             "box": [
-              1460.9354248,
+              1460.93554688,
               2140.19238281,
-              1766.84899902,
+              1766.84912109,
               2210.41992188
             ],
+            "mask_box": [
+              1438.0,
+              2118.0,
+              1789.0,
+              2233.0
+            ],
             "method": "box_mask",
-            "score": 0.34368703,
+            "score": 0.34368065,
             "source": "open_vocabulary"
           }
         ],
@@ -447,13 +827,19 @@
         "regions": [
           {
             "box": [
-              1320.0423584,
+              1320.04223633,
               2755.55249023,
-              1586.81518555,
+              1586.81481934,
               2824.65942383
             ],
+            "mask_box": [
+              1299.0,
+              2734.0,
+              1600.0,
+              2846.0
+            ],
             "method": "box_mask",
-            "score": 0.56869274,
+            "score": 0.56870276,
             "source": "open_vocabulary"
           }
         ],
@@ -479,13 +865,19 @@
         "regions": [
           {
             "box": [
-              1320.0423584,
+              1320.04223633,
               2755.55249023,
-              1586.81518555,
+              1586.81481934,
               2824.65942383
             ],
+            "mask_box": [
+              1299.0,
+              2734.0,
+              1600.0,
+              2846.0
+            ],
             "method": "box_mask",
-            "score": 0.56869274,
+            "score": 0.56870276,
             "source": "open_vocabulary"
           }
         ],
@@ -511,11 +903,17 @@
             "box": [
               1321.1920166,
               2754.99023438,
-              1589.61218262,
+              1589.61181641,
               2825.71289062
             ],
+            "mask_box": [
+              1300.0,
+              2733.0,
+              1600.0,
+              2847.0
+            ],
             "method": "box_mask",
-            "score": 0.60051996,
+            "score": 0.60051388,
             "source": "open_vocabulary"
           }
         ],
@@ -543,11 +941,17 @@
             "box": [
               1321.1920166,
               2754.99023438,
-              1589.61218262,
+              1589.61181641,
               2825.71289062
             ],
+            "mask_box": [
+              1300.0,
+              2733.0,
+              1600.0,
+              2847.0
+            ],
             "method": "box_mask",
-            "score": 0.60051996,
+            "score": 0.60051388,
             "source": "open_vocabulary"
           }
         ],
@@ -571,13 +975,19 @@
         "regions": [
           {
             "box": [
-              1325.00415039,
+              1325.00402832,
               2759.39331055,
-              1592.34631348,
+              1592.34594727,
               2830.14648438
             ],
+            "mask_box": [
+              1304.0,
+              2738.0,
+              1600.0,
+              2848.0
+            ],
             "method": "box_mask",
-            "score": 0.5442757,
+            "score": 0.54426736,
             "source": "open_vocabulary"
           }
         ],
@@ -592,7 +1002,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99215002,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.00603845,
           "changed_pixels": 27516,
           "minimum_change_containment": 0.9,
@@ -603,13 +1013,19 @@
         "regions": [
           {
             "box": [
-              1325.00415039,
+              1325.00402832,
               2759.39331055,
-              1592.34631348,
+              1592.34594727,
               2830.14648438
             ],
+            "mask_box": [
+              1304.0,
+              2738.0,
+              1600.0,
+              2848.0
+            ],
             "method": "box_mask",
-            "score": 0.5442757,
+            "score": 0.54426736,
             "source": "open_vocabulary"
           }
         ],
@@ -633,13 +1049,19 @@
         "regions": [
           {
             "box": [
-              1318.53759766,
+              1318.53771973,
               2756.7409668,
-              1581.00720215,
+              1581.00732422,
               2824.5090332
             ],
+            "mask_box": [
+              1297.0,
+              2735.0,
+              1600.0,
+              2846.0
+            ],
             "method": "box_mask",
-            "score": 0.59781897,
+            "score": 0.59782833,
             "source": "open_vocabulary"
           }
         ],
@@ -665,13 +1087,19 @@
         "regions": [
           {
             "box": [
-              1318.53759766,
+              1318.53771973,
               2756.7409668,
-              1581.00720215,
+              1581.00732422,
               2824.5090332
             ],
+            "mask_box": [
+              1297.0,
+              2735.0,
+              1600.0,
+              2846.0
+            ],
             "method": "box_mask",
-            "score": 0.59781897,
+            "score": 0.59782833,
             "source": "open_vocabulary"
           }
         ],
@@ -695,13 +1123,19 @@
         "regions": [
           {
             "box": [
-              1458.28088379,
+              1458.28112793,
               2142.06445312,
               1771.01379395,
               2209.45068359
             ],
+            "mask_box": [
+              1436.0,
+              2120.0,
+              1792.0,
+              2232.0
+            ],
             "method": "box_mask",
-            "score": 0.43707454,
+            "score": 0.43708214,
             "source": "open_vocabulary"
           }
         ],
@@ -727,13 +1161,19 @@
         "regions": [
           {
             "box": [
-              1458.28088379,
+              1458.28112793,
               2142.06445312,
               1771.01379395,
               2209.45068359
             ],
+            "mask_box": [
+              1436.0,
+              2120.0,
+              1792.0,
+              2232.0
+            ],
             "method": "box_mask",
-            "score": 0.43707454,
+            "score": 0.43708214,
             "source": "open_vocabulary"
           }
         ],
@@ -757,13 +1197,19 @@
         "regions": [
           {
             "box": [
-              1471.59851074,
+              1471.59838867,
               2140.98608398,
-              1766.00048828,
+              1766.00012207,
               2208.0402832
             ],
+            "mask_box": [
+              1449.0,
+              2118.0,
+              1789.0,
+              2231.0
+            ],
             "method": "box_mask",
-            "score": 0.29689902,
+            "score": 0.2968986,
             "source": "open_vocabulary"
           }
         ],
@@ -789,13 +1235,19 @@
         "regions": [
           {
             "box": [
-              1471.59851074,
+              1471.59838867,
               2140.98608398,
-              1766.00048828,
+              1766.00012207,
               2208.0402832
             ],
+            "mask_box": [
+              1449.0,
+              2118.0,
+              1789.0,
+              2231.0
+            ],
             "method": "box_mask",
-            "score": 0.29689902,
+            "score": 0.2968986,
             "source": "open_vocabulary"
           }
         ],
@@ -821,11 +1273,17 @@
             "box": [
               1472.16345215,
               2142.00927734,
-              1765.64038086,
+              1765.640625,
               2208.62207031
             ],
+            "mask_box": [
+              1450.0,
+              2120.0,
+              1788.0,
+              2231.0
+            ],
             "method": "box_mask",
-            "score": 0.24863869,
+            "score": 0.24864167,
             "source": "open_vocabulary"
           }
         ],
@@ -853,11 +1311,17 @@
             "box": [
               1472.16345215,
               2142.00927734,
-              1765.64038086,
+              1765.640625,
               2208.62207031
             ],
+            "mask_box": [
+              1450.0,
+              2120.0,
+              1788.0,
+              2231.0
+            ],
             "method": "box_mask",
-            "score": 0.24863869,
+            "score": 0.24864167,
             "source": "open_vocabulary"
           }
         ],
@@ -881,13 +1345,19 @@
         "regions": [
           {
             "box": [
-              1471.859375,
-              2142.22827148,
-              1764.22216797,
-              2208.71508789
+              1471.85961914,
+              2142.22851562,
+              1764.22253418,
+              2208.71484375
+            ],
+            "mask_box": [
+              1449.0,
+              2120.0,
+              1787.0,
+              2231.0
             ],
             "method": "box_mask",
-            "score": 0.33501515,
+            "score": 0.33500642,
             "source": "open_vocabulary"
           }
         ],
@@ -913,13 +1383,19 @@
         "regions": [
           {
             "box": [
-              1471.859375,
-              2142.22827148,
-              1764.22216797,
-              2208.71508789
+              1471.85961914,
+              2142.22851562,
+              1764.22253418,
+              2208.71484375
+            ],
+            "mask_box": [
+              1449.0,
+              2120.0,
+              1787.0,
+              2231.0
             ],
             "method": "box_mask",
-            "score": 0.33501515,
+            "score": 0.33500642,
             "source": "open_vocabulary"
           }
         ],
@@ -943,13 +1419,19 @@
         "regions": [
           {
             "box": [
-              1472.03393555,
+              1472.03405762,
               2141.87792969,
-              1765.42871094,
+              1765.42883301,
               2207.71386719
             ],
+            "mask_box": [
+              1450.0,
+              2119.0,
+              1788.0,
+              2230.0
+            ],
             "method": "box_mask",
-            "score": 0.30247256,
+            "score": 0.30247751,
             "source": "open_vocabulary"
           }
         ],
@@ -975,13 +1457,19 @@
         "regions": [
           {
             "box": [
-              1472.03393555,
+              1472.03405762,
               2141.87792969,
-              1765.42871094,
+              1765.42883301,
               2207.71386719
             ],
+            "mask_box": [
+              1450.0,
+              2119.0,
+              1788.0,
+              2230.0
+            ],
             "method": "box_mask",
-            "score": 0.30247256,
+            "score": 0.30247751,
             "source": "open_vocabulary"
           }
         ],
@@ -1005,6 +1493,12 @@
         "regions": [
           {
             "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "mask_box": [
               2112.0,
               1504.0,
               2208.0,
@@ -1042,6 +1536,12 @@
               2208.0,
               1600.0
             ],
+            "mask_box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
             "method": "shape_mask",
             "score": 0.66255415,
             "source": "spatial_template"
@@ -1057,6 +1557,80 @@
     {
       "failures": [],
       "height": 2400,
+      "id": "gemini/Gemini_Generated_Image_2r8bmx2r8bmx2r8b.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.30022821,
+            "source": "spatial_template"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "gemini",
+      "removal": {
+        "methods": [
+          "spatial_template_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00101865,
+          "changed_pixels": 4381,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "method": "shape_mask",
+            "score": 0.30022821,
+            "source": "spatial_template"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "gemini/Gemini_Generated_Image_2r8bmx2r8bmx2r8b.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1792
+    },
+    {
+      "failures": [],
+      "height": 2400,
       "id": "gemini/Gemini_Generated_Image_55csau55csau55cs.png",
       "image_mode": "RGBA",
       "localization": {
@@ -1067,6 +1641,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1104,6 +1684,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.36006753,
             "source": "spatial_template"
@@ -1129,6 +1715,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1161,6 +1753,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1196,6 +1794,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.9396253,
             "source": "spatial_template"
@@ -1223,6 +1827,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1258,6 +1868,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.9396253,
             "source": "spatial_template"
@@ -1290,6 +1906,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.9396253,
             "source": "spatial_template"
@@ -1315,6 +1937,12 @@
         "regions": [
           {
             "box": [
+              2464.0,
+              1248.0,
+              2560.0,
+              1344.0
+            ],
+            "mask_box": [
               2464.0,
               1248.0,
               2560.0,
@@ -1352,6 +1980,12 @@
               2560.0,
               1344.0
             ],
+            "mask_box": [
+              2464.0,
+              1248.0,
+              2560.0,
+              1344.0
+            ],
             "method": "shape_mask",
             "score": 0.51087335,
             "source": "spatial_template"
@@ -1377,6 +2011,12 @@
         "regions": [
           {
             "box": [
+              2464.0,
+              1249.0,
+              2560.0,
+              1345.0
+            ],
+            "mask_box": [
               2464.0,
               1249.0,
               2560.0,
@@ -1414,6 +2054,12 @@
               2560.0,
               1345.0
             ],
+            "mask_box": [
+              2464.0,
+              1249.0,
+              2560.0,
+              1345.0
+            ],
             "method": "shape_mask",
             "score": 0.33833478,
             "source": "spatial_template"
@@ -1439,6 +2085,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2102.0,
+              1600.0,
+              2198.0
+            ],
+            "mask_box": [
               1504.0,
               2102.0,
               1600.0,
@@ -1476,6 +2128,12 @@
               1600.0,
               2198.0
             ],
+            "mask_box": [
+              1504.0,
+              2102.0,
+              1600.0,
+              2198.0
+            ],
             "method": "shape_mask",
             "score": 0.6499882,
             "source": "spatial_template"
@@ -1501,6 +2159,12 @@
         "regions": [
           {
             "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "mask_box": [
               2112.0,
               1504.0,
               2208.0,
@@ -1538,6 +2202,12 @@
               2208.0,
               1600.0
             ],
+            "mask_box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
             "method": "shape_mask",
             "score": 0.31190565,
             "source": "spatial_template"
@@ -1563,6 +2233,12 @@
         "regions": [
           {
             "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "mask_box": [
               2112.0,
               1504.0,
               2208.0,
@@ -1600,6 +2276,12 @@
               2208.0,
               1600.0
             ],
+            "mask_box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
             "method": "shape_mask",
             "score": 0.95348486,
             "source": "spatial_template"
@@ -1625,6 +2307,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1662,6 +2350,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.93977258,
             "source": "spatial_template"
@@ -1687,6 +2381,12 @@
         "regions": [
           {
             "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "mask_box": [
               2112.0,
               1504.0,
               2208.0,
@@ -1724,6 +2424,12 @@
               2208.0,
               1600.0
             ],
+            "mask_box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
             "method": "shape_mask",
             "score": 0.2257225,
             "source": "spatial_template"
@@ -1749,6 +2455,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1786,6 +2498,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.89651693,
             "source": "spatial_template"
@@ -1811,6 +2529,12 @@
         "regions": [
           {
             "box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
+            "mask_box": [
               2112.0,
               1504.0,
               2208.0,
@@ -1848,6 +2572,12 @@
               2208.0,
               1600.0
             ],
+            "mask_box": [
+              2112.0,
+              1504.0,
+              2208.0,
+              1600.0
+            ],
             "method": "shape_mask",
             "score": 0.95506921,
             "source": "spatial_template"
@@ -1873,6 +2603,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1910,6 +2646,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.21046525,
             "source": "spatial_template"
@@ -1935,6 +2677,12 @@
         "regions": [
           {
             "box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
+            "mask_box": [
               1504.0,
               2112.0,
               1600.0,
@@ -1972,6 +2720,12 @@
               1600.0,
               2208.0
             ],
+            "mask_box": [
+              1504.0,
+              2112.0,
+              1600.0,
+              2208.0
+            ],
             "method": "shape_mask",
             "score": 0.70229771,
             "source": "spatial_template"
@@ -1997,6 +2751,12 @@
         "regions": [
           {
             "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "mask_box": [
               816.0,
               1120.0,
               864.0,
@@ -2034,6 +2794,12 @@
               864.0,
               1168.0
             ],
+            "mask_box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
             "method": "shape_mask",
             "score": 0.43948076,
             "source": "spatial_template"
@@ -2059,6 +2825,12 @@
         "regions": [
           {
             "box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
+            "mask_box": [
               816.0,
               1120.0,
               864.0,
@@ -2096,6 +2868,12 @@
               864.0,
               1168.0
             ],
+            "mask_box": [
+              816.0,
+              1120.0,
+              864.0,
+              1168.0
+            ],
             "method": "shape_mask",
             "score": 0.98846745,
             "source": "spatial_template"
@@ -2121,6 +2899,12 @@
         "regions": [
           {
             "box": [
+              1120.0,
+              816.0,
+              1168.0,
+              864.0
+            ],
+            "mask_box": [
               1120.0,
               816.0,
               1168.0,
@@ -2158,6 +2942,12 @@
               1168.0,
               864.0
             ],
+            "mask_box": [
+              1120.0,
+              816.0,
+              1168.0,
+              864.0
+            ],
             "method": "shape_mask",
             "score": 0.51591283,
             "source": "spatial_template"
@@ -2169,6 +2959,820 @@
         "watermarks_found": 1
       },
       "width": 1200
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_01.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              720.72387695,
+              1586.49841309,
+              913.27807617,
+              1636.80419922
+            ],
+            "mask_box": [
+              703.0,
+              1569.0,
+              931.0,
+              1654.0
+            ],
+            "method": "box_mask",
+            "score": 0.37230462,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00814187,
+          "changed_pixels": 12681,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              720.72387695,
+              1586.49841309,
+              913.27807617,
+              1636.80419922
+            ],
+            "mask_box": [
+              703.0,
+              1569.0,
+              931.0,
+              1654.0
+            ],
+            "method": "box_mask",
+            "score": 0.37230462,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "jimeng/jimeng_01.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_02.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              722.56567383,
+              1587.53515625,
+              910.94830322,
+              1637.49060059
+            ],
+            "mask_box": [
+              705.0,
+              1570.0,
+              928.0,
+              1655.0
+            ],
+            "method": "box_mask",
+            "score": 0.39759761,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00813802,
+          "changed_pixels": 12675,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              722.56567383,
+              1587.53515625,
+              910.94830322,
+              1637.49060059
+            ],
+            "mask_box": [
+              705.0,
+              1570.0,
+              928.0,
+              1655.0
+            ],
+            "method": "box_mask",
+            "score": 0.39759761,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "jimeng/jimeng_02.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_03.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              722.35455322,
+              1583.89953613,
+              911.06103516,
+              1641.13330078
+            ],
+            "mask_box": [
+              705.0,
+              1566.0,
+              929.0,
+              1659.0
+            ],
+            "method": "box_mask",
+            "score": 0.28055835,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00912165,
+          "changed_pixels": 14207,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              722.35455322,
+              1583.89953613,
+              911.06103516,
+              1641.13330078
+            ],
+            "mask_box": [
+              705.0,
+              1566.0,
+              929.0,
+              1659.0
+            ],
+            "method": "box_mask",
+            "score": 0.28055835,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "jimeng/jimeng_03.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_04.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              720.34509277,
+              1583.22900391,
+              913.42010498,
+              1636.28125
+            ],
+            "mask_box": [
+              703.0,
+              1566.0,
+              931.0,
+              1654.0
+            ],
+            "method": "box_mask",
+            "score": 0.26351294,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.0073759,
+          "changed_pixels": 11488,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              720.34509277,
+              1583.22900391,
+              913.42010498,
+              1636.28125
+            ],
+            "mask_box": [
+              703.0,
+              1566.0,
+              931.0,
+              1654.0
+            ],
+            "method": "box_mask",
+            "score": 0.26351294,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "jimeng/jimeng_04.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_05.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              723.28521729,
+              1585.03674316,
+              913.49755859,
+              1635.88049316
+            ],
+            "mask_box": [
+              706.0,
+              1568.0,
+              931.0,
+              1653.0
+            ],
+            "method": "box_mask",
+            "score": 0.41387993,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00692454,
+          "changed_pixels": 10785,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              723.28521729,
+              1585.03674316,
+              913.49755859,
+              1635.88049316
+            ],
+            "mask_box": [
+              706.0,
+              1568.0,
+              931.0,
+              1653.0
+            ],
+            "method": "box_mask",
+            "score": 0.41387993,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 1,
+        "saved_result": "jimeng/jimeng_05.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_06.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              725.06860352,
+              1592.60400391,
+              910.94915771,
+              1639.53808594
+            ],
+            "mask_box": [
+              708.0,
+              1575.0,
+              928.0,
+              1657.0
+            ],
+            "method": "box_mask",
+            "score": 0.38411516,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00689822,
+          "changed_pixels": 10744,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              725.06860352,
+              1592.60400391,
+              910.94915771,
+              1639.53808594
+            ],
+            "mask_box": [
+              708.0,
+              1575.0,
+              928.0,
+              1657.0
+            ],
+            "method": "box_mask",
+            "score": 0.38411516,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "jimeng/jimeng_06.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 1664,
+      "id": "jimeng/jimeng_07.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              723.69134521,
+              1587.92883301,
+              914.34069824,
+              1637.73156738
+            ],
+            "mask_box": [
+              706.0,
+              1570.0,
+              932.0,
+              1655.0
+            ],
+            "method": "box_mask",
+            "score": 0.3497903,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "jimeng",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00557302,
+          "changed_pixels": 8680,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              723.69134521,
+              1587.92883301,
+              914.34069824,
+              1637.73156738
+            ],
+            "mask_box": [
+              706.0,
+              1570.0,
+              932.0,
+              1655.0
+            ],
+            "method": "box_mask",
+            "score": 0.3497903,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "jimeng/jimeng_07.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 936
+    },
+    {
+      "failures": [],
+      "height": 2336,
+      "id": "kling/kling_01.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1419.33374023,
+              2232.0078125,
+              1720.97558594,
+              2294.28710938
+            ],
+            "mask_box": [
+              1397.0,
+              2210.0,
+              1743.0,
+              2317.0
+            ],
+            "method": "box_mask",
+            "score": 0.37591669,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "kling",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00332639,
+          "changed_pixels": 13676,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1419.33374023,
+              2232.0078125,
+              1720.97558594,
+              2294.28710938
+            ],
+            "mask_box": [
+              1397.0,
+              2210.0,
+              1743.0,
+              2317.0
+            ],
+            "method": "box_mask",
+            "score": 0.37591669,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "kling/kling_01.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1760
+    },
+    {
+      "failures": [],
+      "height": 2336,
+      "id": "kling/kling_02.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1420.27941895,
+              2230.95629883,
+              1718.5871582,
+              2293.61523438
+            ],
+            "mask_box": [
+              1398.0,
+              2208.0,
+              1741.0,
+              2316.0
+            ],
+            "method": "box_mask",
+            "score": 0.38432401,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "kling",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00213725,
+          "changed_pixels": 8787,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1420.27941895,
+              2230.95629883,
+              1718.5871582,
+              2293.61523438
+            ],
+            "mask_box": [
+              1398.0,
+              2208.0,
+              1741.0,
+              2316.0
+            ],
+            "method": "box_mask",
+            "score": 0.38432401,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "kling/kling_02.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1760
+    },
+    {
+      "failures": [],
+      "height": 2336,
+      "id": "kling/kling_03.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1420.61279297,
+              2227.52685547,
+              1714.90466309,
+              2296.10620117
+            ],
+            "mask_box": [
+              1398.0,
+              2205.0,
+              1737.0,
+              2319.0
+            ],
+            "method": "box_mask",
+            "score": 0.3122423,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "kling",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00460918,
+          "changed_pixels": 18950,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1420.61279297,
+              2227.52685547,
+              1714.90466309,
+              2296.10620117
+            ],
+            "mask_box": [
+              1398.0,
+              2205.0,
+              1737.0,
+              2319.0
+            ],
+            "method": "box_mask",
+            "score": 0.3122423,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "kling/kling_03.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1760
+    },
+    {
+      "failures": [],
+      "height": 2336,
+      "id": "kling/kling_04.png",
+      "image_mode": "RGBA",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1421.02404785,
+              2229.17993164,
+              1714.70410156,
+              2291.93969727
+            ],
+            "mask_box": [
+              1399.0,
+              2207.0,
+              1737.0,
+              2314.0
+            ],
+            "method": "box_mask",
+            "score": 0.31838748,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "kling",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00238437,
+          "changed_pixels": 9803,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1421.02404785,
+              2229.17993164,
+              1714.70410156,
+              2291.93969727
+            ],
+            "mask_box": [
+              1399.0,
+              2207.0,
+              1737.0,
+              2314.0
+            ],
+            "method": "box_mask",
+            "score": 0.31838748,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "kling/kling_04.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1760
     },
     {
       "failures": [],
@@ -2188,8 +3792,14 @@
               702.90148926,
               1259.7734375
             ],
+            "mask_box": [
+              506.0,
+              1203.0,
+              720.0,
+              1277.0
+            ],
             "method": "box_mask",
-            "score": 0.59683996,
+            "score": 0.59684086,
             "source": "open_vocabulary"
           }
         ],
@@ -2204,7 +3814,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.98513251,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01007161,
           "changed_pixels": 9282,
           "minimum_change_containment": 0.9,
@@ -2220,8 +3830,14 @@
               702.90148926,
               1259.7734375
             ],
+            "mask_box": [
+              506.0,
+              1203.0,
+              720.0,
+              1277.0
+            ],
             "method": "box_mask",
-            "score": 0.59683996,
+            "score": 0.59684086,
             "source": "open_vocabulary"
           }
         ],
@@ -2247,11 +3863,17 @@
             "box": [
               709.64660645,
               1206.32189941,
-              942.18884277,
+              942.1887207,
               1249.91833496
             ],
+            "mask_box": [
+              692.0,
+              1189.0,
+              960.0,
+              1267.0
+            ],
             "method": "box_mask",
-            "score": 0.50779581,
+            "score": 0.50780874,
             "source": "open_vocabulary"
           }
         ],
@@ -2266,7 +3888,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99962507,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01085286,
           "changed_pixels": 13336,
           "minimum_change_containment": 0.9,
@@ -2279,11 +3901,17 @@
             "box": [
               709.64660645,
               1206.32189941,
-              942.18884277,
+              942.1887207,
               1249.91833496
             ],
+            "mask_box": [
+              692.0,
+              1189.0,
+              960.0,
+              1267.0
+            ],
             "method": "box_mask",
-            "score": 0.50779581,
+            "score": 0.50780874,
             "source": "open_vocabulary"
           }
         ],
@@ -2307,13 +3935,19 @@
         "regions": [
           {
             "box": [
-              699.27270508,
-              1205.44702148,
-              936.41760254,
+              699.27246094,
+              1205.44689941,
+              936.41772461,
               1251.73352051
             ],
+            "mask_box": [
+              682.0,
+              1188.0,
+              954.0,
+              1269.0
+            ],
             "method": "box_mask",
-            "score": 0.35006472,
+            "score": 0.35006228,
             "source": "open_vocabulary"
           }
         ],
@@ -2328,7 +3962,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99854747,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01232585,
           "changed_pixels": 15146,
           "minimum_change_containment": 0.9,
@@ -2339,13 +3973,19 @@
         "regions": [
           {
             "box": [
-              699.27270508,
-              1205.44702148,
-              936.41760254,
+              699.27246094,
+              1205.44689941,
+              936.41772461,
               1251.73352051
             ],
+            "mask_box": [
+              682.0,
+              1188.0,
+              954.0,
+              1269.0
+            ],
             "method": "box_mask",
-            "score": 0.35006472,
+            "score": 0.35006228,
             "source": "open_vocabulary"
           }
         ],
@@ -2369,13 +4009,19 @@
         "regions": [
           {
             "box": [
-              696.31811523,
-              1207.44714355,
-              930.23138428,
-              1253.77539062
+              696.31964111,
+              1207.44763184,
+              930.23065186,
+              1253.77490234
+            ],
+            "mask_box": [
+              679.0,
+              1190.0,
+              948.0,
+              1271.0
             ],
             "method": "box_mask",
-            "score": 0.06643465,
+            "score": 0.06656288,
             "source": "open_vocabulary"
           }
         ],
@@ -2401,13 +4047,19 @@
         "regions": [
           {
             "box": [
-              696.31811523,
-              1207.44714355,
-              930.23138428,
-              1253.77539062
+              696.31964111,
+              1207.44763184,
+              930.23065186,
+              1253.77490234
+            ],
+            "mask_box": [
+              679.0,
+              1190.0,
+              948.0,
+              1271.0
             ],
             "method": "box_mask",
-            "score": 0.06643465,
+            "score": 0.06656288,
             "source": "open_vocabulary"
           }
         ],
@@ -2431,13 +4083,19 @@
         "regions": [
           {
             "box": [
-              695.28430176,
+              695.28442383,
               1207.61865234,
               933.77270508,
               1253.66296387
             ],
+            "mask_box": [
+              678.0,
+              1190.0,
+              951.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.4303287,
+            "score": 0.43034065,
             "source": "open_vocabulary"
           }
         ],
@@ -2463,13 +4121,19 @@
         "regions": [
           {
             "box": [
-              695.28430176,
+              695.28442383,
               1207.61865234,
               933.77270508,
               1253.66296387
             ],
+            "mask_box": [
+              678.0,
+              1190.0,
+              951.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.4303287,
+            "score": 0.43034065,
             "source": "open_vocabulary"
           }
         ],
@@ -2493,13 +4157,19 @@
         "regions": [
           {
             "box": [
-              525.32171631,
+              525.32196045,
               1221.20898438,
-              702.96807861,
+              702.96820068,
               1260.12438965
             ],
+            "mask_box": [
+              508.0,
+              1204.0,
+              720.0,
+              1278.0
+            ],
             "method": "box_mask",
-            "score": 0.56373209,
+            "score": 0.56373119,
             "source": "open_vocabulary"
           }
         ],
@@ -2514,7 +4184,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.98882922,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.010102,
           "changed_pixels": 9310,
           "minimum_change_containment": 0.9,
@@ -2525,13 +4195,19 @@
         "regions": [
           {
             "box": [
-              525.32171631,
+              525.32196045,
               1221.20898438,
-              702.96807861,
+              702.96820068,
               1260.12438965
             ],
+            "mask_box": [
+              508.0,
+              1204.0,
+              720.0,
+              1278.0
+            ],
             "method": "box_mask",
-            "score": 0.56373209,
+            "score": 0.56373119,
             "source": "open_vocabulary"
           }
         ],
@@ -2555,13 +4231,19 @@
         "regions": [
           {
             "box": [
-              700.16479492,
+              700.16467285,
               1205.7298584,
-              930.80657959,
+              930.8067627,
               1250.72998047
             ],
+            "mask_box": [
+              683.0,
+              1188.0,
+              948.0,
+              1268.0
+            ],
             "method": "box_mask",
-            "score": 0.47841206,
+            "score": 0.4784179,
             "source": "open_vocabulary"
           }
         ],
@@ -2587,13 +4269,19 @@
         "regions": [
           {
             "box": [
-              700.16479492,
+              700.16467285,
               1205.7298584,
-              930.80657959,
+              930.8067627,
               1250.72998047
             ],
+            "mask_box": [
+              683.0,
+              1188.0,
+              948.0,
+              1268.0
+            ],
             "method": "box_mask",
-            "score": 0.47841206,
+            "score": 0.4784179,
             "source": "open_vocabulary"
           }
         ],
@@ -2617,13 +4305,19 @@
         "regions": [
           {
             "box": [
-              693.95263672,
-              1206.56164551,
-              929.45300293,
+              693.95324707,
+              1206.56201172,
+              929.45251465,
               1253.40124512
             ],
+            "mask_box": [
+              676.0,
+              1189.0,
+              947.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.05702451,
+            "score": 0.05703302,
             "source": "open_vocabulary"
           }
         ],
@@ -2649,13 +4343,19 @@
         "regions": [
           {
             "box": [
-              693.95263672,
-              1206.56164551,
-              929.45300293,
+              693.95324707,
+              1206.56201172,
+              929.45251465,
               1253.40124512
             ],
+            "mask_box": [
+              676.0,
+              1189.0,
+              947.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.05702451,
+            "score": 0.05703302,
             "source": "open_vocabulary"
           }
         ],
@@ -2679,13 +4379,19 @@
         "regions": [
           {
             "box": [
-              731.69934082,
+              731.69897461,
               1206.6081543,
-              929.05529785,
+              929.05523682,
               1249.59851074
             ],
+            "mask_box": [
+              714.0,
+              1189.0,
+              947.0,
+              1267.0
+            ],
             "method": "box_mask",
-            "score": 0.22083095,
+            "score": 0.22082514,
             "source": "open_vocabulary"
           }
         ],
@@ -2700,7 +4406,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99814743,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01054281,
           "changed_pixels": 12955,
           "minimum_change_containment": 0.9,
@@ -2711,13 +4417,19 @@
         "regions": [
           {
             "box": [
-              731.69934082,
+              731.69897461,
               1206.6081543,
-              929.05529785,
+              929.05523682,
               1249.59851074
             ],
+            "mask_box": [
+              714.0,
+              1189.0,
+              947.0,
+              1267.0
+            ],
             "method": "box_mask",
-            "score": 0.22083095,
+            "score": 0.22082514,
             "source": "open_vocabulary"
           }
         ],
@@ -2741,13 +4453,19 @@
         "regions": [
           {
             "box": [
-              702.91046143,
+              702.91052246,
               1205.69824219,
-              941.50952148,
+              941.50976562,
               1264.84643555
             ],
+            "mask_box": [
+              685.0,
+              1188.0,
+              959.0,
+              1280.0
+            ],
             "method": "box_mask",
-            "score": 0.38714778,
+            "score": 0.3871451,
             "source": "open_vocabulary"
           }
         ],
@@ -2773,13 +4491,19 @@
         "regions": [
           {
             "box": [
-              702.91046143,
+              702.91052246,
               1205.69824219,
-              941.50952148,
+              941.50976562,
               1264.84643555
             ],
+            "mask_box": [
+              685.0,
+              1188.0,
+              959.0,
+              1280.0
+            ],
             "method": "box_mask",
-            "score": 0.38714778,
+            "score": 0.3871451,
             "source": "open_vocabulary"
           }
         ],
@@ -2803,13 +4527,19 @@
         "regions": [
           {
             "box": [
-              695.28430176,
+              695.28442383,
               1207.61865234,
               933.77270508,
               1253.66296387
             ],
+            "mask_box": [
+              678.0,
+              1190.0,
+              951.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.4303287,
+            "score": 0.43034065,
             "source": "open_vocabulary"
           }
         ],
@@ -2835,13 +4565,19 @@
         "regions": [
           {
             "box": [
-              695.28430176,
+              695.28442383,
               1207.61865234,
               933.77270508,
               1253.66296387
             ],
+            "mask_box": [
+              678.0,
+              1190.0,
+              951.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.4303287,
+            "score": 0.43034065,
             "source": "open_vocabulary"
           }
         ],
@@ -2865,13 +4601,19 @@
         "regions": [
           {
             "box": [
-              523.92993164,
-              1223.36352539,
-              701.25982666,
-              1257.05175781
+              523.92980957,
+              1223.36364746,
+              701.2598877,
+              1257.05187988
+            ],
+            "mask_box": [
+              506.0,
+              1206.0,
+              719.0,
+              1275.0
             ],
             "method": "box_mask",
-            "score": 0.27326131,
+            "score": 0.27325985,
             "source": "open_vocabulary"
           }
         ],
@@ -2886,7 +4628,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99966538,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.00648546,
           "changed_pixels": 5977,
           "minimum_change_containment": 0.9,
@@ -2897,13 +4639,19 @@
         "regions": [
           {
             "box": [
-              523.92993164,
-              1223.36352539,
-              701.25982666,
-              1257.05175781
+              523.92980957,
+              1223.36364746,
+              701.2598877,
+              1257.05187988
+            ],
+            "mask_box": [
+              506.0,
+              1206.0,
+              719.0,
+              1275.0
             ],
             "method": "box_mask",
-            "score": 0.27326131,
+            "score": 0.27325985,
             "source": "open_vocabulary"
           }
         ],
@@ -2927,13 +4675,19 @@
         "regions": [
           {
             "box": [
-              700.0604248,
-              1203.97351074,
-              932.36254883,
-              1248.32836914
+              700.06048584,
+              1203.9732666,
+              932.36260986,
+              1248.328125
+            ],
+            "mask_box": [
+              683.0,
+              1186.0,
+              950.0,
+              1266.0
             ],
             "method": "box_mask",
-            "score": 0.25902167,
+            "score": 0.25901723,
             "source": "open_vocabulary"
           }
         ],
@@ -2959,13 +4713,19 @@
         "regions": [
           {
             "box": [
-              700.0604248,
-              1203.97351074,
-              932.36254883,
-              1248.32836914
+              700.06048584,
+              1203.9732666,
+              932.36260986,
+              1248.328125
+            ],
+            "mask_box": [
+              683.0,
+              1186.0,
+              950.0,
+              1266.0
             ],
             "method": "box_mask",
-            "score": 0.25902167,
+            "score": 0.25901723,
             "source": "open_vocabulary"
           }
         ],
@@ -2989,13 +4749,19 @@
         "regions": [
           {
             "box": [
-              692.23474121,
+              692.23480225,
               1206.22253418,
-              931.28900146,
+              931.2890625,
               1253.19580078
             ],
+            "mask_box": [
+              675.0,
+              1189.0,
+              949.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.05727214,
+            "score": 0.05726238,
             "source": "open_vocabulary"
           }
         ],
@@ -3021,13 +4787,19 @@
         "regions": [
           {
             "box": [
-              692.23474121,
+              692.23480225,
               1206.22253418,
-              931.28900146,
+              931.2890625,
               1253.19580078
             ],
+            "mask_box": [
+              675.0,
+              1189.0,
+              949.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.05727214,
+            "score": 0.05726238,
             "source": "open_vocabulary"
           }
         ],
@@ -3051,13 +4823,19 @@
         "regions": [
           {
             "box": [
-              522.46026611,
+              522.46032715,
               1223.39794922,
               700.74658203,
               1258.09777832
             ],
+            "mask_box": [
+              505.0,
+              1206.0,
+              718.0,
+              1276.0
+            ],
             "method": "box_mask",
-            "score": 0.26252347,
+            "score": 0.26252538,
             "source": "open_vocabulary"
           }
         ],
@@ -3072,7 +4850,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.98364888,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.00882595,
           "changed_pixels": 8134,
           "minimum_change_containment": 0.9,
@@ -3083,13 +4861,19 @@
         "regions": [
           {
             "box": [
-              522.46026611,
+              522.46032715,
               1223.39794922,
               700.74658203,
               1258.09777832
             ],
+            "mask_box": [
+              505.0,
+              1206.0,
+              718.0,
+              1276.0
+            ],
             "method": "box_mask",
-            "score": 0.26252347,
+            "score": 0.26252538,
             "source": "open_vocabulary"
           }
         ],
@@ -3118,8 +4902,14 @@
               701.18096924,
               1257.06298828
             ],
+            "mask_box": [
+              506.0,
+              1206.0,
+              719.0,
+              1275.0
+            ],
             "method": "box_mask",
-            "score": 0.27931187,
+            "score": 0.27932042,
             "source": "open_vocabulary"
           }
         ],
@@ -3150,8 +4940,14 @@
               701.18096924,
               1257.06298828
             ],
+            "mask_box": [
+              506.0,
+              1206.0,
+              719.0,
+              1275.0
+            ],
             "method": "box_mask",
-            "score": 0.27931187,
+            "score": 0.27932042,
             "source": "open_vocabulary"
           }
         ],
@@ -3175,13 +4971,19 @@
         "regions": [
           {
             "box": [
-              521.91174316,
+              521.91168213,
               1222.9329834,
-              699.75952148,
+              699.75946045,
               1256.64074707
             ],
+            "mask_box": [
+              504.0,
+              1205.0,
+              717.0,
+              1274.0
+            ],
             "method": "box_mask",
-            "score": 0.28225714,
+            "score": 0.28226238,
             "source": "open_vocabulary"
           }
         ],
@@ -3196,7 +4998,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99907365,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.00702799,
           "changed_pixels": 6477,
           "minimum_change_containment": 0.9,
@@ -3207,13 +5009,19 @@
         "regions": [
           {
             "box": [
-              521.91174316,
+              521.91168213,
               1222.9329834,
-              699.75952148,
+              699.75946045,
               1256.64074707
             ],
+            "mask_box": [
+              504.0,
+              1205.0,
+              717.0,
+              1274.0
+            ],
             "method": "box_mask",
-            "score": 0.28225714,
+            "score": 0.28226238,
             "source": "open_vocabulary"
           }
         ],
@@ -3242,8 +5050,14 @@
               700.72821045,
               1259.65112305
             ],
+            "mask_box": [
+              501.0,
+              1205.0,
+              718.0,
+              1277.0
+            ],
             "method": "box_mask",
-            "score": 0.58875215,
+            "score": 0.58875662,
             "source": "open_vocabulary"
           }
         ],
@@ -3258,7 +5072,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.98660714,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01045139,
           "changed_pixels": 9632,
           "minimum_change_containment": 0.9,
@@ -3274,8 +5088,14 @@
               700.72821045,
               1259.65112305
             ],
+            "mask_box": [
+              501.0,
+              1205.0,
+              718.0,
+              1277.0
+            ],
             "method": "box_mask",
-            "score": 0.58875215,
+            "score": 0.58875662,
             "source": "open_vocabulary"
           }
         ],
@@ -3299,13 +5119,19 @@
         "regions": [
           {
             "box": [
-              708.70361328,
+              708.70355225,
               1208.05493164,
-              939.96734619,
+              939.96740723,
               1252.07446289
             ],
+            "mask_box": [
+              691.0,
+              1191.0,
+              957.0,
+              1270.0
+            ],
             "method": "box_mask",
-            "score": 0.43623683,
+            "score": 0.43623999,
             "source": "open_vocabulary"
           }
         ],
@@ -3320,7 +5146,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.99970234,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.01093587,
           "changed_pixels": 13438,
           "minimum_change_containment": 0.9,
@@ -3331,13 +5157,19 @@
         "regions": [
           {
             "box": [
-              708.70361328,
+              708.70355225,
               1208.05493164,
-              939.96734619,
+              939.96740723,
               1252.07446289
             ],
+            "mask_box": [
+              691.0,
+              1191.0,
+              957.0,
+              1270.0
+            ],
             "method": "box_mask",
-            "score": 0.43623683,
+            "score": 0.43623999,
             "source": "open_vocabulary"
           }
         ],
@@ -3361,13 +5193,19 @@
         "regions": [
           {
             "box": [
-              524.09259033,
+              524.0925293,
               1222.55908203,
               702.26367188,
               1260.69018555
             ],
+            "mask_box": [
+              507.0,
+              1205.0,
+              720.0,
+              1278.0
+            ],
             "method": "box_mask",
-            "score": 0.5970521,
+            "score": 0.59705049,
             "source": "open_vocabulary"
           }
         ],
@@ -3382,7 +5220,7 @@
           "open_vocabulary_local_lama"
         ],
         "metrics": {
-          "change_containment": 0.9922271,
+          "change_containment": 1.0,
           "changed_pixel_ratio": 0.00963216,
           "changed_pixels": 8877,
           "minimum_change_containment": 0.9,
@@ -3393,13 +5231,19 @@
         "regions": [
           {
             "box": [
-              524.09259033,
+              524.0925293,
               1222.55908203,
               702.26367188,
               1260.69018555
             ],
+            "mask_box": [
+              507.0,
+              1205.0,
+              720.0,
+              1278.0
+            ],
             "method": "box_mask",
-            "score": 0.5970521,
+            "score": 0.59705049,
             "source": "open_vocabulary"
           }
         ],
@@ -3423,13 +5267,19 @@
         "regions": [
           {
             "box": [
-              693.22454834,
+              693.22460938,
               1207.45043945,
-              929.88500977,
+              929.88494873,
               1253.80603027
             ],
+            "mask_box": [
+              676.0,
+              1190.0,
+              947.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.46737432,
+            "score": 0.4673717,
             "source": "open_vocabulary"
           }
         ],
@@ -3455,13 +5305,19 @@
         "regions": [
           {
             "box": [
-              693.22454834,
+              693.22460938,
               1207.45043945,
-              929.88500977,
+              929.88494873,
               1253.80603027
             ],
+            "mask_box": [
+              676.0,
+              1190.0,
+              947.0,
+              1271.0
+            ],
             "method": "box_mask",
-            "score": 0.46737432,
+            "score": 0.4673717,
             "source": "open_vocabulary"
           }
         ],
@@ -3471,18 +5327,614 @@
         "watermarks_found": 1
       },
       "width": 960
+    },
+    {
+      "failures": [],
+      "height": 720,
+      "id": "yuanbao/yuanbao_landscape_01.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1142.9822998,
+              679.1237793,
+              1264.59436035,
+              710.13330078
+            ],
+            "mask_box": [
+              1125.0,
+              662.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.41527104,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00772786,
+          "changed_pixels": 7122,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1142.9822998,
+              679.1237793,
+              1264.59436035,
+              710.13330078
+            ],
+            "mask_box": [
+              1125.0,
+              662.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.41527104,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_landscape_01.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1280
+    },
+    {
+      "failures": [],
+      "height": 720,
+      "id": "yuanbao/yuanbao_landscape_02.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1141.96606445,
+              679.9197998,
+              1266.8671875,
+              717.50726318
+            ],
+            "mask_box": [
+              1124.0,
+              662.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.47776803,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00802626,
+          "changed_pixels": 7397,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1141.96606445,
+              679.9197998,
+              1266.8671875,
+              717.50726318
+            ],
+            "mask_box": [
+              1124.0,
+              662.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.47776803,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_landscape_02.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1280
+    },
+    {
+      "failures": [],
+      "height": 720,
+      "id": "yuanbao/yuanbao_landscape_03.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1142.57861328,
+              678.46557617,
+              1266.61694336,
+              705.74414062
+            ],
+            "mask_box": [
+              1125.0,
+              661.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.47846952,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00732747,
+          "changed_pixels": 6753,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1142.57861328,
+              678.46557617,
+              1266.61694336,
+              705.74414062
+            ],
+            "mask_box": [
+              1125.0,
+              661.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.47846952,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_landscape_03.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1280
+    },
+    {
+      "failures": [],
+      "height": 720,
+      "id": "yuanbao/yuanbao_landscape_04.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              1139.08703613,
+              681.65478516,
+              1268.51879883,
+              705.78112793
+            ],
+            "mask_box": [
+              1122.0,
+              664.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.52329528,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00720269,
+          "changed_pixels": 6638,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              1139.08703613,
+              681.65478516,
+              1268.51879883,
+              705.78112793
+            ],
+            "mask_box": [
+              1122.0,
+              664.0,
+              1280.0,
+              720.0
+            ],
+            "method": "box_mask",
+            "score": 0.52329528,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_landscape_04.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 1280
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "yuanbao/yuanbao_portrait_01.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              580.12213135,
+              1241.62731934,
+              708.63092041,
+              1266.12133789
+            ],
+            "mask_box": [
+              563.0,
+              1224.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.56989193,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00734266,
+          "changed_pixels": 6767,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              580.12213135,
+              1241.62731934,
+              708.63092041,
+              1266.12133789
+            ],
+            "mask_box": [
+              563.0,
+              1224.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.56989193,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_portrait_01.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "yuanbao/yuanbao_portrait_02.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              581.47753906,
+              1240.54589844,
+              708.63580322,
+              1266.59130859
+            ],
+            "mask_box": [
+              564.0,
+              1223.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.52011293,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00727322,
+          "changed_pixels": 6703,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              581.47753906,
+              1240.54589844,
+              708.63580322,
+              1266.59130859
+            ],
+            "mask_box": [
+              564.0,
+              1223.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.52011293,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_portrait_02.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "yuanbao/yuanbao_portrait_03.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              587.37518311,
+              1239.31689453,
+              711.28527832,
+              1268.64038086
+            ],
+            "mask_box": [
+              570.0,
+              1222.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.48598853,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00728841,
+          "changed_pixels": 6717,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              587.37518311,
+              1239.31689453,
+              711.28527832,
+              1268.64038086
+            ],
+            "mask_box": [
+              570.0,
+              1222.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.48598853,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_portrait_03.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
+    },
+    {
+      "failures": [],
+      "height": 1280,
+      "id": "yuanbao/yuanbao_portrait_04.png",
+      "image_mode": "RGB",
+      "localization": {
+        "expected_corners": [
+          "bottom_right"
+        ],
+        "region_count": 1,
+        "regions": [
+          {
+            "box": [
+              588.00891113,
+              1240.66479492,
+              707.35046387,
+              1265.45080566
+            ],
+            "mask_box": [
+              571.0,
+              1223.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.39227331,
+            "source": "open_vocabulary"
+          }
+        ],
+        "status": "localized",
+        "target_region_count": 1,
+        "unexpected_region_count": 0
+      },
+      "passed": true,
+      "provider": "yuanbao",
+      "removal": {
+        "methods": [
+          "open_vocabulary_local_lama"
+        ],
+        "metrics": {
+          "change_containment": 1.0,
+          "changed_pixel_ratio": 0.00660373,
+          "changed_pixels": 6086,
+          "minimum_change_containment": 0.9,
+          "required_changed_pixels": 8,
+          "same_dimensions": true
+        },
+        "overlapping_residual_regions": [],
+        "regions": [
+          {
+            "box": [
+              588.00891113,
+              1240.66479492,
+              707.35046387,
+              1265.45080566
+            ],
+            "mask_box": [
+              571.0,
+              1223.0,
+              720.0,
+              1280.0
+            ],
+            "method": "box_mask",
+            "score": 0.39227331,
+            "source": "open_vocabulary"
+          }
+        ],
+        "residual_region_count": 0,
+        "saved_result": "yuanbao/yuanbao_portrait_04.png",
+        "status": "cleaned",
+        "watermarks_found": 1
+      },
+      "width": 720
     }
   ],
   "coverage": {
-    "inventory_cases": 56,
+    "inventory_cases": 80,
     "limit": null,
     "providers": [
+      "baidu",
       "doubao",
       "gemini",
-      "qwen"
+      "jimeng",
+      "kling",
+      "qwen",
+      "yuanbao"
     ],
     "scope_complete": true,
-    "selected_cases": 56
+    "selected_cases": 80
   },
   "criteria": {
     "corner_ratio": 0.3,
@@ -3510,22 +5962,42 @@
   "summary": {
     "all_cases_handled": true,
     "failed_cases": 0,
-    "passed_cases": 56,
+    "passed_cases": 80,
     "providers": {
+      "baidu": {
+        "cases": 4,
+        "failed": 0,
+        "passed": 4
+      },
       "doubao": {
         "cases": 16,
         "failed": 0,
         "passed": 16
       },
       "gemini": {
-        "cases": 19,
+        "cases": 20,
         "failed": 0,
-        "passed": 19
+        "passed": 20
+      },
+      "jimeng": {
+        "cases": 7,
+        "failed": 0,
+        "passed": 7
+      },
+      "kling": {
+        "cases": 4,
+        "failed": 0,
+        "passed": 4
       },
       "qwen": {
         "cases": 21,
         "failed": 0,
         "passed": 21
+      },
+      "yuanbao": {
+        "cases": 8,
+        "failed": 0,
+        "passed": 8
       }
     },
     "selected_scope_passed": true
